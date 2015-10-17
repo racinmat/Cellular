@@ -1,5 +1,12 @@
-var Game = (function () {
-    function Game() {
+class Game {
+    fps : number;
+    entities : Rect[];
+    canvas;
+    context;
+    mouseX : number;
+    mouseY : number;
+
+    constructor() {
         this.fps = 50;
         this.entities = [];
         this.canvas = document.getElementById("viewport");
@@ -7,31 +14,38 @@ var Game = (function () {
         this.mouseX = 0;
         this.mouseY = 0;
         var that = this;
-        this.canvas.addEventListener('mousemove', function (evt) {
+        this.canvas.addEventListener('mousemove', function(evt) {
             var mousePos = getMousePos(that.canvas, evt);
             that.mouseX = mousePos.x;
             that.mouseY = mousePos.y;
         }, false);
     }
-    Game.prototype.draw = function (mouse) {
+
+    draw(mouse) {
         this.context.clearRect(0, 0, 640, 480);
-        for (var i = 0; i < this.entities.length; i++) {
+
+        for (var i=0; i < this.entities.length; i++) {
             this.entities[i].draw(this.context);
         }
-        this.context.fillText(this.mouseX, 30, 30);
-        this.context.fillText(this.mouseY, 30, 40);
-    };
-    Game.prototype.update = function (mouse) {
-        for (var i = 0; i < this.entities.length; i++) {
+        this.context.fillText(this.mouseX,  30, 30);
+        this.context.fillText(this.mouseY,  30, 40);
+    }
+
+    update(mouse) {
+        for (var i=0; i < this.entities.length; i++) {
             this.entities[i].update();
         }
-    };
-    Game.prototype.addRect = function () {
+    }
+
+    addRect() {
         this.entities.push(new Rect());
-    };
-    return Game;
-})();
+    }
+
+}
+
 var game = new Game();
+
+
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -39,6 +53,7 @@ function getMousePos(canvas, evt) {
         y: evt.clientY - rect.top
     };
 }
+
 //var Game = {};
 //
 //Game.fps = 50;
@@ -84,5 +99,4 @@ function getMousePos(canvas, evt) {
 //        x: evt.clientX - rect.left,
 //        y: evt.clientY - rect.top
 //    };
-//} 
-//# sourceMappingURL=game.js.map
+//}
