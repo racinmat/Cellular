@@ -13,7 +13,7 @@ var Game = (function () {
             that.mouseY = mousePos.y;
         }, false);
     }
-    Game.prototype.draw = function (mouse) {
+    Game.prototype.draw = function () {
         this.context.clearRect(0, 0, 640, 480);
         for (var i = 0; i < this.entities.length; i++) {
             this.entities[i].draw(this.context);
@@ -21,17 +21,39 @@ var Game = (function () {
         this.context.fillText(this.mouseX, 30, 30);
         this.context.fillText(this.mouseY, 30, 40);
     };
-    Game.prototype.update = function (mouse) {
+    Game.prototype.update = function () {
         for (var i = 0; i < this.entities.length; i++) {
             this.entities[i].update();
         }
     };
     Game.prototype.addRect = function () {
         this.entities.push(new Rect());
+        console.log('adding rectangle');
+    };
+    //run() {
+    //    var loops = 0, skipTicks = 1000 / this.fps,
+    //        nextGameTick = (new Date).getTime();
+    //
+    //    return () => {
+    //        loops = 0;
+    //
+    //        while ((new Date).getTime() > nextGameTick) {
+    //            this.update();
+    //            nextGameTick += skipTicks;
+    //            loops++;
+    //        }
+    //
+    //        this.draw();
+    //    };
+    //}
+    Game.prototype.start = function () {
+        var _this = this;
+        setInterval(function () {
+            _this.run();
+        }, 0);
     };
     return Game;
 })();
-var game = new Game();
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -39,50 +61,4 @@ function getMousePos(canvas, evt) {
         y: evt.clientY - rect.top
     };
 }
-//var Game = {};
-//
-//Game.fps = 50;
-//
-//Game.initialize = function() {
-//    this.entities = [];
-//    this.canvas = document.getElementById("viewport");
-//    this.context = this.canvas.getContext("2d");
-//    this.mouseX = 0;
-//    this.mouseY = 0;
-//
-//    var that = this;
-//    this.canvas.addEventListener('mousemove', function(evt) {
-//        var mousePos = getMousePos(that.canvas, evt);
-//        that.mouseX = mousePos.x;
-//        that.mouseY = mousePos.y;
-//    }, false);
-//};
-//
-//Game.draw = function(mouse) {
-//    this.context.clearRect(0, 0, 640, 480);
-//
-//    for (var i=0; i < this.entities.length; i++) {
-//        this.entities[i].draw(this.context);
-//    }
-//    this.context.fillText(this.mouseX,  30, 30);
-//    this.context.fillText(this.mouseY,  30, 40);
-//};
-//
-//Game.update = function(mouse) {
-//    for (var i=0; i < this.entities.length; i++) {
-//        this.entities[i].update();
-//    }
-//};
-//
-//Game.addRect = function() {
-//    Game.entities.push(new Rect());
-//};
-//
-//function getMousePos(canvas, evt) {
-//    var rect = canvas.getBoundingClientRect();
-//    return {
-//        x: evt.clientX - rect.left,
-//        y: evt.clientY - rect.top
-//    };
-//} 
 //# sourceMappingURL=game.js.map
