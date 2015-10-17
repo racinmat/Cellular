@@ -8,7 +8,7 @@ var Game = (function () {
         this.mouseY = 0;
         var that = this;
         this.canvas.addEventListener('mousemove', function (evt) {
-            var mousePos = getMousePos(that.canvas, evt);
+            var mousePos = that.getMousePos(that.canvas, evt);
             that.mouseX = mousePos.x;
             that.mouseY = mousePos.y;
         }, false);
@@ -43,19 +43,13 @@ var Game = (function () {
             _this.draw();
         };
     };
-    Game.prototype.start = function () {
-        var _this = this;
-        setInterval(function () {
-            _this.run();
-        }, 0);
+    Game.prototype.getMousePos = function (canvas, evt) {
+        var rect = canvas.getBoundingClientRect();
+        return {
+            x: evt.clientX - rect.left,
+            y: evt.clientY - rect.top
+        };
     };
     return Game;
 })();
-function getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
-}
 //# sourceMappingURL=game.js.map

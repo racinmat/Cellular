@@ -15,7 +15,7 @@ class Game {
         this.mouseY = 0;
         var that = this;
         this.canvas.addEventListener('mousemove', function(evt) {
-            var mousePos = getMousePos(that.canvas, evt);
+            var mousePos = that.getMousePos(that.canvas, evt);
             that.mouseX = mousePos.x;
             that.mouseY = mousePos.y;
         }, false);
@@ -59,17 +59,13 @@ class Game {
         };
     }
 
-    start() {
-        setInterval(() => {this.run()}, 0);
-    }
-
-}
-
-function getMousePos(canvas, evt) {
+    getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
         x: evt.clientX - rect.left,
         y: evt.clientY - rect.top
     };
+}
+
 }
 

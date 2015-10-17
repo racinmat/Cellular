@@ -1,14 +1,12 @@
 var game = new Game();
-run = (function () {
+var run = (function () {
     return game.run();
 })();
 // Add some moving rectangles
-var i = 400;
+var i = 20;
 while (i--) {
     game.addRect();
 }
-//game.start();
-setInterval(run, 0);
 (function () {
     var onEachFrame;
     if (window.webkitRequestAnimationFrame) {
@@ -36,5 +34,5 @@ setInterval(run, 0);
     }
     window.onEachFrame = onEachFrame;
 })();
-window.onEachFrame(Game.run);
+window.onEachFrame(run);
 //# sourceMappingURL=main.js.map
