@@ -1,24 +1,26 @@
 Game.initialize();
 
+var mouse = new Mouse();
 // Add some moving rectangles
-var i = 400;
-while (i--) Game.addRect();
+var i = 5;
+while (i--) {
+    Game.addRect();
+}
 
 Game.run = (function() {
     var loops = 0, skipTicks = 1000 / Game.fps,
-        maxFrameSkip = 10,
         nextGameTick = (new Date).getTime();
 
     return function() {
         loops = 0;
 
         while ((new Date).getTime() > nextGameTick) {
-            Game.update();
+            Game.update(mouse);
             nextGameTick += skipTicks;
             loops++;
         }
 
-        Game.draw();
+        Game.draw(mouse);
     };
 })();
 
