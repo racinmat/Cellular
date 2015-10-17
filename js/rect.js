@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 var Rect = (function () {
     function Rect() {
         this.x = Math.floor(Math.random() * (640 - 30));

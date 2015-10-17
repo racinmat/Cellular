@@ -2,23 +2,24 @@
 class Game {
     fps : number;
     entities : Rect[];
-    canvas;
-    context;
+    canvas : HTMLCanvasElement;
+    context : CanvasRenderingContext2D;
     mouseX : number;
     mouseY : number;
+    input : Input;
+    commanderPosition : Point;
+    commanderVelocity : number;
+
     constructor() {
         this.fps = 50;
         this.entities = [];
-        this.canvas = document.getElementById("viewport");
+        this.canvas = <HTMLCanvasElement> document.getElementById("viewport");
         this.context = this.canvas.getContext("2d");
         this.mouseX = 0;
         this.mouseY = 0;
-        var that = this;
-        this.canvas.addEventListener('mousemove', function(evt) {
-            var mousePos = that.getMousePos(that.canvas, evt);
-            that.mouseX = mousePos.x;
-            that.mouseY = mousePos.y;
-        }, false);
+        this.commanderVelocity = 1;
+        this.input = new Input(this.canvas, this.commanderVelocity);
+        this.commanderPosition = this.input.getCommanderTarget();
     }
 
     draw() {
@@ -27,19 +28,20 @@ class Game {
         for (var i=0; i < this.entities.length; i++) {
             this.entities[i].draw(this.context);
         }
-        this.context.fillText(this.mouseX,  30, 30);
-        this.context.fillText(this.mouseY,  30, 40);
+        this.context.fillText('Commander', this.commanderPosition.x, this.commanderPosition.y);
     }
 
     update() {
         for (var i = 0; i < this.entities.length; i++) {
             this.entities[i].update();
         }
+        this.commanderPosition.x += this.commanderVelocity * sign(this.input.getCommanderTarget().x - this.commanderPosition.x);
+        this.commanderPosition.y += this.commanderVelocity * sign(this.input.getCommanderTarget().y - this.commanderPosition.y);
+        this.input.currentCommander = this.commanderPosition.clone();
     }
 
     addRect() {
         this.entities.push(new Rect());
-        console.log('adding rectangle');
     }
 
     run() {
@@ -59,13 +61,8 @@ class Game {
         };
     }
 
-    getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
 }
 
+function sign(x) {
+    return typeof x === 'number' ? x ? x < 0 ? -1 : 1 : x === x ? 0 : NaN : NaN;
 }
-
