@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 var game = new Game();
 var run = (function () {
     return game.run();
@@ -11,19 +12,13 @@ while (i--) {
     var onEachFrame;
     if (window.webkitRequestAnimationFrame) {
         onEachFrame = function (cb) {
-            var _cb = function () {
-                cb();
-                webkitRequestAnimationFrame(_cb);
-            };
+            var _cb = function () { cb(); webkitRequestAnimationFrame(_cb); };
             _cb();
         };
     }
     else if (window.mozRequestAnimationFrame) {
         onEachFrame = function (cb) {
-            var _cb = function () {
-                cb();
-                mozRequestAnimationFrame(_cb);
-            };
+            var _cb = function () { cb(); mozRequestAnimationFrame(_cb); };
             _cb();
         };
     }

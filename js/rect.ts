@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 class Rect {
     x : number;
     y : number;

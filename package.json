@@ -1,0 +1,8 @@
+{
+  "name": "mff-rts",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "typescript": "1.6.*"
+  }
+}

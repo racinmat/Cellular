@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 var game = new Game();
 
 var run = (() => {

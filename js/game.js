@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 var Game = (function () {
     function Game() {
         this.fps = 50;

@@ -1,3 +1,4 @@
+/// <reference path="references.ts"/>
 class Game {
     fps : number;
     entities : Rect[];
@@ -5,7 +6,6 @@ class Game {
     context;
     mouseX : number;
     mouseY : number;
-
     constructor() {
         this.fps = 50;
         this.entities = [];
