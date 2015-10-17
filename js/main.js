@@ -1,15 +1,6 @@
 var game = new Game();
-game.run = (function () {
-    var loops = 0, skipTicks = 1000 / game.fps, maxFrameSkip = 10, nextGameTick = (new Date).getTime();
-    return function () {
-        loops = 0;
-        while ((new Date).getTime() > nextGameTick) {
-            game.update();
-            nextGameTick += skipTicks;
-            loops++;
-        }
-        game.draw();
-    };
+run = (function () {
+    return game.run();
 })();
 // Add some moving rectangles
 var i = 400;
@@ -17,7 +8,7 @@ while (i--) {
     game.addRect();
 }
 //game.start();
-setInterval(game.run, 0);
+setInterval(run, 0);
 (function () {
     var onEachFrame;
     if (window.webkitRequestAnimationFrame) {

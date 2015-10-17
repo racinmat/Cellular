@@ -42,22 +42,22 @@ class Game {
         console.log('adding rectangle');
     }
 
-    //run() {
-    //    var loops = 0, skipTicks = 1000 / this.fps,
-    //        nextGameTick = (new Date).getTime();
-    //
-    //    return () => {
-    //        loops = 0;
-    //
-    //        while ((new Date).getTime() > nextGameTick) {
-    //            this.update();
-    //            nextGameTick += skipTicks;
-    //            loops++;
-    //        }
-    //
-    //        this.draw();
-    //    };
-    //}
+    run() {
+        var loops = 0, skipTicks = 1000 / this.fps,
+            nextGameTick = (new Date).getTime();
+
+        return () => {
+            loops = 0;
+
+            while ((new Date).getTime() > nextGameTick) {
+                this.update();
+                nextGameTick += skipTicks;
+                loops++;
+            }
+
+            this.draw();
+        };
+    }
 
     start() {
         setInterval(() => {this.run()}, 0);

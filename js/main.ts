@@ -1,21 +1,7 @@
 var game = new Game();
 
-game.run = (() => {
-    var loops = 0, skipTicks = 1000 / game.fps,
-        maxFrameSkip = 10,
-        nextGameTick = (new Date).getTime();
-
-    return () => {
-        loops = 0;
-
-        while ((new Date).getTime() > nextGameTick) {
-            game.update();
-            nextGameTick += skipTicks;
-            loops++;
-        }
-
-        game.draw();
-    };
+run = (() => {
+    return game.run();
 })();
 
 // Add some moving rectangles
@@ -25,7 +11,7 @@ while (i--) {
 }
 
 //game.start();
-setInterval(game.run, 0);
+setInterval(run, 0);
 
 
 (function() {

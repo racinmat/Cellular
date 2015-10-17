@@ -30,22 +30,19 @@ var Game = (function () {
         this.entities.push(new Rect());
         console.log('adding rectangle');
     };
-    //run() {
-    //    var loops = 0, skipTicks = 1000 / this.fps,
-    //        nextGameTick = (new Date).getTime();
-    //
-    //    return () => {
-    //        loops = 0;
-    //
-    //        while ((new Date).getTime() > nextGameTick) {
-    //            this.update();
-    //            nextGameTick += skipTicks;
-    //            loops++;
-    //        }
-    //
-    //        this.draw();
-    //    };
-    //}
+    Game.prototype.run = function () {
+        var _this = this;
+        var loops = 0, skipTicks = 1000 / this.fps, nextGameTick = (new Date).getTime();
+        return function () {
+            loops = 0;
+            while ((new Date).getTime() > nextGameTick) {
+                _this.update();
+                nextGameTick += skipTicks;
+                loops++;
+            }
+            _this.draw();
+        };
+    };
     Game.prototype.start = function () {
         var _this = this;
         setInterval(function () {
