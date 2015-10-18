@@ -1,45 +1,56 @@
 /// <reference path="references.ts"/>
 class Game {
     fps : number;
-    entities : Rect[];
-    canvas;
-    context;
+    canvas : HTMLCanvasElement;
+    context : CanvasRenderingContext2D;
     mouseX : number;
     mouseY : number;
+    input : Input;
+    commanderPosition : Point;
+    commanderVelocity : number;
+    minions : number[];
+    world : World;
+
     constructor() {
         this.fps = 50;
-        this.entities = [];
-        this.canvas = document.getElementById("viewport");
+        this.canvas = <HTMLCanvasElement> document.getElementById("viewport");
         this.context = this.canvas.getContext("2d");
         this.mouseX = 0;
         this.mouseY = 0;
-        var that = this;
-        this.canvas.addEventListener('mousemove', function(evt) {
-            var mousePos = that.getMousePos(that.canvas, evt);
-            that.mouseX = mousePos.x;
-            that.mouseY = mousePos.y;
-        }, false);
+        this.commanderVelocity = 1;
+        this.input = new Input(this.canvas, this.commanderVelocity);
+        this.commanderPosition = this.input.getCommanderTarget();
+        this.minions = [5, 4, 3];   //počet minionů, každý druh je jedno číslo v poli
+        this.world = new World();
     }
 
     draw() {
-        this.context.clearRect(0, 0, 640, 480);
+        this.context.clearRect(0, 0, 1024, 768);
 
-        for (var i=0; i < this.entities.length; i++) {
-            this.entities[i].draw(this.context);
-        }
-        this.context.fillText(this.mouseX,  30, 30);
-        this.context.fillText(this.mouseY,  30, 40);
+        this.world.draw(this.context);
+
+        //rendering left upper menu
+        var oldStyle : string = this.context.fillStyle;
+
+        this.context.fillStyle="#FF0066";
+        new Rect(20, 20, 50, 30).draw(this.context);
+
+        this.context.fillStyle="#FF0066";
+        new Rect(80, 20, 50, 30).draw(this.context);
+
+        this.context.fillStyle="#FF0066";
+        new Rect(140, 20, 50, 30).draw(this.context);
+
+        this.context.fillStyle = oldStyle;
+        //enf of rendering left upper menu
+
+        this.context.fillText('Commander', this.commanderPosition.x, this.commanderPosition.y);
     }
 
     update() {
-        for (var i = 0; i < this.entities.length; i++) {
-            this.entities[i].update();
-        }
-    }
-
-    addRect() {
-        this.entities.push(new Rect());
-        console.log('adding rectangle');
+        this.commanderPosition.x += this.commanderVelocity * sign(this.input.getCommanderTarget().x - this.commanderPosition.x);
+        this.commanderPosition.y += this.commanderVelocity * sign(this.input.getCommanderTarget().y - this.commanderPosition.y);
+        this.input.currentCommander = this.commanderPosition.clone();
     }
 
     run() {
@@ -59,13 +70,8 @@ class Game {
         };
     }
 
-    getMousePos(canvas, evt) {
-    var rect = canvas.getBoundingClientRect();
-    return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-    };
 }
 
+function sign(x) {
+    return typeof x === 'number' ? x ? x < 0 ? -1 : 1 : x === x ? 0 : NaN : NaN;
 }
-
