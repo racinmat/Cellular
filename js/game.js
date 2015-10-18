@@ -2,34 +2,35 @@
 var Game = (function () {
     function Game() {
         this.fps = 50;
-        this.entities = [];
         this.canvas = document.getElementById("viewport");
         this.context = this.canvas.getContext("2d");
         this.mouseX = 0;
         this.mouseY = 0;
-        var that = this;
-        this.canvas.addEventListener('mousemove', function (evt) {
-            var mousePos = that.getMousePos(that.canvas, evt);
-            that.mouseX = mousePos.x;
-            that.mouseY = mousePos.y;
-        }, false);
+        this.commanderVelocity = 1;
+        this.input = new Input(this.canvas, this.commanderVelocity);
+        this.commanderPosition = this.input.getCommanderTarget();
+        this.minions = [5, 4, 3]; //počet minionů, každý druh je jedno číslo v poli
+        this.world = new World();
     }
     Game.prototype.draw = function () {
-        this.context.clearRect(0, 0, 640, 480);
-        for (var i = 0; i < this.entities.length; i++) {
-            this.entities[i].draw(this.context);
-        }
-        this.context.fillText(this.mouseX, 30, 30);
-        this.context.fillText(this.mouseY, 30, 40);
+        this.context.clearRect(0, 0, 1024, 768);
+        this.world.draw(this.context);
+        //rendering left upper menu
+        var oldStyle = this.context.fillStyle;
+        this.context.fillStyle = "#FF0066";
+        new Rect(20, 20, 50, 30).draw(this.context);
+        this.context.fillStyle = "#FF0066";
+        new Rect(80, 20, 50, 30).draw(this.context);
+        this.context.fillStyle = "#FF0066";
+        new Rect(140, 20, 50, 30).draw(this.context);
+        this.context.fillStyle = oldStyle;
+        //enf of rendering left upper menu
+        this.context.fillText('Commander', this.commanderPosition.x, this.commanderPosition.y);
     };
     Game.prototype.update = function () {
-        for (var i = 0; i < this.entities.length; i++) {
-            this.entities[i].update();
-        }
-    };
-    Game.prototype.addRect = function () {
-        this.entities.push(new Rect());
-        console.log('adding rectangle');
+        this.commanderPosition.x += this.commanderVelocity * sign(this.input.getCommanderTarget().x - this.commanderPosition.x);
+        this.commanderPosition.y += this.commanderVelocity * sign(this.input.getCommanderTarget().y - this.commanderPosition.y);
+        this.input.currentCommander = this.commanderPosition.clone();
     };
     Game.prototype.run = function () {
         var _this = this;
@@ -44,13 +45,9 @@ var Game = (function () {
             _this.draw();
         };
     };
-    Game.prototype.getMousePos = function (canvas, evt) {
-        var rect = canvas.getBoundingClientRect();
-        return {
-            x: evt.clientX - rect.left,
-            y: evt.clientY - rect.top
-        };
-    };
     return Game;
 })();
+function sign(x) {
+    return typeof x === 'number' ? x ? x < 0 ? -1 : 1 : x === x ? 0 : NaN : NaN;
+}
 //# sourceMappingURL=game.js.map

@@ -3,15 +3,27 @@ class Rect {
     x : number;
     y : number;
     velocity : number;
+    height : number;
+    width : number;
 
-    constructor() {
-        this.x = Math.floor(Math.random() * (640 - 30));
-        this.y = Math.floor(Math.random() * (480 - 30));
+    constructor(x : number, y : number, height : number, width : number) {
+        if(x == null) {
+            this.x = Math.floor(Math.random() * (640 - 30));
+        } else {
+            this.x = x;
+        }
+        if(y == null) {
+            this.y = Math.floor(Math.random() * (480 - 30));
+        } else {
+            this.y = y;
+        }
+        this.height = height;
+        this.width = width;
         this.velocity = Math.random() > 0.5 ? -1 : 1;
     }
 
-    draw(context) {
-        context.fillRect(this.x, this.y, 30, 30);
+    draw(context : CanvasRenderingContext2D) {
+        context.fillRect(this.x, this.y, this.height, this.width);
     }
 
     update() {
