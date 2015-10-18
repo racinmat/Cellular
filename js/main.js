@@ -3,11 +3,6 @@ var game = new Game();
 var run = (function () {
     return game.run();
 })();
-// Add some moving rectangles
-var i = 20;
-while (i--) {
-    game.addRect();
-}
 (function () {
     var onEachFrame;
     if (window.webkitRequestAnimationFrame) {

@@ -5,12 +5,6 @@ var run = (() => {
     return game.run();
 })();
 
-// Add some moving rectangles
-var i = 20;
-while (i--) {
-    game.addRect();
-}
-
 interface Window {
     webkitRequestAnimationFrame(callback: any, element?: any): void;
     mozRequestAnimationFrame(callback: any, element?: any): void;

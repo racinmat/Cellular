@@ -9,6 +9,8 @@ class Game {
     input : Input;
     commanderPosition : Point;
     commanderVelocity : number;
+    minions : number[];
+    world : World;
 
     constructor() {
         this.fps = 50;
@@ -20,10 +22,13 @@ class Game {
         this.commanderVelocity = 1;
         this.input = new Input(this.canvas, this.commanderVelocity);
         this.commanderPosition = this.input.getCommanderTarget();
+        this.minions = [5, 4, 3];   //počet minionů, každý druh je jedno číslo v poli
+        this.world = new World();
     }
 
     draw() {
         this.context.clearRect(0, 0, 640, 480);
+        this.world.draw(this.context);
 
         for (var i=0; i < this.entities.length; i++) {
             this.entities[i].draw(this.context);
@@ -38,10 +43,6 @@ class Game {
         this.commanderPosition.x += this.commanderVelocity * sign(this.input.getCommanderTarget().x - this.commanderPosition.x);
         this.commanderPosition.y += this.commanderVelocity * sign(this.input.getCommanderTarget().y - this.commanderPosition.y);
         this.input.currentCommander = this.commanderPosition.clone();
-    }
-
-    addRect() {
-        this.entities.push(new Rect());
     }
 
     run() {

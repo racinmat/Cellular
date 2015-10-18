@@ -136,4 +136,4 @@ function checkKeyPressed(e) {
 /// <reference path="main.ts" />
 /// <reference path="rect.ts" />
 /// <reference path="input.ts" />
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=main.js.world
