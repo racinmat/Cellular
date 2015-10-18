@@ -35,7 +35,7 @@ class World {
                 if(this.buildings[i][j] == 1) {
                     context.fillStyle="#4DB8FF";
                 }
-                new Rect(this.squareSize * i, this.squareSize * j, this.squareSize, this.squareSize).draw(context);
+                new Rect(this.squareSize * i, 100 + this.squareSize * j, this.squareSize, this.squareSize).draw(context);
                 context.fillStyle = oldStyle;
             }
         }

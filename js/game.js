@@ -13,7 +13,7 @@ var Game = (function () {
         this.world = new World();
     }
     Game.prototype.draw = function () {
-        this.context.clearRect(0, 0, 640, 480);
+        this.context.clearRect(0, 0, 1024, 768);
         this.world.draw(this.context);
         //rendering left upper menu
         var oldStyle = this.context.fillStyle;

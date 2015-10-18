@@ -8,8 +8,8 @@ class Input {
     currentCommander : Point;
 
     constructor(canvas : HTMLCanvasElement, keyboardCommanderVelocity : number) {
-        window.addEventListener("keydown", (e) => {this.loadKeyboardInput(e)}, false);
-        window.addEventListener("click", (e) => {this.click(e)}, false);
+        window.addEventListener("keydown", (e) => {this.loadCommanderKeyboardInput(e)}, false);
+        window.addEventListener("click", (e) => {this.loadCommanderClick(e)}, false);
         this.canvas = canvas;
         this.keyboardCommanderVelocity = keyboardCommanderVelocity;
         this.commanderTarget = this.getMiddleOfScreenPoint(canvas);
@@ -24,7 +24,7 @@ class Input {
         return this.commanderTarget.clone();
     }
 
-    loadKeyboardInput(event) {
+    loadCommanderKeyboardInput(event) {
         this.commanderTarget = this.currentCommander.clone(); //kvůli tomu, aby klávesnice nemusela "přervat" vstup z myši
         console.log(this.commanderTarget);
         switch(event.keyCode) {
@@ -44,11 +44,15 @@ class Input {
         this.oldCommanderTarget = this.commanderTarget.clone();
     }
 
-    click(event) {
+    loadCommanderClick(event) {
         if(event.isTrusted) {
             var rect = this.canvas.getBoundingClientRect();
-            this.commanderTarget.x = event.clientX - rect.left;
-            this.commanderTarget.y = event.clientY - rect.top;
+            var x : number = Math.min(event.clientX - rect.left, 1024);
+            var y : number = Math.min(event.clientY - rect.top, 768);
+        }
+        if (y > 100 && x < 600) { //podmínka, že je kliknuto dovnitř herní plochy
+            this.commanderTarget.x = x;
+            this.commanderTarget.y = y;
         }
     }
 }
