@@ -11,7 +11,7 @@ var World = (function () {
         for (var i = 0; i < 5; i++) {
             this.buildings[Math.floor(Math.random() * 10)][Math.floor(Math.random() * 10)] = 1; //číslo 1 je nějaký důl
         }
-        this.rectSize = 60;
+        this.squareSize = 60;
     }
     World.prototype.draw = function (context) {
         var dark = true;
@@ -31,7 +31,7 @@ var World = (function () {
                 if (this.buildings[i][j] == 1) {
                     context.fillStyle = "#4DB8FF";
                 }
-                new Rect(this.rectSize * i, this.rectSize * j, this.rectSize).draw(context);
+                new Rect(this.squareSize * i, this.squareSize * j, this.squareSize, this.squareSize).draw(context);
                 context.fillStyle = oldStyle;
             }
         }

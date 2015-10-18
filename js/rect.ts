@@ -3,9 +3,10 @@ class Rect {
     x : number;
     y : number;
     velocity : number;
-    size : number;
+    height : number;
+    width : number;
 
-    constructor(x : number, y : number, size : number) {
+    constructor(x : number, y : number, height : number, width : number) {
         if(x == null) {
             this.x = Math.floor(Math.random() * (640 - 30));
         } else {
@@ -16,12 +17,13 @@ class Rect {
         } else {
             this.y = y;
         }
-        this.size = size;
+        this.height = height;
+        this.width = width;
         this.velocity = Math.random() > 0.5 ? -1 : 1;
     }
 
     draw(context : CanvasRenderingContext2D) {
-        context.fillRect(this.x, this.y, this.size, this.size);
+        context.fillRect(this.x, this.y, this.height, this.width);
     }
 
     update() {
