@@ -15,19 +15,11 @@ var Rect = (function () {
         }
         this.height = height;
         this.width = width;
-        this.velocity = Math.random() > 0.5 ? -1 : 1;
     }
     Rect.prototype.draw = function (context) {
         context.fillRect(this.x, this.y, this.height, this.width);
     };
     Rect.prototype.update = function () {
-        if (this.y < 0) {
-            this.velocity = 10;
-        }
-        else if (this.y > 450) {
-            this.velocity = -5;
-        }
-        this.y += this.velocity;
     };
     return Rect;
 })();
