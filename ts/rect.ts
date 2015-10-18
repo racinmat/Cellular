@@ -2,7 +2,6 @@
 class Rect {
     x : number;
     y : number;
-    velocity : number;
     height : number;
     width : number;
 
@@ -19,7 +18,6 @@ class Rect {
         }
         this.height = height;
         this.width = width;
-        this.velocity = Math.random() > 0.5 ? -1 : 1;
     }
 
     draw(context : CanvasRenderingContext2D) {
@@ -27,12 +25,6 @@ class Rect {
     }
 
     update() {
-        if (this.y < 0) {
-            this.velocity = 10;
-        } else if (this.y > 450) {
-            this.velocity = -5;
-        }
 
-        this.y += this.velocity;
     }
 }
