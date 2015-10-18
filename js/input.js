@@ -10,10 +10,10 @@ var Input = (function () {
         }, false);
         this.canvas = canvas;
         this.keyboardCommanderVelocity = keyboardCommanderVelocity;
-        this.commanderTarget = this.getMiddleOfScreenPoint(canvas);
-        this.oldCommanderTarget = this.getMiddleOfScreenPoint(canvas);
+        this.commanderTarget = Input.getMiddleOfScreenPoint(canvas);
+        this.oldCommanderTarget = Input.getMiddleOfScreenPoint(canvas);
     }
-    Input.prototype.getMiddleOfScreenPoint = function (canvas) {
+    Input.getMiddleOfScreenPoint = function (canvas) {
         return new Point(canvas.width / 2, canvas.height / 2);
     };
     Input.prototype.getCommanderTarget = function () {
@@ -40,14 +40,23 @@ var Input = (function () {
     };
     Input.prototype.loadCommanderClick = function (event) {
         if (event.isTrusted) {
-            var rect = this.canvas.getBoundingClientRect();
-            var x = Math.min(event.clientX - rect.left, 1024);
-            var y = Math.min(event.clientY - rect.top, 768);
+            var point = this.loadClick();
+            if (point.y > 100 && point.x < 600) {
+                this.commanderTarget.x = point.x;
+                this.commanderTarget.y = point.y;
+            }
         }
-        if (y > 100 && x < 600) {
-            this.commanderTarget.x = x;
-            this.commanderTarget.y = y;
-        }
+    };
+    Input.prototype.loadClick = function () {
+        var rect = this.canvas.getBoundingClientRect();
+        var x = Math.min(event.clientX - rect.left, 1024);
+        var y = Math.min(event.clientY - rect.top, 768);
+        return new Point(x, y);
+    };
+    //vrací číslo boxu
+    Input.prototype.minionBoxClicked = function () {
+        var point = this.loadClick();
+        //todo: dodělat
     };
     return Input;
 })();
