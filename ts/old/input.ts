@@ -46,7 +46,7 @@ class Input {
 
     loadCommanderClick(event) {
         if(event.isTrusted) {
-            var point : Point = this.loadClick();
+            var point : Point = this.loadClick(event);
             if (point.y > 100 && point.x < 600) { //podmínka, že je kliknuto dovnitř herní plochy
                 this.commanderTarget.x = point.x;
                 this.commanderTarget.y = point.y;
@@ -54,7 +54,7 @@ class Input {
         }
     }
 
-    private loadClick() : Point {
+    private loadClick(event) : Point {
         var rect = this.canvas.getBoundingClientRect();
         var x : number = Math.min(event.clientX - rect.left, 1024);
         var y : number = Math.min(event.clientY - rect.top, 768);
@@ -62,9 +62,10 @@ class Input {
     }
 
     //vrací číslo boxu
-    minionBoxClicked() : number {
-        var point : Point = this.loadClick();
+    minionBoxClicked(event) : number {
+        var point : Point = this.loadClick(event);
         //todo: dodělat
+        return 0;
     }
 
 }

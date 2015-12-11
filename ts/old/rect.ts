@@ -6,16 +6,8 @@ class Rect {
     width : number;
 
     constructor(x : number, y : number, height : number, width : number) {
-        if(x == null) {
-            this.x = Math.floor(Math.random() * (640 - 30));
-        } else {
-            this.x = x;
-        }
-        if(y == null) {
-            this.y = Math.floor(Math.random() * (480 - 30));
-        } else {
-            this.y = y;
-        }
+        this.x = x;
+        this.y = y;
         this.height = height;
         this.width = width;
     }
