@@ -35,6 +35,7 @@
         <nav>
             <ul class="nav nav-pills pull-right">
                 <li role="presentation" <?php echo isCurrent('index.php')  ? 'class="active"' : null; ?>><a href="index.php">Home</a></li>
+	            <li role="presentation" <?php echo isCurrent('oldGame.php')  ? 'class="active"' : null; ?>><a href="game.php">Old game</a></li>
                 <li role="presentation" <?php echo isCurrent('game.php')  ? 'class="active"' : null; ?>><a href="game.php">Game</a></li>
 	            <li role="presentation"><a href="plain-game_old.html">Game without PHP</a></li>
             </ul>
