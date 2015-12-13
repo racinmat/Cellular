@@ -33,9 +33,10 @@ module FloodTactics {
 
         expand(square : Square) {
             for (var neighbor of square.getNeighborPoints()) {
-                console.log(neighbor);
                 var neighborSquare : Square = this.getSquare(neighbor);
-                neighborSquare.key = ColorHelper.getImage(square.color);
+                neighborSquare.setColor(square.getColor());
+                console.log(neighborSquare);
+                console.log(neighborSquare.getColor());
             }
         }
 
