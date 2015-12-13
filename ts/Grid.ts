@@ -17,7 +17,7 @@ module FloodTactics {
             this.game.add.existing(this);
             this.squares = [];
 
-            var max : Phaser.Point = new Phaser.Point(this.rows, this.columns);
+            var max : Phaser.Point = new Phaser.Point(this.rows - 1, this.columns - 1);
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
@@ -43,11 +43,12 @@ module FloodTactics {
             for (var neighbor of square.getNeighborPoints()) {
                 var neighborSquare : Square = this.getSquare(neighbor);
                 neighborSquare.setColor(square.getColor());
-                console.log(neighborSquare);
-                console.log(neighborSquare.getColor());
             }
         }
 
+        public getSquares() : Square[][] {
+            return this.squares;
+        }
     }
 
 }

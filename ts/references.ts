@@ -5,9 +5,7 @@
 /// <reference path="Boot.ts" />
 /// <reference path="Level.ts" />
 /// <reference path="Preloader.ts" />
-
-/// <reference path="NeighborsProvider/INeighborsProvider.ts" />
-/// <reference path="NeighborsProvider/DiagonalProvider.ts" />
-/// <reference path="NeighborsProvider/DirectProvider.ts" />
-
 /// <reference path="Color.ts" />
+
+/// <reference path="WinChecker/IWinChecker.ts" />
+/// <reference path="WinChecker/OneColorWinChecker.ts" />
