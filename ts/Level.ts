@@ -7,7 +7,7 @@ module FloodTactics {
         grid: Grid;
 
         create() {
-            this.grid = new Grid(this.game, 10, 10);
+            this.grid = new Grid(this.game, 0, 0);
         }
 
     }

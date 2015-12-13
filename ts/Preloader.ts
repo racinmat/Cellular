@@ -4,8 +4,6 @@ module FloodTactics {
 
     export class Preloader extends Phaser.State {
 
-        preloadBar: Phaser.Sprite;
-
         preload() {
 
             //  Load our actual games assets

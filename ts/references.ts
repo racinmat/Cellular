@@ -5,3 +5,7 @@
 /// <reference path="Boot.ts" />
 /// <reference path="Level.ts" />
 /// <reference path="Preloader.ts" />
+
+/// <reference path="NeighborsProvider/INeighborsProvider.ts" />
+/// <reference path="NeighborsProvider/DiagonalProvider.ts" />
+/// <reference path="NeighborsProvider/DirectProvider.ts" />
