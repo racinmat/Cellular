@@ -2,14 +2,15 @@
 
 class Game {
 
-
     button1 : Phaser.Button;
     button2 : Phaser.Button;
     button4 : Phaser.Button;
     button3 : Phaser.Button;
     game: Phaser.Game;
+    grid : Grid;
 
     constructor() {
+        this.grid = new Grid();
         this.game = new Phaser.Game(800, 800, Phaser.AUTO, 'content', { preload: this.preload, create: this.create });
     }
 
@@ -21,10 +22,11 @@ class Game {
     }
 
     create() {
-        this.button1 = this.game.add.button(100, 100, 'yellow', Square.click, this);
-        this.button2 = this.game.add.button(300, 100, 'brown', Square.click, this);
-        this.button3 = this.game.add.button(500, 100, 'red', Square.click, this);
-        this.button4 = this.game.add.button(100, 300, 'blue', Square.click, this);
+        this.grid.create();
+        //this.button1 = this.game.add.button(100, 100, 'yellow', Square.click, this);
+        //this.button2 = this.game.add.button(300, 100, 'brown', Square.click, this);
+        //this.button3 = this.game.add.button(500, 100, 'red', Square.click, this);
+        //this.button4 = this.game.add.button(100, 300, 'blue', Square.click, this);
     }
 
 }
