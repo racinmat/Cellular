@@ -12,6 +12,7 @@ module FloodTactics {
             this.load.image('brown', 'images/brown.png');
             this.load.image('red', 'images/red.png');
             this.load.image('blue', 'images/blue.png');
+            this.load.image('levelCompleted', 'images/level_completed.jpg');
 
         }
 

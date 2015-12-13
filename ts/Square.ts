@@ -23,9 +23,6 @@ module FloodTactics {
 
             this.inputEnabled = true;
 
-            //var expand = ((square) => {
-            //    return this.grid.expand(square);
-            //})();
             var expand = (square : Square) => {
                 return this.grid.expand(square);
             };

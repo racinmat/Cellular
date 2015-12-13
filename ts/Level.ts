@@ -15,7 +15,10 @@ module FloodTactics {
 
         update() {
             if(this.winChecker.checkWin(this.grid.getSquares())) {
-
+                this.game.add.sprite(120, 120, 'levelCompleted');
+                var timer : Phaser.Timer = this.game.time.create(false);
+                timer.add(3000, () => {this.game.state.start('Level', true, false);});
+                timer.start();
             }
         }
     }
