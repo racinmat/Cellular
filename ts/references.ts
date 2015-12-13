@@ -9,3 +9,5 @@
 /// <reference path="NeighborsProvider/INeighborsProvider.ts" />
 /// <reference path="NeighborsProvider/DiagonalProvider.ts" />
 /// <reference path="NeighborsProvider/DirectProvider.ts" />
+
+/// <reference path="Color.ts" />

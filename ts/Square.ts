@@ -7,10 +7,10 @@ module FloodTactics {
         grid : Grid;
         gridPosition : Phaser.Point;
         neighborsProvider : INeighborsProvider;
-        color
+        color : Color;
 
-        constructor(game: Phaser.Game, x: number, y: number, grid : Grid, position : Phaser.Point, neighborsProvider : INeighborsProvider) {
-            super(game, x, y, 'yellow', 0);
+        constructor(game: Phaser.Game, x: number, y: number, grid : Grid, position : Phaser.Point, neighborsProvider : INeighborsProvider, color : Color) {
+            super(game, x, y, ColorHelper.getImage(color), 0);
             this.game.add.existing(this);
             this.grid = grid;
             this.gridPosition = position;

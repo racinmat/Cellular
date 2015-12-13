@@ -21,15 +21,22 @@ module FloodTactics {
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
-                    this.squares[i][j] = new Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), new DirectProvider(max));
+                    this.squares[i][j] = new Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), new DirectProvider(max), ColorHelper.getRandom());
                     super.addChild(this.squares[i][j]);
                 }
             }
         }
 
+        getSquare(point : Phaser.Point) : Square {
+            return this.squares[point.x][point.y];
+        }
+
         expand(square : Square) {
-            console.log("testing click: " + square.gridPosition);
-            console.log(square.getNeighborPoints());
+            for (var neighbor of square.getNeighborPoints()) {
+                console.log(neighbor);
+                var neighborSquare : Square = this.getSquare(neighbor);
+                neighborSquare.key = ColorHelper.getImage(square.color);
+            }
         }
 
     }

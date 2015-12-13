@@ -4,7 +4,7 @@ module FloodTactics {
 
     export enum Color {Red, Brown, Blue, Yellow};
 
-    class ColorHelper {
+    export class ColorHelper {
 
         static getImage(color : Color) : string {
             switch (color) {
@@ -15,6 +15,14 @@ module FloodTactics {
             }
         }
 
+        static getRandom() : Color {
+            var keys = Object.keys(Color),
+                index = Math.floor(Math.random() * keys.length),
+                k = keys[index];
+            if (typeof Color[k] === 'number')
+                return Color[k];
+            return parseInt(k, 10);
+        }
     }
 
 }
