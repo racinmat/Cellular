@@ -21,7 +21,15 @@ module FloodTactics {
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
-                    this.squares[i][j] = new Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), new DirectProvider(max), ColorHelper.getRandom());
+
+                    var power : number = 1;
+                    var directions : Phaser.Point[] = [];
+                    directions[0] = new Phaser.Point(-1, 0);
+                    directions[1] = new Phaser.Point(1, 0);
+                    directions[2] = new Phaser.Point(0, -1);
+                    directions[3] = new Phaser.Point(0, 1);
+
+                    this.squares[i][j] = new Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, ColorHelper.getRandom());
                     super.addChild(this.squares[i][j]);
                 }
             }
