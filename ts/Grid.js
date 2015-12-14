@@ -35,8 +35,9 @@ var FloodTactics;
                     directions[1] = new Phaser.Point(1, 0);
                     directions[2] = new Phaser.Point(0, -1);
                     directions[3] = new Phaser.Point(0, 1);
+                    var number = 2;
                     //konec dat pro čtverce
-                    this.squares[i][j] = new FloodTactics.Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, FloodTactics.ColorHelper.getRandom());
+                    this.squares[i][j] = new FloodTactics.Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, FloodTactics.ColorHelper.getRandom(), number);
                     _super.prototype.addChild.call(this, this.squares[i][j]);
                 }
             }
@@ -60,13 +61,20 @@ var FloodTactics;
         Grid.prototype.getSquare = function (point) {
             return this.squares[point.x][point.y];
         };
-        Grid.prototype.expand = function (square) {
+        Grid.prototype.getNeighbors = function (square) {
+            var neighbors = [];
             for (var _i = 0, _a = square.getNeighborPoints(); _i < _a.length; _i++) {
                 var neighbor = _a[_i];
-                var neighborSquare = this.getSquare(neighbor);
+                neighbors.push(this.getSquare(neighbor));
+            }
+            return neighbors;
+        };
+        Grid.prototype.expand = function (square) {
+            for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
+                var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
-                if (colorsToBeCaptured.indexOf(neighborSquare.getColor()) > -1) {
-                    neighborSquare.setColor(square.getColor());
+                if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+                    neighbor.setColor(square.getColor());
                 }
             }
         };

@@ -9,14 +9,17 @@ module FloodTactics {
         private tween : Phaser.Tween;
 
         create() {
-            this.winChecker = new OneColorWinChecker(Color.Blue);
             this.grid = new Grid(this.game, 0, 0);
+	        //zde se nastavuje vítězná podmínka
+	        //this.winChecker = new OneColorWinChecker(Color.Blue);
+	        this.winChecker = new CountNeighborsWinChecker();
             this.tween = null;
-            this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
+            var text = this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
+	        text.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
         }
 
         update() {
-            if(this.winChecker.checkWin(this.grid.getSquares())) {
+            if(this.winChecker.checkWin(this.grid)) {
                 if(this.tween === null) {
                     var popup : Phaser.Sprite = this.game.add.sprite(400, 400, 'levelCompleted');
                     popup.anchor.setTo(0.5, 0.5);

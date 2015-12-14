@@ -8,7 +8,6 @@ var FloodTactics;
         Color[Color["Yellow"] = 3] = "Yellow";
     })(FloodTactics.Color || (FloodTactics.Color = {}));
     var Color = FloodTactics.Color;
-    ;
     var ColorHelper = (function () {
         function ColorHelper() {
         }

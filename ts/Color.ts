@@ -2,7 +2,7 @@
 
 module FloodTactics {
 
-    export enum Color {Red, Brown, Blue, Yellow};
+    export enum Color {Red, Brown, Blue, Yellow}
 
     export class ColorHelper {
 

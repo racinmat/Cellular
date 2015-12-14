@@ -9,3 +9,4 @@
 
 /// <reference path="WinChecker/IWinChecker.ts" />
 /// <reference path="WinChecker/OneColorWinChecker.ts" />
+/// <reference path="WinChecker/CountNeighborsWinChecker.ts" />

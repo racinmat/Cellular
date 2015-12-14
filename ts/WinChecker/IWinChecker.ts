@@ -2,7 +2,7 @@
 module FloodTactics {
 
     export interface IWinChecker {
-        checkWin(squares : Square[][]) : boolean;
+        checkWin(grid : Grid) : boolean;
         getDescription() : string;
     }
 

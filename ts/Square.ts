@@ -2,57 +2,76 @@
 
 module FloodTactics {
 
-    export class Square extends Phaser.Sprite {
+	export class Square extends Phaser.Sprite {
 
-        private grid : Grid;
-        private gridPosition : Phaser.Point;
-        private color : Color;
-        private power : number;
-        private directions : Phaser.Point[];
-        private max : Phaser.Point;
-		private number;
+		private grid : Grid;
+		private gridPosition : Phaser.Point;
+		private color : Color;
+		private power : number;
+		private directions : Phaser.Point[];
+		private max : Phaser.Point;
+		private number : number;
+		private text : Phaser.BitmapText;
 
-        constructor(game: Phaser.Game, x: number, y: number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color) {
-            super(game, x, y, ColorHelper.toString(color), 0);
-            this.game.add.existing(this);
-            this.grid = grid;
-            this.gridPosition = position;
-            this.color = color;
-            this.power = power;
-            this.directions = directions;
-            this.max = max;
+		constructor(game : Phaser.Game, x : number, y : number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color, number : number) {
+			super(game, x, y, ColorHelper.toString(color), 0);
+			this.grid = grid;
+			this.gridPosition = position;
+			this.color = color;
+			this.power = power;
+			this.directions = directions;
+			this.max = max;
+			this.number = number;
 
-            this.inputEnabled = true;
+			this.inputEnabled = true;
+			this.game.add.existing(this);
 
-            var expand = (square : Square) => {
-                return this.grid.expand(square);
-            };
-            this.events.onInputDown.add(expand, this);
-        }
+			var expand = (square : Square) => {
+				this.decrementNumber();
+				return this.grid.expand(square);
+			};
+			this.events.onInputDown.add(expand, this);
 
-        getNeighborPoints() : Phaser.Point[] {
-            var neighbors : Phaser.Point[] = [];
-            for(var direction of this.directions) {
-                for (var i = 1; i <= this.power; i++) {
-                    var x = this.gridPosition.x + i * direction.x;
-                    var y = this.gridPosition.y + i * direction.y;
-                    if(x >= 0 && y >= 0 && x <= this.max.x && y <= this.max.y) {
-                        neighbors.push(new Phaser.Point(x, y));
-                    }
-                }
-            }
-            return neighbors;
-        }
+			this.anchor.setTo(0.5, 0.5);
 
-        public setColor(color: Color) {
-            this.color = color;
-            this.key = ColorHelper.toString(color);
-            this.loadTexture(this.key);
-        }
+			this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+			this.text.anchor.setTo(0.5, 0.5);
+		}
 
-        public getColor() : Color {
-            return this.color;
-        }
-    }
+		getNeighborPoints() : Phaser.Point[] {
+			var neighbors : Phaser.Point[] = [];
+			for(var direction of this.directions) {
+				for(var i = 1; i <= this.power; i++) {
+					var x = this.gridPosition.x + i * direction.x;
+					var y = this.gridPosition.y + i * direction.y;
+					if(x >= 0 && y >= 0 && x <= this.max.x && y <= this.max.y) {
+						neighbors.push(new Phaser.Point(x, y));
+					}
+				}
+			}
+			return neighbors;
+		}
+
+		public setColor(color : Color) {
+			this.color = color;
+			this.key = ColorHelper.toString(color);
+			this.loadTexture(this.key);
+		}
+
+		public getColor() : Color {
+			return this.color;
+		}
+
+		public getNumber() : number {
+			return this.number;
+		}
+
+		public decrementNumber() {
+			if(this.number > 0) {
+				this.number--;
+				this.text.setText(String(this.number));
+			}
+		}
+	}
 
 }

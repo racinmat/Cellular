@@ -8,8 +8,8 @@ module FloodTactics {
             this.color = color;
         }
 
-        checkWin(squares : Square[][]) : boolean {
-            for(var row of squares) {
+        checkWin(grid : Grid) : boolean {
+            for(var row of grid.getSquares()) {
                 for(var square of row) {
                     if(square.getColor() != this.color) {
                         return false;

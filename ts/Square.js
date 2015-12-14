@@ -8,21 +8,26 @@ var FloodTactics;
 (function (FloodTactics) {
     var Square = (function (_super) {
         __extends(Square, _super);
-        function Square(game, x, y, grid, position, power, directions, max, color) {
+        function Square(game, x, y, grid, position, power, directions, max, color, number) {
             var _this = this;
             _super.call(this, game, x, y, FloodTactics.ColorHelper.toString(color), 0);
-            this.game.add.existing(this);
             this.grid = grid;
             this.gridPosition = position;
             this.color = color;
             this.power = power;
             this.directions = directions;
             this.max = max;
+            this.number = number;
             this.inputEnabled = true;
+            this.game.add.existing(this);
             var expand = function (square) {
+                _this.decrementNumber();
                 return _this.grid.expand(square);
             };
             this.events.onInputDown.add(expand, this);
+            this.anchor.setTo(0.5, 0.5);
+            this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+            this.text.anchor.setTo(0.5, 0.5);
         }
         Square.prototype.getNeighborPoints = function () {
             var neighbors = [];
@@ -45,6 +50,15 @@ var FloodTactics;
         };
         Square.prototype.getColor = function () {
             return this.color;
+        };
+        Square.prototype.getNumber = function () {
+            return this.number;
+        };
+        Square.prototype.decrementNumber = function () {
+            if (this.number > 0) {
+                this.number--;
+                this.text.setText(String(this.number));
+            }
         };
         return Square;
     })(Phaser.Sprite);

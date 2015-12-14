@@ -40,9 +40,10 @@ module FloodTactics {
                     directions[1] = new Phaser.Point(1, 0);
                     directions[2] = new Phaser.Point(0, -1);
                     directions[3] = new Phaser.Point(0, 1);
+					var number : number = 2;
                     //konec dat pro čtverce
 
-                    this.squares[i][j] = new Square(this.game, 10 + 64 * i, 10 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, ColorHelper.getRandom());
+                    this.squares[i][j] = new Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, ColorHelper.getRandom(), number);
                     super.addChild(this.squares[i][j]);
                 }
             }
@@ -64,16 +65,23 @@ module FloodTactics {
 			});
         }
 
-        private getSquare(point : Phaser.Point) : Square {
+        public getSquare(point : Phaser.Point) : Square {
             return this.squares[point.x][point.y];
         }
 
+	    public getNeighbors(square : Square) : Square[] {
+			var neighbors : Square[] = [];
+		    for (var neighbor of square.getNeighborPoints()) {
+			    neighbors.push(this.getSquare(neighbor));
+		    }
+		    return neighbors;
+	    }
+
         public expand(square : Square) {
-            for (var neighbor of square.getNeighborPoints()) {
-                var neighborSquare : Square = this.getSquare(neighbor);
+            for (var neighbor of this.getNeighbors(square)) {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
-                if(colorsToBeCaptured.indexOf(neighborSquare.getColor()) > -1) {
-                    neighborSquare.setColor(square.getColor());
+                if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+	                neighbor.setColor(square.getColor());
                 }
             }
         }

@@ -5,11 +5,11 @@ var FloodTactics;
         function OneColorWinChecker(color) {
             this.color = color;
         }
-        OneColorWinChecker.prototype.checkWin = function (squares) {
-            for (var _i = 0; _i < squares.length; _i++) {
-                var row = squares[_i];
-                for (var _a = 0; _a < row.length; _a++) {
-                    var square = row[_a];
+        OneColorWinChecker.prototype.checkWin = function (grid) {
+            for (var _i = 0, _a = grid.getSquares(); _i < _a.length; _i++) {
+                var row = _a[_i];
+                for (var _b = 0; _b < row.length; _b++) {
+                    var square = row[_b];
                     if (square.getColor() != this.color) {
                         return false;
                     }
