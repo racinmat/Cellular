@@ -84,6 +84,16 @@ var FloodTactics;
                 }
             }
         };
+        Grid.prototype.flood = function (square) {
+            for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
+                var neighbor = _a[_i];
+                var colorsToBeCaptured = this.colorRules.get(square.getColor());
+                if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+                    neighbor.setColor(square.getColor());
+                    neighbor.flood();
+                }
+            }
+        };
         Grid.prototype.getSquares = function () {
             return this.squares;
         };

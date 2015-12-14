@@ -9,6 +9,7 @@ module FloodTactics {
         private tween : Phaser.Tween;
 
         create() {
+	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
             this.grid = new Grid(this.game, 0, 0);
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);

@@ -12,7 +12,7 @@ module FloodTactics {
 		private max : Phaser.Point;
 		private number : number;
 		private text : Phaser.BitmapText;
-		private showNumber : bool;
+		private showNumber : boolean;
 
 		constructor(game : Phaser.Game, x : number, y : number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color, number : number) {
 			super(game, x, y, ColorHelper.toString(color), 0);
@@ -29,11 +29,18 @@ module FloodTactics {
 			this.inputEnabled = true;
 			this.game.add.existing(this);
 
-			var expand = (square : Square) => {
-				this.decrementNumber();
-				return this.grid.expand(square);
+			var clicked = (square : Square) => {
+				//menší hack?, abych rozlišil, jakým tlačítkem se kliknulo
+				var leftButton : Phaser.DeviceButton = this.game.input.activePointer.leftButton;    //nechápu proč, ale i když je v typescriptu napsáno, že to vrací boolean, tak to ve skutečnosti vrací objekt Phaser.DeviceButton
+				var rightButton : Phaser.DeviceButton = this.game.input.activePointer.rightButton;
+				if(leftButton.isDown) {
+					square.expand();
+				} else if(rightButton.isDown) {
+					square.flood();
+				}
 			};
-			this.events.onInputDown.add(expand, this);
+
+			this.events.onInputDown.add(clicked, this);
 
 			this.anchor.setTo(0.5, 0.5);
 
@@ -41,6 +48,16 @@ module FloodTactics {
 				this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
 				this.text.anchor.setTo(0.5, 0.5);
 			}
+		}
+
+		flood() : void {
+			this.decrementNumber();
+			this.grid.flood(this);
+		}
+
+		expand() : void {
+			this.decrementNumber();
+			this.grid.expand(this);
 		}
 
 		getNeighborPoints() : Phaser.Point[] {

@@ -82,7 +82,7 @@ module FloodTactics {
 		    return neighbors;
 	    }
 
-        public expand(square : Square) {
+        public expand(square : Square) : void {
             for (var neighbor of this.getNeighbors(square)) {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
@@ -90,6 +90,16 @@ module FloodTactics {
                 }
             }
         }
+
+	    public flood(square : Square) : void {
+		    for (var neighbor of this.getNeighbors(square)) {
+			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
+			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+				    neighbor.setColor(square.getColor());
+				    neighbor.flood();
+			    }
+		    }
+	    }
 
         public getSquares() : Square[][] {
             return this.squares;
