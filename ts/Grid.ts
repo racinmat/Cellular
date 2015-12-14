@@ -1,5 +1,5 @@
 /// <reference path="references.ts"/>
-/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.d.ts"/>
+/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.es6.d.ts"/>
 
 module FloodTactics {
 
@@ -46,6 +46,22 @@ module FloodTactics {
                     super.addChild(this.squares[i][j]);
                 }
             }
+
+			//vykreslení pravidel pro přebarvování
+			var i = 0;
+			this.colorRules.forEach((values : Color[], key : Color) => {
+				var square = this.game.add.sprite(500, 80 + 80 * i, ColorHelper.toString(key));
+				square.anchor.setTo(0.5, 0.5);
+				var text = this.game.add.bitmapText(560, 80 + 80 * i, 'arial', ">", 60);
+				text.anchor.setTo(0.5, 0.5);
+				var j = 0;
+				for(var color2 of values) {
+					var square = this.game.add.sprite(620 + 80 * j, 80 + 80 * i, ColorHelper.toString(color2));
+					square.anchor.setTo(0.5, 0.5);
+					j++;
+				}
+				i++;
+			});
         }
 
         private getSquare(point : Phaser.Point) : Square {

@@ -1,5 +1,5 @@
 /// <reference path="references.ts"/>
-/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.d.ts"/>
+/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.es6.d.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -10,6 +10,7 @@ var FloodTactics;
     var Grid = (function (_super) {
         __extends(Grid, _super);
         function Grid(game, x, y) {
+            var _this = this;
             _super.call(this, game, x, y, 'background', 0);
             this.tint = 0x000000;
             this.game.add.existing(this);
@@ -39,6 +40,22 @@ var FloodTactics;
                     _super.prototype.addChild.call(this, this.squares[i][j]);
                 }
             }
+            //vykreslení pravidel pro přebarvování
+            var i = 0;
+            this.colorRules.forEach(function (values, key) {
+                var square = _this.game.add.sprite(500, 80 + 80 * i, FloodTactics.ColorHelper.toString(key));
+                square.anchor.setTo(0.5, 0.5);
+                var text = _this.game.add.bitmapText(560, 80 + 80 * i, 'arial', ">", 60);
+                text.anchor.setTo(0.5, 0.5);
+                var j = 0;
+                for (var _i = 0; _i < values.length; _i++) {
+                    var color2 = values[_i];
+                    var square = _this.game.add.sprite(620 + 80 * j, 80 + 80 * i, FloodTactics.ColorHelper.toString(color2));
+                    square.anchor.setTo(0.5, 0.5);
+                    j++;
+                }
+                i++;
+            });
         }
         Grid.prototype.getSquare = function (point) {
             return this.squares[point.x][point.y];
