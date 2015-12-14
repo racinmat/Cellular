@@ -8,7 +8,7 @@ module FloodTactics {
                 for(var square of row) {
 					var sameColorNeighborsCount : number = 0;
 	                for(var neighbor of grid.getNeighbors(square)) {
-						if(neighbor.getColor() == square.getColor()) {
+						if(neighbor.getSquareType() == square.getSquareType()) {
 						    sameColorNeighborsCount++;
 						}
 	                }

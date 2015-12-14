@@ -6,6 +6,7 @@
 /// <reference path="Level.ts" />
 /// <reference path="Preloader.ts" />
 /// <reference path="Color.ts" />
+/// <reference path="SquareType.ts" />
 /// <reference path="WinChecker/IWinChecker.ts" />
 /// <reference path="WinChecker/OneColorWinChecker.ts" />
 /// <reference path="WinChecker/CountNeighborsWinChecker.ts" />

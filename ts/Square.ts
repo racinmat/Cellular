@@ -6,24 +6,23 @@ module FloodTactics {
 
 		private grid : Grid;
 		private gridPosition : Phaser.Point;
-		private color : Color;
-		private power : number;
-		private directions : Phaser.Point[];
+		private squareType : SquareType;
 		private max : Phaser.Point;
 		private number : number;
 		private text : Phaser.BitmapText;
 		private showNumber : boolean;
 
-		constructor(game : Phaser.Game, x : number, y : number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color, number : number) {
-			super(game, x, y, ColorHelper.toString(color), 0);
+		constructor(game : Phaser.Game, x : number, y : number, grid : Grid, position : Phaser.Point, max : Phaser.Point, squareType : SquareType, number : number) {
+			super(game, x, y, ColorHelper.toString(squareType.color), 0);
 			this.grid = grid;
 			this.gridPosition = position;
-			this.color = color;
-			this.power = power;
-			this.directions = directions;
+			this.squareType = squareType;
 			this.max = max;
 			this.number = number;
+			this.initialize();
+		}
 
+		private initialize() : void {
 			this.showNumber = false;    //určuje, zda se vypíše číslo či ne
 
 			this.inputEnabled = true;
@@ -41,11 +40,10 @@ module FloodTactics {
 			};
 
 			this.events.onInputDown.add(clicked, this);
-
 			this.anchor.setTo(0.5, 0.5);
 
 			if(this.showNumber) {
-				this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+				this.text = this.game.add.bitmapText(this.x, this.y, 'arial', String(this.number), 40);
 				this.text.anchor.setTo(0.5, 0.5);
 			}
 		}
@@ -61,27 +59,29 @@ module FloodTactics {
 		}
 
 		getNeighborPoints() : Phaser.Point[] {
+			console.log("neighbors:");
 			var neighbors : Phaser.Point[] = [];
-			for(var direction of this.directions) {
-				for(var i = 1; i <= this.power; i++) {
+			for(var direction of this.squareType.directions) {
+				for(var i = 1; i <= this.squareType.power; i++) {
 					var x = this.gridPosition.x + i * direction.x;
 					var y = this.gridPosition.y + i * direction.y;
 					if(x >= 0 && y >= 0 && x <= this.max.x && y <= this.max.y) {
 						neighbors.push(new Phaser.Point(x, y));
+						console.log("x: " + x + ", y: " + y);
 					}
 				}
 			}
 			return neighbors;
 		}
 
-		public setColor(color : Color) {
-			this.color = color;
-			this.key = ColorHelper.toString(color);
+		public setSquareType(squareType : SquareType) {
+			this.squareType = squareType;
+			this.key = ColorHelper.toString(squareType.color);
 			this.loadTexture(this.key);
 		}
 
-		public getColor() : Color {
-			return this.color;
+		public getSquareType() : SquareType {
+			return this.squareType;
 		}
 
 		public getNumber() : number {
@@ -100,16 +100,21 @@ module FloodTactics {
 		//v budoucnu na natahování z jsonu
 		deserialize(data) {
 			this.number = data.number;
-			this.setColor(data.color);
+			this.setSquareType(data.squareType);
 		}
 
 		//v budoucnu na ukládání do jsonu
 		serialize() {
 			var data : any = {};
 			data.number = this.number;
-			data.color = this.color;
+			data.squareType = this.squareType;
 			return data;
 		}
+
+		getColor() : Color {
+			return this.squareType.color;
+		}
+
 	}
 
 }

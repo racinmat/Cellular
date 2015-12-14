@@ -12,7 +12,7 @@ var FloodTactics;
                     var sameColorNeighborsCount = 0;
                     for (var _c = 0, _d = grid.getNeighbors(square); _c < _d.length; _c++) {
                         var neighbor = _d[_c];
-                        if (neighbor.getColor() == square.getColor()) {
+                        if (neighbor.getSquareType() == square.getSquareType()) {
                             sameColorNeighborsCount++;
                         }
                     }

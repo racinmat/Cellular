@@ -11,7 +11,7 @@ module FloodTactics {
         checkWin(grid : Grid) : boolean {
             for(var row of grid.getSquares()) {
                 for(var square of row) {
-                    if(square.getColor() != this.color) {
+                    if(square.getSquareType() != this.color) {
                         return false;
                     }
                 }

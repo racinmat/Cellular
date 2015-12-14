@@ -31,22 +31,50 @@ module FloodTactics {
             //this.colorRules.set(Color.Yellow, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //konec dat pro level
 
-            var max : Phaser.Point = new Phaser.Point(this.rows - 1, this.columns - 1);
+
+	        //načítání typů čtverců
+
+	        //data pro čtverce, budou se načítat z jsonu
+	        var power : number = 1;
+
+	        var directDirections : Phaser.Point[] = [];
+	        directDirections[0] = new Phaser.Point(-1, 0);
+	        directDirections[1] = new Phaser.Point(1, 0);
+	        directDirections[2] = new Phaser.Point(0, -1);
+	        directDirections[3] = new Phaser.Point(0, 1);
+
+	        var diagonalDirections : Phaser.Point[] = [];
+	        diagonalDirections[0] = new Phaser.Point(-1, -1);
+	        diagonalDirections[1] = new Phaser.Point(1, -1);
+	        diagonalDirections[2] = new Phaser.Point(-1, 1);
+	        diagonalDirections[3] = new Phaser.Point(1, 1);
+	        //konec dat pro čtverce
+
+	        var redType : SquareType = new SquareType(Color.Red, power, directDirections);
+	        var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
+	        var brownType : SquareType = new SquareType(Color.Brown, power, diagonalDirections);
+	        var yellowType : SquareType = new SquareType(Color.Yellow, power, diagonalDirections);
+
+	        var types : SquareType[] = [];
+	        types.push(redType);
+	        types.push(brownType);
+	        types.push(blueType);
+	        types.push(yellowType);
+
+	        //konec načítání typů čtverců
+
+	        var number : number = 3;
+
+	        var max : Phaser.Point = new Phaser.Point(this.rows - 1, this.columns - 1);
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
 
-                    //data pro čtverce, budou se načítat z jsonu
-                    var power : number = 1;
-                    var directions : Phaser.Point[] = [];
-                    directions[0] = new Phaser.Point(-1, 0);
-                    directions[1] = new Phaser.Point(1, 0);
-                    directions[2] = new Phaser.Point(0, -1);
-                    directions[3] = new Phaser.Point(0, 1);
-					var number : number = 3;
-                    //konec dat pro čtverce
 
-                    this.squares[i][j] = new Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, ColorHelper.getRandom(), number);
+	                this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
+
+	                //každý čverec má stejné vlastnosti, ale náhodnou barvu
+	                //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
                     super.addChild(this.squares[i][j]);
                 }
             }
@@ -95,7 +123,7 @@ module FloodTactics {
             for (var neighbor of this.getNeighbors(square)) {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-	                neighbor.setColor(square.getColor());
+	                neighbor.setSquareType(square.getSquareType());
                 }
             }
         }
@@ -104,7 +132,7 @@ module FloodTactics {
 		    for (var neighbor of this.getNeighbors(square)) {
 			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-				    neighbor.setColor(square.getColor());
+				    neighbor.setSquareType(square.getSquareType());
 				    neighbor.flood();
 			    }
 		    }
@@ -122,6 +150,10 @@ module FloodTactics {
 		    }
 
 		    console.log("level restarted");
+	    }
+
+	    private createSquareFromType(x : number, y : number, max : Phaser.Point, squareType : SquareType, number : number) {
+		    return new Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
 	    }
 
     }

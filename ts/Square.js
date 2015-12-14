@@ -8,16 +8,17 @@ var FloodTactics;
 (function (FloodTactics) {
     var Square = (function (_super) {
         __extends(Square, _super);
-        function Square(game, x, y, grid, position, power, directions, max, color, number) {
-            var _this = this;
-            _super.call(this, game, x, y, FloodTactics.ColorHelper.toString(color), 0);
+        function Square(game, x, y, grid, position, max, squareType, number) {
+            _super.call(this, game, x, y, FloodTactics.ColorHelper.toString(squareType.color), 0);
             this.grid = grid;
             this.gridPosition = position;
-            this.color = color;
-            this.power = power;
-            this.directions = directions;
+            this.squareType = squareType;
             this.max = max;
             this.number = number;
+            this.initialize();
+        }
+        Square.prototype.initialize = function () {
+            var _this = this;
             this.showNumber = false; //určuje, zda se vypíše číslo či ne
             this.inputEnabled = true;
             this.game.add.existing(this);
@@ -35,10 +36,10 @@ var FloodTactics;
             this.events.onInputDown.add(clicked, this);
             this.anchor.setTo(0.5, 0.5);
             if (this.showNumber) {
-                this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+                this.text = this.game.add.bitmapText(this.x, this.y, 'arial', String(this.number), 40);
                 this.text.anchor.setTo(0.5, 0.5);
             }
-        }
+        };
         Square.prototype.flood = function () {
             this.decrementNumber();
             this.grid.flood(this);
@@ -48,26 +49,28 @@ var FloodTactics;
             this.grid.expand(this);
         };
         Square.prototype.getNeighborPoints = function () {
+            console.log("neighbors:");
             var neighbors = [];
-            for (var _i = 0, _a = this.directions; _i < _a.length; _i++) {
+            for (var _i = 0, _a = this.squareType.directions; _i < _a.length; _i++) {
                 var direction = _a[_i];
-                for (var i = 1; i <= this.power; i++) {
+                for (var i = 1; i <= this.squareType.power; i++) {
                     var x = this.gridPosition.x + i * direction.x;
                     var y = this.gridPosition.y + i * direction.y;
                     if (x >= 0 && y >= 0 && x <= this.max.x && y <= this.max.y) {
                         neighbors.push(new Phaser.Point(x, y));
+                        console.log("x: " + x + ", y: " + y);
                     }
                 }
             }
             return neighbors;
         };
-        Square.prototype.setColor = function (color) {
-            this.color = color;
-            this.key = FloodTactics.ColorHelper.toString(color);
+        Square.prototype.setSquareType = function (squareType) {
+            this.squareType = squareType;
+            this.key = FloodTactics.ColorHelper.toString(squareType.color);
             this.loadTexture(this.key);
         };
-        Square.prototype.getColor = function () {
-            return this.color;
+        Square.prototype.getSquareType = function () {
+            return this.squareType;
         };
         Square.prototype.getNumber = function () {
             return this.number;
@@ -83,14 +86,17 @@ var FloodTactics;
         //v budoucnu na natahování z jsonu
         Square.prototype.deserialize = function (data) {
             this.number = data.number;
-            this.setColor(data.color);
+            this.setSquareType(data.squareType);
         };
         //v budoucnu na ukládání do jsonu
         Square.prototype.serialize = function () {
             var data = {};
             data.number = this.number;
-            data.color = this.color;
+            data.squareType = this.squareType;
             return data;
+        };
+        Square.prototype.getColor = function () {
+            return this.squareType.color;
         };
         return Square;
     })(Phaser.Sprite);

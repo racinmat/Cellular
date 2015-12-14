@@ -27,20 +27,38 @@ var FloodTactics;
             //this.colorRules.set(Color.Red, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Yellow, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //konec dat pro level
+            //načítání typů čtverců
+            //data pro čtverce, budou se načítat z jsonu
+            var power = 1;
+            var directDirections = [];
+            directDirections[0] = new Phaser.Point(-1, 0);
+            directDirections[1] = new Phaser.Point(1, 0);
+            directDirections[2] = new Phaser.Point(0, -1);
+            directDirections[3] = new Phaser.Point(0, 1);
+            var diagonalDirections = [];
+            diagonalDirections[0] = new Phaser.Point(-1, -1);
+            diagonalDirections[1] = new Phaser.Point(1, -1);
+            diagonalDirections[2] = new Phaser.Point(-1, 1);
+            diagonalDirections[3] = new Phaser.Point(1, 1);
+            //konec dat pro čtverce
+            var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
+            var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
+            var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, diagonalDirections);
+            var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, diagonalDirections);
+            var types = [];
+            types.push(redType);
+            types.push(brownType);
+            types.push(blueType);
+            types.push(yellowType);
+            //konec načítání typů čtverců
+            var number = 3;
             var max = new Phaser.Point(this.rows - 1, this.columns - 1);
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
-                    //data pro čtverce, budou se načítat z jsonu
-                    var power = 1;
-                    var directions = [];
-                    directions[0] = new Phaser.Point(-1, 0);
-                    directions[1] = new Phaser.Point(1, 0);
-                    directions[2] = new Phaser.Point(0, -1);
-                    directions[3] = new Phaser.Point(0, 1);
-                    var number = 3;
-                    //konec dat pro čtverce
-                    this.squares[i][j] = new FloodTactics.Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, FloodTactics.ColorHelper.getRandom(), number);
+                    this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
+                    //každý čverec má stejné vlastnosti, ale náhodnou barvu
+                    //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
                     _super.prototype.addChild.call(this, this.squares[i][j]);
                 }
             }
@@ -87,7 +105,7 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-                    neighbor.setColor(square.getColor());
+                    neighbor.setSquareType(square.getSquareType());
                 }
             }
         };
@@ -96,7 +114,7 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-                    neighbor.setColor(square.getColor());
+                    neighbor.setSquareType(square.getSquareType());
                     neighbor.flood();
                 }
             }
@@ -111,6 +129,9 @@ var FloodTactics;
                 }
             }
             console.log("level restarted");
+        };
+        Grid.prototype.createSquareFromType = function (x, y, max, squareType, number) {
+            return new FloodTactics.Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
         };
         return Grid;
     })(Phaser.Sprite);
