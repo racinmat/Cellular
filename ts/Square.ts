@@ -96,6 +96,20 @@ module FloodTactics {
 				}
 			}
 		}
+
+		//v budoucnu na natahování z jsonu
+		deserialize(data) {
+			this.number = data.number;
+			this.setColor(data.color);
+		}
+
+		//v budoucnu na ukládání do jsonu
+		serialize() {
+			var data : any = {};
+			data.number = this.number;
+			data.color = this.color;
+			return data;
+		}
 	}
 
 }

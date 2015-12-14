@@ -1,11 +1,11 @@
 /// <reference path="references.ts"/>
-/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.es6.d.ts"/>
 
 module FloodTactics {
 
     export class Grid extends Phaser.Sprite {
 
         private squares : Square[][];
+	    private initialSquares : any[][];
         private rows : number;
         private columns : number;
         private colorRules : Map<Color, Color[]>;
@@ -68,6 +68,15 @@ module FloodTactics {
 				}
 				i++;
 			});
+
+	        //kopírování čverců
+	        this.initialSquares = [];
+	        for (var i = 0; i < this.rows; i++) {
+		        this.initialSquares[i] = [];
+		        for (var j = 0; j < this.columns; j++) {
+			        this.initialSquares[i][j] = this.squares[i][j].serialize();
+		        }
+	        }
         }
 
         public getSquare(point : Phaser.Point) : Square {
@@ -104,6 +113,16 @@ module FloodTactics {
         public getSquares() : Square[][] {
             return this.squares;
         }
+
+	    public restartLevel() {
+		    for (var i = 0; i < this.rows; i++) {
+			    for (var j = 0; j < this.columns; j++) {
+				    this.squares[i][j].deserialize(this.initialSquares[i][j]);
+			    }
+		    }
+
+		    console.log("level restarted");
+	    }
 
     }
 

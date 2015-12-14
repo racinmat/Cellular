@@ -17,6 +17,14 @@ module FloodTactics {
             this.tween = null;
             var text = this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
 	        text.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+
+
+	        var button = this.game.add.button(180, 480, 'button', () => {this.grid.restartLevel();}, this);
+	        button.scale.set(0.2);
+	        button.anchor.set(0.5);
+	        var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
+	        var buttonText = this.game.add.text(180, 480, "reset level", style);
+	        buttonText.anchor.set(0.5);
         }
 
         update() {
@@ -33,8 +41,8 @@ module FloodTactics {
 
                 }
             }
-
         }
+
     }
 
 }

@@ -80,6 +80,18 @@ var FloodTactics;
                 }
             }
         };
+        //v budoucnu na natahování z jsonu
+        Square.prototype.deserialize = function (data) {
+            this.number = data.number;
+            this.setColor(data.color);
+        };
+        //v budoucnu na ukládání do jsonu
+        Square.prototype.serialize = function () {
+            var data = {};
+            data.number = this.number;
+            data.color = this.color;
+            return data;
+        };
         return Square;
     })(Phaser.Sprite);
     FloodTactics.Square = Square;

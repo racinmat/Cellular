@@ -12,6 +12,7 @@ var FloodTactics;
             _super.apply(this, arguments);
         }
         Level.prototype.create = function () {
+            var _this = this;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
             this.grid = new FloodTactics.Grid(this.game, 0, 0);
             //zde se nastavuje vítězná podmínka
@@ -20,6 +21,12 @@ var FloodTactics;
             this.tween = null;
             var text = this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
             text.maxWidth = 700; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+            var button = this.game.add.button(180, 480, 'button', function () { _this.grid.restartLevel(); }, this);
+            button.scale.set(0.2);
+            button.anchor.set(0.5);
+            var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
+            var buttonText = this.game.add.text(180, 480, "reset level", style);
+            buttonText.anchor.set(0.5);
         };
         Level.prototype.update = function () {
             var _this = this;

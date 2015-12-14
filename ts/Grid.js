@@ -1,5 +1,4 @@
 /// <reference path="references.ts"/>
-/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.es6.d.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -63,6 +62,14 @@ var FloodTactics;
                 }
                 i++;
             });
+            //kopírování čverců
+            this.initialSquares = [];
+            for (var i = 0; i < this.rows; i++) {
+                this.initialSquares[i] = [];
+                for (var j = 0; j < this.columns; j++) {
+                    this.initialSquares[i][j] = this.squares[i][j].serialize();
+                }
+            }
         }
         Grid.prototype.getSquare = function (point) {
             return this.squares[point.x][point.y];
@@ -96,6 +103,14 @@ var FloodTactics;
         };
         Grid.prototype.getSquares = function () {
             return this.squares;
+        };
+        Grid.prototype.restartLevel = function () {
+            for (var i = 0; i < this.rows; i++) {
+                for (var j = 0; j < this.columns; j++) {
+                    this.squares[i][j].deserialize(this.initialSquares[i][j]);
+                }
+            }
+            console.log("level restarted");
         };
         return Grid;
     })(Phaser.Sprite);

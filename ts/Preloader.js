@@ -19,6 +19,7 @@ var FloodTactics;
             this.load.image('red', 'images/red.png');
             this.load.image('blue', 'images/blue.png');
             this.load.image('levelCompleted', 'images/level_completed.jpg');
+            this.load.image('button', 'images/button.jpg');
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
         };
         Preloader.prototype.create = function () {
