@@ -10,7 +10,7 @@ var FloodTactics;
                 var row = _a[_i];
                 for (var _b = 0; _b < row.length; _b++) {
                     var square = row[_b];
-                    if (square.getSquareType() != this.color) {
+                    if (square.getColor() != this.color) {
                         return false;
                     }
                 }

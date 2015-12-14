@@ -58,7 +58,6 @@ var FloodTactics;
                     var y = this.gridPosition.y + i * direction.y;
                     if (x >= 0 && y >= 0 && x <= this.max.x && y <= this.max.y) {
                         neighbors.push(new Phaser.Point(x, y));
-                        console.log("x: " + x + ", y: " + y);
                     }
                 }
             }

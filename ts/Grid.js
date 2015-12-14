@@ -43,8 +43,10 @@ var FloodTactics;
             //konec dat pro čtverce
             var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
             var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
-            var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, diagonalDirections);
-            var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, diagonalDirections);
+            var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
+            var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
+            //var brownType : SquareType = new SquareType(Color.Brown, power, diagonalDirections);
+            //var yellowType : SquareType = new SquareType(Color.Yellow, power, diagonalDirections);
             var types = [];
             types.push(redType);
             types.push(brownType);

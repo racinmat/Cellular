@@ -52,8 +52,10 @@ module FloodTactics {
 
 	        var redType : SquareType = new SquareType(Color.Red, power, directDirections);
 	        var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
-	        var brownType : SquareType = new SquareType(Color.Brown, power, diagonalDirections);
-	        var yellowType : SquareType = new SquareType(Color.Yellow, power, diagonalDirections);
+	        var brownType : SquareType = new SquareType(Color.Brown, power, directDirections);
+	        var yellowType : SquareType = new SquareType(Color.Yellow, power, directDirections);
+	        //var brownType : SquareType = new SquareType(Color.Brown, power, diagonalDirections);
+	        //var yellowType : SquareType = new SquareType(Color.Yellow, power, diagonalDirections);
 
 	        var types : SquareType[] = [];
 	        types.push(redType);
