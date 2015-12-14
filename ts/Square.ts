@@ -12,7 +12,7 @@ module FloodTactics {
         max : Phaser.Point;
 
         constructor(game: Phaser.Game, x: number, y: number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color) {
-            super(game, x, y, ColorHelper.getImage(color), 0);
+            super(game, x, y, ColorHelper.toString(color), 0);
             this.game.add.existing(this);
             this.grid = grid;
             this.gridPosition = position;
@@ -45,7 +45,7 @@ module FloodTactics {
 
         public setColor(color: Color) {
             this.color = color;
-            this.key = ColorHelper.getImage(color);
+            this.key = ColorHelper.toString(color);
             this.loadTexture(this.key);
         }
 

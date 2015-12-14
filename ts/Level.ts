@@ -9,9 +9,10 @@ module FloodTactics {
         tween : Phaser.Tween;
 
         create() {
-            this.grid = new Grid(this.game, 0, 0);
             this.winChecker = new OneColorWinChecker(Color.Blue);
+            this.grid = new Grid(this.game, 0, 0);
             this.tween = null;
+            this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
         }
 
         update() {

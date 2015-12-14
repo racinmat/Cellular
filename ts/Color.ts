@@ -6,7 +6,7 @@ module FloodTactics {
 
     export class ColorHelper {
 
-        static getImage(color : Color) : string {
+        static toString(color : Color) : string {
             switch (color) {
                 case Color.Blue: return "blue";
                 case Color.Yellow: return "yellow";
