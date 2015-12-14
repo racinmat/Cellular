@@ -1,6 +1,6 @@
 <?php include("header.php"); ?>
     <div class="jumbotron">
-        <h1>Minimalistic javasctipt RTS</h1>
+        <h1>Javasctipt puzzle game</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <p><a class="btn btn-lg btn-success" href="game.php" role="button">Play</a></p>
     </div>

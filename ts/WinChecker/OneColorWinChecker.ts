@@ -22,6 +22,7 @@ module FloodTactics {
         getDescription() : string {
             return "All squares in grid must be in " + ColorHelper.toString(this.color) + " color.";
         }
+
     }
 
 }
