@@ -13,8 +13,7 @@ module FloodTactics {
         constructor(game: Phaser.Game, x: number, y: number) {
             super(game, x, y, 'background', 0);
 			this.tint = 0x000000;
-
-            this.game.add.existing(this);
+	        this.game.add.existing(this);
             this.squares = [];
 
             //data pro level
@@ -22,10 +21,14 @@ module FloodTactics {
             this.columns = 6;
 
             this.colorRules = new Map<Color, Color[]>();
-            this.colorRules.set(Color.Blue, [Color.Brown]);
-            this.colorRules.set(Color.Brown, [Color.Red]);
-            this.colorRules.set(Color.Red, [Color.Yellow]);
-            this.colorRules.set(Color.Yellow, [Color.Blue]);
+	        this.colorRules.set(Color.Blue, [Color.Brown]);
+	        this.colorRules.set(Color.Brown, [Color.Red]);
+	        this.colorRules.set(Color.Red, [Color.Yellow]);
+	        this.colorRules.set(Color.Yellow, [Color.Blue]);
+            //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Brown, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Red, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Yellow, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //konec dat pro level
 
             var max : Phaser.Point = new Phaser.Point(this.rows - 1, this.columns - 1);
@@ -40,7 +43,7 @@ module FloodTactics {
                     directions[1] = new Phaser.Point(1, 0);
                     directions[2] = new Phaser.Point(0, -1);
                     directions[3] = new Phaser.Point(0, 1);
-					var number : number = 2;
+					var number : number = 3;
                     //konec dat pro čtverce
 
                     this.squares[i][j] = new Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, ColorHelper.getRandom(), number);
@@ -52,13 +55,15 @@ module FloodTactics {
 			var i = 0;
 			this.colorRules.forEach((values : Color[], key : Color) => {
 				var square = this.game.add.sprite(500, 80 + 80 * i, ColorHelper.toString(key));
-				square.anchor.setTo(0.5, 0.5);
-				var text = this.game.add.bitmapText(560, 80 + 80 * i, 'arial', ">", 60);
+				square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
+				square.scale.set(0.5);
+				var text = this.game.add.bitmapText(530, 80 + 80 * i, 'arial', ">", 30);
 				text.anchor.setTo(0.5, 0.5);
 				var j = 0;
 				for(var color2 of values) {
-					var square = this.game.add.sprite(620 + 80 * j, 80 + 80 * i, ColorHelper.toString(color2));
+					var square = this.game.add.sprite(560 + 40 * j, 80 + 80 * i, ColorHelper.toString(color2));
 					square.anchor.setTo(0.5, 0.5);
+					square.scale.set(0.5);
 					j++;
 				}
 				i++;

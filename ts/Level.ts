@@ -11,8 +11,8 @@ module FloodTactics {
         create() {
             this.grid = new Grid(this.game, 0, 0);
 	        //zde se nastavuje vítězná podmínka
-	        //this.winChecker = new OneColorWinChecker(Color.Blue);
-	        this.winChecker = new CountNeighborsWinChecker();
+	        this.winChecker = new OneColorWinChecker(Color.Blue);
+	        //this.winChecker = new CountNeighborsWinChecker();
             this.tween = null;
             var text = this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
 	        text.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý

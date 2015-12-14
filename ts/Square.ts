@@ -12,6 +12,7 @@ module FloodTactics {
 		private max : Phaser.Point;
 		private number : number;
 		private text : Phaser.BitmapText;
+		private showNumber : bool;
 
 		constructor(game : Phaser.Game, x : number, y : number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color, number : number) {
 			super(game, x, y, ColorHelper.toString(color), 0);
@@ -22,6 +23,8 @@ module FloodTactics {
 			this.directions = directions;
 			this.max = max;
 			this.number = number;
+
+			this.showNumber = false;    //určuje, zda se vypíše číslo či ne
 
 			this.inputEnabled = true;
 			this.game.add.existing(this);
@@ -34,8 +37,10 @@ module FloodTactics {
 
 			this.anchor.setTo(0.5, 0.5);
 
-			this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
-			this.text.anchor.setTo(0.5, 0.5);
+			if(this.showNumber) {
+				this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+				this.text.anchor.setTo(0.5, 0.5);
+			}
 		}
 
 		getNeighborPoints() : Phaser.Point[] {
@@ -69,7 +74,9 @@ module FloodTactics {
 		public decrementNumber() {
 			if(this.number > 0) {
 				this.number--;
-				this.text.setText(String(this.number));
+				if(this.showNumber) {
+					this.text.setText(String(this.number));
+				}
 			}
 		}
 	}

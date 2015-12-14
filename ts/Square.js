@@ -18,6 +18,7 @@ var FloodTactics;
             this.directions = directions;
             this.max = max;
             this.number = number;
+            this.showNumber = false; //určuje, zda se vypíše číslo či ne
             this.inputEnabled = true;
             this.game.add.existing(this);
             var expand = function (square) {
@@ -26,8 +27,10 @@ var FloodTactics;
             };
             this.events.onInputDown.add(expand, this);
             this.anchor.setTo(0.5, 0.5);
-            this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
-            this.text.anchor.setTo(0.5, 0.5);
+            if (this.showNumber) {
+                this.text = this.game.add.bitmapText(x, y, 'arial', String(number), 40);
+                this.text.anchor.setTo(0.5, 0.5);
+            }
         }
         Square.prototype.getNeighborPoints = function () {
             var neighbors = [];
@@ -57,7 +60,9 @@ var FloodTactics;
         Square.prototype.decrementNumber = function () {
             if (this.number > 0) {
                 this.number--;
-                this.text.setText(String(this.number));
+                if (this.showNumber) {
+                    this.text.setText(String(this.number));
+                }
             }
         };
         return Square;

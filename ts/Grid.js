@@ -23,6 +23,10 @@ var FloodTactics;
             this.colorRules.set(FloodTactics.Color.Brown, [FloodTactics.Color.Red]);
             this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Yellow]);
             this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Blue]);
+            //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Brown, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Red, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
+            //this.colorRules.set(Color.Yellow, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //konec dat pro level
             var max = new Phaser.Point(this.rows - 1, this.columns - 1);
             for (var i = 0; i < this.rows; i++) {
@@ -35,7 +39,7 @@ var FloodTactics;
                     directions[1] = new Phaser.Point(1, 0);
                     directions[2] = new Phaser.Point(0, -1);
                     directions[3] = new Phaser.Point(0, 1);
-                    var number = 2;
+                    var number = 3;
                     //konec dat pro čtverce
                     this.squares[i][j] = new FloodTactics.Square(this.game, 42 + 64 * i, 42 + 64 * j, this, new Phaser.Point(i, j), power, directions, max, FloodTactics.ColorHelper.getRandom(), number);
                     _super.prototype.addChild.call(this, this.squares[i][j]);
@@ -45,14 +49,16 @@ var FloodTactics;
             var i = 0;
             this.colorRules.forEach(function (values, key) {
                 var square = _this.game.add.sprite(500, 80 + 80 * i, FloodTactics.ColorHelper.toString(key));
-                square.anchor.setTo(0.5, 0.5);
-                var text = _this.game.add.bitmapText(560, 80 + 80 * i, 'arial', ">", 60);
+                square.anchor.setTo(0.5, 0.5); //posunu, aby souřadnice určovaly střed a ne okraj spritu
+                square.scale.set(0.5);
+                var text = _this.game.add.bitmapText(530, 80 + 80 * i, 'arial', ">", 30);
                 text.anchor.setTo(0.5, 0.5);
                 var j = 0;
                 for (var _i = 0; _i < values.length; _i++) {
                     var color2 = values[_i];
-                    var square = _this.game.add.sprite(620 + 80 * j, 80 + 80 * i, FloodTactics.ColorHelper.toString(color2));
+                    var square = _this.game.add.sprite(560 + 40 * j, 80 + 80 * i, FloodTactics.ColorHelper.toString(color2));
                     square.anchor.setTo(0.5, 0.5);
+                    square.scale.set(0.5);
                     j++;
                 }
                 i++;
