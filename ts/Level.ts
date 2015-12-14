@@ -4,9 +4,9 @@ module FloodTactics {
 
     export class Level extends Phaser.State {
 
-        grid : Grid;
-        winChecker : IWinChecker;
-        tween : Phaser.Tween;
+        private grid : Grid;
+        private winChecker : IWinChecker;
+        private tween : Phaser.Tween;
 
         create() {
             this.winChecker = new OneColorWinChecker(Color.Blue);

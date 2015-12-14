@@ -4,12 +4,13 @@ module FloodTactics {
 
     export class Square extends Phaser.Sprite {
 
-        grid : Grid;
-        gridPosition : Phaser.Point;
+        private grid : Grid;
+        private gridPosition : Phaser.Point;
         private color : Color;
         private power : number;
         private directions : Phaser.Point[];
-        max : Phaser.Point;
+        private max : Phaser.Point;
+		private number;
 
         constructor(game: Phaser.Game, x: number, y: number, grid : Grid, position : Phaser.Point, power : number, directions : Phaser.Point[], max : Phaser.Point, color : Color) {
             super(game, x, y, ColorHelper.toString(color), 0);
