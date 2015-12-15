@@ -18,10 +18,18 @@ var FloodTactics;
             this.rows = 6;
             this.columns = 6;
             this.colorRules = new Map();
-            this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown]);
-            this.colorRules.set(FloodTactics.Color.Brown, [FloodTactics.Color.Red]);
-            this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Yellow]);
-            this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Blue]);
+            // 4 barvy, každá barva pořáží jednu jinou, cyklus
+            //this.colorRules.set(Color.Blue, [Color.Brown]);
+            //this.colorRules.set(Color.Brown, [Color.Red]);
+            //this.colorRules.set(Color.Red, [Color.Yellow]);
+            //this.colorRules.set(Color.Yellow, [Color.Blue]);
+            //5 barev, každá barva poráží 2 jiné
+            this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown, FloodTactics.Color.Red]);
+            this.colorRules.set(FloodTactics.Color.Brown, [FloodTactics.Color.Red, FloodTactics.Color.Yellow]);
+            this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Yellow, FloodTactics.Color.Green]);
+            this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Green, FloodTactics.Color.Blue]);
+            this.colorRules.set(FloodTactics.Color.Green, [FloodTactics.Color.Blue, FloodTactics.Color.Brown]);
+            //4 barvy, každá barva poráží všechny ostatní
             //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Brown, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Red, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
@@ -35,25 +43,25 @@ var FloodTactics;
             directDirections[1] = new Phaser.Point(1, 0);
             directDirections[2] = new Phaser.Point(0, -1);
             directDirections[3] = new Phaser.Point(0, 1);
-            var diagonalDirections = [];
-            diagonalDirections[0] = new Phaser.Point(-1, -1);
-            diagonalDirections[1] = new Phaser.Point(1, -1);
-            diagonalDirections[2] = new Phaser.Point(-1, 1);
-            diagonalDirections[3] = new Phaser.Point(1, 1);
-            //konec dat pro čtverce
+            //var diagonalDirections : Phaser.Point[] = [];
+            //diagonalDirections[0] = new Phaser.Point(-1, -1);
+            //diagonalDirections[1] = new Phaser.Point(1, -1);
+            //diagonalDirections[2] = new Phaser.Point(-1, 1);
+            //diagonalDirections[3] = new Phaser.Point(1, 1);
             var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
             var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
             var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
             var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
-            //var brownType : SquareType = new SquareType(Color.Brown, power, diagonalDirections);
-            //var yellowType : SquareType = new SquareType(Color.Yellow, power, diagonalDirections);
+            var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
             var types = [];
             types.push(redType);
             types.push(brownType);
             types.push(blueType);
             types.push(yellowType);
+            types.push(greenType);
             //konec načítání typů čtverců
             var number = 3;
+            //konec dat pro čtverce
             var max = new Phaser.Point(this.rows - 1, this.columns - 1);
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
@@ -67,15 +75,15 @@ var FloodTactics;
             //vykreslení pravidel pro přebarvování
             var i = 0;
             this.colorRules.forEach(function (values, key) {
-                var square = _this.game.add.sprite(500, 80 + 80 * i, FloodTactics.ColorHelper.toString(key));
+                var square = _this.game.add.sprite(500, 80 + 60 * i, FloodTactics.ColorHelper.toString(key));
                 square.anchor.setTo(0.5, 0.5); //posunu, aby souřadnice určovaly střed a ne okraj spritu
                 square.scale.set(0.5);
-                var text = _this.game.add.bitmapText(530, 80 + 80 * i, 'arial', ">", 30);
+                var text = _this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
                 text.anchor.setTo(0.5, 0.5);
                 var j = 0;
                 for (var _i = 0; _i < values.length; _i++) {
                     var color2 = values[_i];
-                    var square = _this.game.add.sprite(560 + 40 * j, 80 + 80 * i, FloodTactics.ColorHelper.toString(color2));
+                    var square = _this.game.add.sprite(560 + 40 * j, 80 + 60 * i, FloodTactics.ColorHelper.toString(color2));
                     square.anchor.setTo(0.5, 0.5);
                     square.scale.set(0.5);
                     j++;

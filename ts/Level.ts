@@ -18,7 +18,6 @@ module FloodTactics {
             var text = this.game.add.bitmapText(30, 400, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
 	        text.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
-
 	        var button = this.game.add.button(180, 480, 'button', () => {this.grid.restartLevel();}, this);
 	        button.scale.set(0.2);
 	        button.anchor.set(0.5);
