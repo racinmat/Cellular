@@ -29,13 +29,31 @@ module FloodTactics {
 			this.game.add.existing(this);
 
 			var clicked = (square : Square) => {
-				//menší hack?, abych rozlišil, jakým tlačítkem se kliknulo
-				var leftButton : Phaser.DeviceButton = this.game.input.activePointer.leftButton;    //nechápu proč, ale i když je v typescriptu napsáno, že to vrací boolean, tak to ve skutečnosti vrací objekt Phaser.DeviceButton
-				var rightButton : Phaser.DeviceButton = this.game.input.activePointer.rightButton;
-				if(leftButton.isDown) {
+				var expand : boolean;
+				var flood : boolean;
+
+				if(this.game.device.desktop) {
+					//menší hack?, abych rozlišil, jakým tlačítkem se kliknulo
+					var leftButton : Phaser.DeviceButton = this.game.input.activePointer.leftButton;    //nechápu proč, ale i když je v typescriptu napsáno, že to vrací boolean, tak to ve skutečnosti vrací objekt Phaser.DeviceButton
+					var rightButton : Phaser.DeviceButton = this.game.input.activePointer.rightButton;
+					if(leftButton.isDown) {
+						expand = true;
+					} else if(rightButton.isDown) {
+						flood = true;
+					}
+				} else {
+					//mobilní zařízení mají zatím pouze expand, nemají flood
+					expand = true;
+				}
+
+				if(expand) {
 					square.expand();
-				} else if(rightButton.isDown) {
+					return;
+				}
+
+				if(flood) {
 					square.flood();
+					return;
 				}
 			};
 
