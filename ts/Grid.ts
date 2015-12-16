@@ -111,13 +111,7 @@ module FloodTactics {
 			});
 
 	        //kopírování čverců
-	        this.initialSquares = [];
-	        for (var i = 0; i < this.rows; i++) {
-		        this.initialSquares[i] = [];
-		        for (var j = 0; j < this.columns; j++) {
-			        this.initialSquares[i][j] = this.squares[i][j].serialize();
-		        }
-	        }
+	        this.initialSquares = this.squaresToData();
         }
 
         public getSquare(point : Phaser.Point) : Square {
@@ -156,12 +150,7 @@ module FloodTactics {
         }
 
 	    public restartLevel() {
-		    for (var i = 0; i < this.rows; i++) {
-			    for (var j = 0; j < this.columns; j++) {
-				    this.squares[i][j].deserialize(this.initialSquares[i][j]);
-			    }
-		    }
-
+			this.squaresFromData(this.initialSquares);
 		    console.log("level restarted");
 	    }
 
@@ -169,6 +158,48 @@ module FloodTactics {
 		    return new Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
 	    }
 
-    }
+	    serialize() : any {
+			var data : any = {};
+		    data.rows = this.rows;
+		    data.columns = this.columns;
+		    data.colorRules = this.colorRules;
+		    data.squares = this.squaresToData();
+		    return data;
+	    }
+
+	    deserialize(data : any) {
+		    this.rows = data.rows;
+		    this.columns = data.columns;
+		    this.colorRules = data.colorRules;
+		    this.squaresFromData(data.squares);
+	    }
+
+	    toJson() : string {
+			return JSON.stringify(this.serialize(), null, 4);
+	    }
+
+	    fromJson(json : string) {
+			this.deserialize(JSON.parse(json));
+	    }
+
+	    squaresToData() : any {
+		    var data = [];
+		    for (var i = 0; i < this.rows; i++) {
+			    data[i] = [];
+			    for (var j = 0; j < this.columns; j++) {
+				    data[i][j] = this.squares[i][j].serialize();
+			    }
+		    }
+		    return data;
+	    }
+
+	    squaresFromData(data : any) {
+		    for (var i = 0; i < this.rows; i++) {
+			    for (var j = 0; j < this.columns; j++) {
+				    this.squares[i][j].deserialize(data[i][j]);
+			    }
+		    }
+	    }
+     }
 
 }
