@@ -15,7 +15,9 @@ module FloodTactics {
 	        this.load.image('green', 'images/green.png');
             this.load.image('levelCompleted', 'images/level_completed.jpg');
 	        this.load.image('button', 'images/button.jpg');
+	        this.load.image('whiteBackground', 'images/whiteBackground.png');
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
+	        this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
         }
 
         create() {

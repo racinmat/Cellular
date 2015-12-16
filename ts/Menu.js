@@ -14,7 +14,7 @@ var FloodTactics;
         Menu.prototype.create = function () {
             var _this = this;
             //tutorial tlačítko
-            var button = this.game.add.button(400, 100, 'button', function () { _this.game.state.start('Level', true, false); }, this);
+            var button = this.game.add.button(400, 100, 'button', function () { _this.game.state.start('TutorialLevel', true, false); }, this);
             button.scale.set(0.3);
             button.anchor.set(0.5);
             var style = { font: "25px Arial", fill: "#ffffff", align: "center" };

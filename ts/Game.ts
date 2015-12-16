@@ -12,6 +12,7 @@ module FloodTactics {
             this.state.add('Preloader', Preloader, false);
 	        this.state.add('Menu', Menu, false);
             this.state.add('Level', Level, false);
+	        this.state.add('TutorialLevel', TutorialLevel, false);
 
             this.state.start('Boot');
         }
