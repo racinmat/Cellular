@@ -24,7 +24,7 @@ var FloodTactics;
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
         };
         Preloader.prototype.create = function () {
-            this.game.state.start('Level', true, false);
+            this.game.state.start('Menu', true, false);
         };
         return Preloader;
     })(Phaser.State);

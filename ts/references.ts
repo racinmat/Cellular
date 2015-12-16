@@ -7,6 +7,7 @@
 /// <reference path="Preloader.ts" />
 /// <reference path="Color.ts" />
 /// <reference path="SquareType.ts" />
+/// <reference path="Menu.ts" />
 
 /// <reference path="WinChecker/IWinChecker.ts" />
 /// <reference path="WinChecker/OneColorWinChecker.ts" />

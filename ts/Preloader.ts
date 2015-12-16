@@ -19,7 +19,7 @@ module FloodTactics {
         }
 
         create() {
-            this.game.state.start('Level', true, false);
+            this.game.state.start('Menu', true, false);
         }
 
     }
