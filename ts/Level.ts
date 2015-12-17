@@ -23,6 +23,7 @@ module FloodTactics {
 		    this.download(json);
 	    }
 
+		//na download jsonu s daty
 	    setFile( data, fileName, fileType ) {
 	        // Set objects for file generation.
 	        var blob, url, a;

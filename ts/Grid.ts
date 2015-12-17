@@ -9,6 +9,7 @@ module FloodTactics {
         private rows : number;
         private columns : number;
         private colorRules : Map<Color, Color[]>;
+		public rules : Phaser.Group;
 
         constructor(game: Phaser.Game, x: number, y: number) {
             super(game, x, y, 'background', 0);
@@ -93,6 +94,8 @@ module FloodTactics {
             }
 
 			//vykreslení pravidel pro přebarvování
+			this.rules = this.game.add.group();
+
 			var i = 0;
 			this.colorRules.forEach((values : Color[], key : Color) => {
 				var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
@@ -100,12 +103,18 @@ module FloodTactics {
 				square.scale.set(0.5);
 				var text = this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
 				text.anchor.setTo(0.5, 0.5);
+
+				this.rules.add(square);
+				this.rules.add(text);
+
 				var j = 0;
 				for(var color2 of values) {
 					var square = this.game.add.sprite(560 + 40 * j, 80 + 60 * i, ColorHelper.toString(color2));
 					square.anchor.setTo(0.5, 0.5);
 					square.scale.set(0.5);
 					j++;
+
+					this.rules.add(square);
 				}
 				i++;
 			});

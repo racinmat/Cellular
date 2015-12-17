@@ -28,6 +28,7 @@ var FloodTactics;
             var json = this.grid.toJson();
             this.download(json);
         };
+        //na download jsonu s daty
         Level.prototype.setFile = function (data, fileName, fileType) {
             // Set objects for file generation.
             var blob, url, a;
