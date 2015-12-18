@@ -180,6 +180,7 @@ module FloodTactics {
 		    this.rows = data.rows;
 		    this.columns = data.columns;
 		    this.colorRules = this.objectToMap(data.colorRules);
+			console.log(this.colorRules);
 		    this.squaresFromData(data.squares);
 	    }
 
@@ -201,10 +202,9 @@ module FloodTactics {
 
 		objectToMap(obj : any) : Map<Color, Color[]> {
 			console.log(obj);
-			console.log(Object.keys(obj));
 			var map = new Map<Color, Color[]>();
 			for (let k of Object.keys(obj)) {
-				map.set(k, obj[k]);
+				map.set(Number(k), obj[k]);
 			}
 			console.log(map);
 			return map;

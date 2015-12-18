@@ -149,6 +149,7 @@ var FloodTactics;
             this.rows = data.rows;
             this.columns = data.columns;
             this.colorRules = this.objectToMap(data.colorRules);
+            console.log(this.colorRules);
             this.squaresFromData(data.squares);
         };
         Grid.prototype.toJson = function () {
@@ -166,11 +167,10 @@ var FloodTactics;
         };
         Grid.prototype.objectToMap = function (obj) {
             console.log(obj);
-            console.log(Object.keys(obj));
             var map = new Map();
             for (var _i = 0, _a = Object.keys(obj); _i < _a.length; _i++) {
                 var k = _a[_i];
-                map.set(k, obj[k]);
+                map.set(Number(k), obj[k]);
             }
             console.log(map);
             return map;

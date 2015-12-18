@@ -98,8 +98,6 @@ var FloodTactics;
             button.addChild(buttonText);
             popup.addChild(button);
         };
-        TutorialLevel.prototype.demonstrateClick = function () {
-        };
         return TutorialLevel;
     })(FloodTactics.AbstractLevel);
     FloodTactics.TutorialLevel = TutorialLevel;

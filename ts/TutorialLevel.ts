@@ -106,10 +106,6 @@ module FloodTactics {
 		    popup.addChild(button);
 	    }
 
-		demonstrateClick() {
-
-		}
-
     }
 
 }
