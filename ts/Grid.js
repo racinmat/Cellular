@@ -141,14 +141,14 @@ var FloodTactics;
             var data = {};
             data.rows = this.rows;
             data.columns = this.columns;
-            data.colorRules = this.colorRules;
+            data.colorRules = this.mapToObject(this.colorRules);
             data.squares = this.squaresToData();
             return data;
         };
         Grid.prototype.deserialize = function (data) {
             this.rows = data.rows;
             this.columns = data.columns;
-            this.colorRules = data.colorRules;
+            this.colorRules = this.objectToMap(data.colorRules);
             this.squaresFromData(data.squares);
         };
         Grid.prototype.toJson = function () {
@@ -156,6 +156,24 @@ var FloodTactics;
         };
         Grid.prototype.fromJson = function (json) {
             this.deserialize(JSON.parse(json));
+        };
+        Grid.prototype.mapToObject = function (map) {
+            var obj = Object.create(null);
+            this.colorRules.forEach(function (values, key) {
+                obj[key] = values;
+            });
+            return obj;
+        };
+        Grid.prototype.objectToMap = function (obj) {
+            console.log(obj);
+            console.log(Object.keys(obj));
+            var map = new Map();
+            for (var _i = 0, _a = Object.keys(obj); _i < _a.length; _i++) {
+                var k = _a[_i];
+                map.set(k, obj[k]);
+            }
+            console.log(map);
+            return map;
         };
         Grid.prototype.squaresToData = function () {
             var data = [];

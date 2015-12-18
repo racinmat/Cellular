@@ -171,7 +171,7 @@ module FloodTactics {
 			var data : any = {};
 		    data.rows = this.rows;
 		    data.columns = this.columns;
-		    data.colorRules = this.colorRules;
+		    data.colorRules = this.mapToObject(this.colorRules);
 		    data.squares = this.squaresToData();
 		    return data;
 	    }
@@ -179,7 +179,7 @@ module FloodTactics {
 	    deserialize(data : any) {
 		    this.rows = data.rows;
 		    this.columns = data.columns;
-		    this.colorRules = data.colorRules;
+		    this.colorRules = this.objectToMap(data.colorRules);
 		    this.squaresFromData(data.squares);
 	    }
 
@@ -190,6 +190,25 @@ module FloodTactics {
 	    fromJson(json : string) {
 			this.deserialize(JSON.parse(json));
 	    }
+
+		mapToObject(map : Map<Color, Color[]>) : any {
+			let obj = Object.create(null);
+			this.colorRules.forEach((values : Color[], key : Color) => {
+				obj[key] = values;
+			});
+			return obj;
+		}
+
+		objectToMap(obj : any) : Map<Color, Color[]> {
+			console.log(obj);
+			console.log(Object.keys(obj));
+			var map = new Map<Color, Color[]>();
+			for (let k of Object.keys(obj)) {
+				map.set(k, obj[k]);
+			}
+			console.log(map);
+			return map;
+		}
 
 	    squaresToData() : any {
 		    var data = [];
