@@ -9,9 +9,16 @@ module FloodTactics {
         protected winningTween : Phaser.Tween;
 		protected winningDescription : Phaser.BitmapText;
 
+		//init se volá před createm
+		init(levelName : string) {
+			this.grid = new Grid(this.game, 0, 0);
+			if(levelName != undefined) {
+				this.grid.deserialize(games[levelName]);
+			}
+		}
+
         create() {
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
-            this.grid = new Grid(this.game, 0, 0);
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
 	        //this.winChecker = new CountNeighborsWinChecker();

@@ -13,7 +13,7 @@ var FloodTactics;
         }
         TutorialLevel.prototype.create = function () {
             _super.prototype.create.call(this);
-            this.grid.deserialize(games["tutorial.json"]); //proměnní, kterou jsem sem dal z PHPčka, které načetlo jsony
+            //this.grid.deserialize(games["tutorial.json"]);	//proměnní, kterou jsem sem dal z PHPčka, které načetlo jsony
             this.popupOne();
         };
         TutorialLevel.prototype.update = function () {

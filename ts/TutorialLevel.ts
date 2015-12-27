@@ -6,7 +6,7 @@ module FloodTactics {
 
         create() {
 	        super.create();
-			this.grid.deserialize(games["tutorial.json"]);	//proměnní, kterou jsem sem dal z PHPčka, které načetlo jsony
+			//this.grid.deserialize(games["tutorial.json"]);	//proměnní, kterou jsem sem dal z PHPčka, které načetlo jsony
 	        this.popupOne();
         }
 

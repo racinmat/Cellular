@@ -11,10 +11,16 @@ var FloodTactics;
         function AbstractLevel() {
             _super.apply(this, arguments);
         }
+        //init se volá před createm
+        AbstractLevel.prototype.init = function (levelName) {
+            this.grid = new FloodTactics.Grid(this.game, 0, 0);
+            if (levelName != undefined) {
+                this.grid.deserialize(games[levelName]);
+            }
+        };
         AbstractLevel.prototype.create = function () {
             var _this = this;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
-            this.grid = new FloodTactics.Grid(this.game, 0, 0);
             //zde se nastavuje vítězná podmínka
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             //this.winChecker = new CountNeighborsWinChecker();
