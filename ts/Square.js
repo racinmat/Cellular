@@ -113,6 +113,9 @@ var FloodTactics;
         Square.prototype.getColor = function () {
             return this.squareType.color;
         };
+        Square.prototype.getGridPosition = function () {
+            return this.gridPosition;
+        };
         return Square;
     })(Phaser.Sprite);
     FloodTactics.Square = Square;

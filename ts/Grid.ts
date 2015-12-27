@@ -10,12 +10,14 @@ module FloodTactics {
         private columns : number;
         private colorRules : Map<Color, Color[]>;
 		public rules : Phaser.Group;
+		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 
         constructor(game: Phaser.Game, x: number, y: number) {
             super(game, x, y, 'background', 0);
 			this.tint = 0x000000;
 	        this.game.add.existing(this);
             this.squares = [];
+			this.onClick = [];
 
             //data pro level
             this.rows = 6;
@@ -93,8 +95,6 @@ module FloodTactics {
             for (var i = 0; i < this.rows; i++) {
                 this.squares[i] = [];
                 for (var j = 0; j < this.columns; j++) {
-
-
 	                this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
 
 	                //každý čverec má stejné vlastnosti, ale náhodnou barvu
@@ -157,6 +157,7 @@ module FloodTactics {
 	                neighbor.setSquareType(square.getSquareType());
                 }
             }
+			this.processOnClick(square);
         }
 
 	    public flood(square : Square) : void {
@@ -167,7 +168,18 @@ module FloodTactics {
 				    neighbor.flood();
 			    }
 		    }
+			this.processOnClick(square);
 	    }
+
+		private processOnClick(square : Square) {
+			var newOnClick : {(square : Square): boolean;}[] = [];
+			for(var callback of this.onClick) {
+				if(!callback(square)) {
+				    newOnClick.push(callback);
+				}
+			}
+			this.onClick = newOnClick;
+		}
 
         public getSquares() : Square[][] {
             return this.squares;
@@ -197,14 +209,13 @@ module FloodTactics {
 		    this.colorRules = this.objectToMap(data.colorRules);
 			console.log(this.colorRules);
 		    this.squaresFromData(data.squares);
+
+			//kopírování čverců
+			this.initialSquares = this.squaresToData();
 	    }
 
 	    toJson() : string {
 			return JSON.stringify(this.serialize(), null, 4);
-	    }
-
-	    fromJson(json : string) {
-			this.deserialize(JSON.parse(json));
 	    }
 
 		mapToObject(map : Map<Color, Color[]>) : any {

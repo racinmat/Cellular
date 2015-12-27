@@ -14,6 +14,7 @@ var FloodTactics;
             this.tint = 0x000000;
             this.game.add.existing(this);
             this.squares = [];
+            this.onClick = [];
             //data pro level
             this.rows = 6;
             this.columns = 6;
@@ -129,6 +130,7 @@ var FloodTactics;
                     neighbor.setSquareType(square.getSquareType());
                 }
             }
+            this.processOnClick(square);
         };
         Grid.prototype.flood = function (square) {
             for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
@@ -139,6 +141,17 @@ var FloodTactics;
                     neighbor.flood();
                 }
             }
+            this.processOnClick(square);
+        };
+        Grid.prototype.processOnClick = function (square) {
+            var newOnClick = [];
+            for (var _i = 0, _a = this.onClick; _i < _a.length; _i++) {
+                var callback = _a[_i];
+                if (!callback(square)) {
+                    newOnClick.push(callback);
+                }
+            }
+            this.onClick = newOnClick;
         };
         Grid.prototype.getSquares = function () {
             return this.squares;
@@ -164,12 +177,11 @@ var FloodTactics;
             this.colorRules = this.objectToMap(data.colorRules);
             console.log(this.colorRules);
             this.squaresFromData(data.squares);
+            //kopírování čverců
+            this.initialSquares = this.squaresToData();
         };
         Grid.prototype.toJson = function () {
             return JSON.stringify(this.serialize(), null, 4);
-        };
-        Grid.prototype.fromJson = function (json) {
-            this.deserialize(JSON.parse(json));
         };
         Grid.prototype.mapToObject = function (map) {
             var obj = Object.create(null);

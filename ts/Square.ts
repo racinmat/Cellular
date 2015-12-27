@@ -132,6 +132,9 @@ module FloodTactics {
 			return this.squareType.color;
 		}
 
+		public getGridPosition() : Phaser.Point {
+			return this.gridPosition;
+		}
 	}
 
 }
