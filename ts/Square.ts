@@ -77,7 +77,6 @@ module FloodTactics {
 		}
 
 		getNeighborPoints() : Phaser.Point[] {
-			console.log("neighbors:");
 			var neighbors : Phaser.Point[] = [];
 			for(var direction of this.squareType.directions) {
 				for(var i = 1; i <= this.squareType.power; i++) {

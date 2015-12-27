@@ -65,7 +65,6 @@ var FloodTactics;
             this.grid.expand(this);
         };
         Square.prototype.getNeighborPoints = function () {
-            console.log("neighbors:");
             var neighbors = [];
             for (var _i = 0, _a = this.squareType.directions; _i < _a.length; _i++) {
                 var direction = _a[_i];

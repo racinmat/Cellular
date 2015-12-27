@@ -138,13 +138,42 @@ var FloodTactics;
             });
         };
         TutorialLevel.prototype.popupFive = function () {
+            var _this = this;
             var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
             popup.anchor.set(0.5);
-            var content = "Well done. Now you have only blue and yellow colors.\n" +
-                "But green and yellow squares are not changed.\n" +
-                "To get rid of green, look at the table of rules on the right.\n" +
+            var content = "Well done. Now you have only blue and yellow colors, and brown color in corner.\n" +
+                "To get rid of yellow all yellow squares, you have to flood brown or red color.\n" +
                 "Green can be flooded by red and yellow.\n" +
-                "Click any yellow square next to green one.";
+                "Click the brown square in corner.";
+            var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
+            text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+            text.anchor.set(0.5);
+            popup.addChild(text);
+            var button = this.game.add.button(0, 140, 'button', function () {
+                popup.destroy(true); //destroyChildren = true;
+            }, this);
+            button.scale.set(0.3);
+            button.anchor.set(0.5);
+            var style = { font: "30px Arial", fill: "#000000", align: "center" };
+            var buttonText = this.game.add.text(0, 0, "Next", style);
+            buttonText.scale.set(4);
+            buttonText.anchor.set(0.5);
+            button.addChild(buttonText);
+            popup.addChild(button);
+            this.grid.onClick.push(function (square) {
+                if (square.getColor() == FloodTactics.Color.Brown) {
+                    _this.popupSix();
+                    return true;
+                }
+                return false;
+            });
+        };
+        TutorialLevel.prototype.popupSix = function () {
+            var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
+            popup.anchor.set(0.5);
+            var content = "Well done. As you can see, brown floods over yellow and blue floods over brown.\n" +
+                "With these rules (visualized on the right) in mind, completing the level should be piece of cake.\n" +
+                "Level is completed, when all squares are blue (as written under the grid).";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
