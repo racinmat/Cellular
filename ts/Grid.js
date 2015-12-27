@@ -84,7 +84,11 @@ var FloodTactics;
             //vykreslení pravidel pro přebarvování
             this.rules = this.game.add.group();
             var i = 0;
+            var inactiveColors = this.getInactiveColors();
             this.colorRules.forEach(function (values, key) {
+                if (inactiveColors.indexOf(key) > -1) {
+                    return;
+                }
                 var square = _this.game.add.sprite(500, 80 + 60 * i, FloodTactics.ColorHelper.toString(key));
                 square.anchor.setTo(0.5, 0.5); //posunu, aby souřadnice určovaly střed a ne okraj spritu
                 square.scale.set(0.5);

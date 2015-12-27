@@ -107,7 +107,12 @@ module FloodTactics {
 			this.rules = this.game.add.group();
 
 			var i = 0;
+			var inactiveColors = this.getInactiveColors();
 			this.colorRules.forEach((values : Color[], key : Color) => {
+				if(inactiveColors.indexOf(key) > -1) {	//aby se nevykreslovala pravidla pro neaktivní čtverce
+				   return;
+				}
+
 				var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
 				square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
 				square.scale.set(0.5);

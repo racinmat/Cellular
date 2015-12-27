@@ -18,7 +18,7 @@ var FloodTactics;
             //zde se nastavuje vítězná podmínka
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             //this.winChecker = new CountNeighborsWinChecker();
-            this.tween = null;
+            this.winningTween = null;
             this.winningDescription = this.game.add.bitmapText(400, 420, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
             this.winningDescription.maxWidth = 700; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             this.winningDescription.anchor.set(0.5);
@@ -32,13 +32,13 @@ var FloodTactics;
         AbstractLevel.prototype.update = function () {
             var _this = this;
             if (this.winChecker.checkWin(this.grid)) {
-                if (this.tween === null) {
+                if (this.winningTween === null) {
                     var popup = this.game.add.sprite(400, 400, 'levelCompleted');
                     popup.anchor.setTo(0.5, 0.5);
                     popup.scale.set(0.2);
-                    this.tween = this.game.add.tween(popup.scale);
-                    this.tween.to({ x: 1, y: 1 }, 2000, Phaser.Easing.Elastic.Out, true);
-                    this.tween.onComplete.add(function () { _this.game.state.start('Level'); });
+                    this.winningTween = this.game.add.tween(popup.scale);
+                    this.winningTween.to({ x: 1, y: 1 }, 2000, Phaser.Easing.Elastic.Out, true);
+                    this.winningTween.onComplete.add(function () { _this.game.state.start('Level'); });
                 }
             }
         };
