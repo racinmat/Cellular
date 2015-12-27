@@ -15,26 +15,22 @@ module FloodTactics {
         }
 
 	    popupOne() {
-		    //var popup = this.game.add.sprite(400, 200, 'whiteBackground300x300');
-			var popup = this.game.add.sprite(400, 200, 'whiteBackground');
-		    popup.scale.setTo(1.5);
+		    var popup = this.game.add.sprite(400, 200, 'whiteBackground300x300');
 		    popup.anchor.set(0.5);
 
 		    var content : string = "Welcome to Flood Tactics.\n" +
 			    "In every level, goal is written below grid.\n" +
 			    "Now, goal is to change color of all squares to blue.";
-			var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 18);
-		    //var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
-		    text.maxWidth = 190;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+		    var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
+		    text.maxWidth = 285;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 			text.anchor.set(0.5);
 			popup.addChild(text);
 
-		    var button = this.game.add.button(0, 60, 'button', () => {
-		    //var button = this.game.add.button(0, 110, 'button', () => {
+		    var button = this.game.add.button(0, 90, 'button', () => {
 			    popup.destroy(true); //destroyChildren = true;
 			    this.popupTwo();
 		    }, this);
-		    button.scale.set(0.2);
+		    button.scale.set(0.3);
 		    button.anchor.set(0.5);
 		    var style = { font: "30px Arial", fill: "#000000", align: "center" };
 		    var buttonText = this.game.add.text(0, 0, "Next", style);
