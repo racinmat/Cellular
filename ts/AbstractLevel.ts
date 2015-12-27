@@ -31,9 +31,21 @@ module FloodTactics {
 	        button.scale.set(0.2);
 	        button.anchor.set(0.5);
 	        var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-	        var buttonText = this.game.add.text(180, 480, "reset level", style);
+	        var buttonText = this.game.add.text(0, 0, "Reset level", style);
+			button.addChild(buttonText);
+			buttonText.scale.set(5);
 	        buttonText.anchor.set(0.5);
-        }
+
+			button = this.game.add.button(180, 560, 'button', () => {this.game.state.start('Menu', true, false);}, this);
+			button.scale.set(0.2);
+			button.anchor.set(0.5);
+			var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
+			buttonText = this.game.add.text(0, 0, "Menu", style);
+			button.addChild(buttonText);
+			buttonText.scale.set(5);
+			buttonText.anchor.set(0.5);
+
+		}
 
         update() {
             if(this.winChecker.checkWin(this.grid)) {

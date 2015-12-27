@@ -6,11 +6,13 @@ module FloodTactics {
 
         create() {
 	        super.create();
-	        var button = this.game.add.button(180, 560, 'button', () => {this.saveGame();}, this);
+	        var button = this.game.add.button(180, 640, 'button', () => {this.saveGame();}, this);
 	        button.scale.set(0.2);
 	        button.anchor.set(0.5);
 	        var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-	        var buttonText = this.game.add.text(180, 560, "save level", style);
+	        var buttonText = this.game.add.text(0, 0, "save level", style);
+			button.addChild(buttonText);
+			buttonText.scale.set(5);
 	        buttonText.anchor.set(0.5);
         }
 
