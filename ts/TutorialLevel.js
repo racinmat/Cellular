@@ -115,7 +115,7 @@ var FloodTactics;
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
             popup.addChild(text);
-            var button = this.game.add.button(0, 60, 'button', function () {
+            var button = this.game.add.button(0, 140, 'button', function () {
                 popup.destroy(true); //destroyChildren = true;
             }, this);
             button.scale.set(0.3);
@@ -138,22 +138,21 @@ var FloodTactics;
             });
         };
         TutorialLevel.prototype.popupFive = function () {
-            var popup = this.game.add.sprite(600, 500, 'whiteBackground');
-            popup.scale.setTo(1.5);
+            var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
             popup.anchor.set(0.5);
             var content = "Well done. Now you have only blue and yellow colors.\n" +
                 "But green and yellow squares are not changed.\n" +
                 "To get rid of green, look at the table of rules on the right.\n" +
                 "Green can be flooded by red and yellow.\n" +
                 "Click any yellow square next to green one.";
-            var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 20);
-            text.maxWidth = 190; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+            var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
+            text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
             popup.addChild(text);
-            var button = this.game.add.button(0, 60, 'button', function () {
+            var button = this.game.add.button(0, 140, 'button', function () {
                 popup.destroy(true); //destroyChildren = true;
             }, this);
-            button.scale.set(0.2);
+            button.scale.set(0.3);
             button.anchor.set(0.5);
             var style = { font: "30px Arial", fill: "#000000", align: "center" };
             var buttonText = this.game.add.text(0, 0, "Next", style);
