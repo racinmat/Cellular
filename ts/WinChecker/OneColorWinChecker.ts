@@ -9,9 +9,10 @@ module FloodTactics {
         }
 
         checkWin(grid : Grid) : boolean {
+			var inactiveColors : Color[] = grid.getInactiveColors();
             for(var row of grid.getSquares()) {
                 for(var square of row) {
-                    if(square.getColor() != this.color) {
+                    if(square.getColor() != this.color && inactiveColors.indexOf(square.getColor()) == -1) {	//false, pokud se liší od zadané barvy a není v poli neaktivních barev
                         return false;
                     }
                 }

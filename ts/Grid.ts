@@ -30,13 +30,21 @@ module FloodTactics {
 	        //this.colorRules.set(Color.Yellow, [Color.Blue]);
 
 	        //5 barev, každá barva poráží 2 jiné
-	        this.colorRules.set(Color.Blue, [Color.Brown, Color.Red]);
-	        this.colorRules.set(Color.Brown, [Color.Red, Color.Yellow]);
-	        this.colorRules.set(Color.Red, [Color.Yellow, Color.Green]);
-	        this.colorRules.set(Color.Yellow, [Color.Green, Color.Blue]);
-	        this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
+	        //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red]);
+	        //this.colorRules.set(Color.Brown, [Color.Red, Color.Yellow]);
+	        //this.colorRules.set(Color.Red, [Color.Yellow, Color.Green]);
+	        //this.colorRules.set(Color.Yellow, [Color.Green, Color.Blue]);
+	        //this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
 
-	        //4 barvy, každá barva poráží všechny ostatní
+			//6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
+			this.colorRules.set(Color.Blue, [Color.Brown, Color.Red]);
+			this.colorRules.set(Color.Brown, [Color.Red, Color.Yellow]);
+			this.colorRules.set(Color.Red, [Color.Yellow, Color.Green]);
+			this.colorRules.set(Color.Yellow, [Color.Green, Color.Blue]);
+			this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
+			this.colorRules.set(Color.Black, []);
+
+			//4 barvy, každá barva poráží všechny ostatní
             //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Brown, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Red, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
@@ -66,6 +74,7 @@ module FloodTactics {
 	        var brownType : SquareType = new SquareType(Color.Brown, power, directDirections);
 	        var yellowType : SquareType = new SquareType(Color.Yellow, power, directDirections);
 	        var greenType : SquareType = new SquareType(Color.Green, power, directDirections);
+			var blackType : SquareType = new SquareType(Color.Black, power, directDirections);
 
 	        var types : SquareType[] = [];
 	        types.push(redType);
@@ -73,6 +82,7 @@ module FloodTactics {
 	        types.push(blueType);
 	        types.push(yellowType);
 	        types.push(greenType);
+			types.push(blackType);
 
 	        //konec načítání typů čtverců
 
@@ -228,6 +238,28 @@ module FloodTactics {
 			    }
 		    }
 	    }
+
+		//reads rules and returns colors, which can not be recolored and do not recolor anything
+		getInactiveColors()  : Color[] {
+			var inactiveColors : Color[] = [];
+			//přidám všechny barvy, které nikoho nepřebarvují
+			this.colorRules.forEach((values : Color[], key : Color) => {
+				if(values.length == 0) {
+					inactiveColors.push(key);
+				}
+			});
+			//kontrola, zda barva, která nikoho nepřebarvuje, není sama přebarvovaná někým jiným
+			this.colorRules.forEach((values : Color[], key : Color) => {
+				for(var color of inactiveColors) {
+					if(values.indexOf(color) > -1) {
+						//odejme barvu z pole
+						inactiveColors = inactiveColors.filter((col : Color) => {return col != color;});
+					}
+				}
+			});
+
+			return inactiveColors;
+		}
      }
 
 }

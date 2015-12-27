@@ -7,6 +7,7 @@ var FloodTactics;
         Color[Color["Blue"] = 2] = "Blue";
         Color[Color["Yellow"] = 3] = "Yellow";
         Color[Color["Green"] = 4] = "Green";
+        Color[Color["Black"] = 5] = "Black";
     })(FloodTactics.Color || (FloodTactics.Color = {}));
     var Color = FloodTactics.Color;
     var ColorHelper = (function () {
@@ -19,6 +20,7 @@ var FloodTactics;
                 case Color.Brown: return "brown";
                 case Color.Red: return "red";
                 case Color.Green: return "green";
+                case Color.Black: return "black";
             }
         };
         ColorHelper.getRandom = function () {

@@ -24,11 +24,18 @@ var FloodTactics;
             //this.colorRules.set(Color.Red, [Color.Yellow]);
             //this.colorRules.set(Color.Yellow, [Color.Blue]);
             //5 barev, každá barva poráží 2 jiné
+            //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red]);
+            //this.colorRules.set(Color.Brown, [Color.Red, Color.Yellow]);
+            //this.colorRules.set(Color.Red, [Color.Yellow, Color.Green]);
+            //this.colorRules.set(Color.Yellow, [Color.Green, Color.Blue]);
+            //this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
+            //6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
             this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown, FloodTactics.Color.Red]);
             this.colorRules.set(FloodTactics.Color.Brown, [FloodTactics.Color.Red, FloodTactics.Color.Yellow]);
             this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Yellow, FloodTactics.Color.Green]);
             this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Green, FloodTactics.Color.Blue]);
             this.colorRules.set(FloodTactics.Color.Green, [FloodTactics.Color.Blue, FloodTactics.Color.Brown]);
+            this.colorRules.set(FloodTactics.Color.Black, []);
             //4 barvy, každá barva poráží všechny ostatní
             //this.colorRules.set(Color.Blue, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
             //this.colorRules.set(Color.Brown, [Color.Brown, Color.Red, Color.Yellow, Color.Blue]);
@@ -53,12 +60,14 @@ var FloodTactics;
             var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
             var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
             var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
+            var blackType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
             var types = [];
             types.push(redType);
             types.push(brownType);
             types.push(blueType);
             types.push(yellowType);
             types.push(greenType);
+            types.push(blackType);
             //konec načítání typů čtverců
             var number = 3;
             //konec dat pro čtverce
@@ -191,6 +200,27 @@ var FloodTactics;
                     this.squares[i][j].deserialize(data[i][j]);
                 }
             }
+        };
+        //reads rules and returns colors, which can not be recolored and do not recolor anything
+        Grid.prototype.getInactiveColors = function () {
+            var inactiveColors = [];
+            //přidám všechny barvy, které nikoho nepřebarvují
+            this.colorRules.forEach(function (values, key) {
+                if (values.length == 0) {
+                    inactiveColors.push(key);
+                }
+            });
+            //kontrola, zda barva, která nikoho nepřebarvuje, není sama přebarvovaná někým jiným
+            this.colorRules.forEach(function (values, key) {
+                for (var _i = 0; _i < inactiveColors.length; _i++) {
+                    var color = inactiveColors[_i];
+                    if (values.indexOf(color) > -1) {
+                        //odejme barvu z pole
+                        inactiveColors = inactiveColors.filter(function (col) { return col != color; });
+                    }
+                }
+            });
+            return inactiveColors;
         };
         return Grid;
     })(Phaser.Sprite);

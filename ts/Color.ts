@@ -2,7 +2,7 @@
 
 module FloodTactics {
 
-    export enum Color {Red, Brown, Blue, Yellow, Green}
+    export enum Color {Red, Brown, Blue, Yellow, Green, Black}
 
     export class ColorHelper {
 
@@ -13,6 +13,7 @@ module FloodTactics {
                 case Color.Brown: return "brown";
                 case Color.Red: return "red";
 	            case Color.Green: return "green";
+				case Color.Black: return "black";
             }
         }
 

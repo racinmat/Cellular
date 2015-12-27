@@ -6,11 +6,12 @@ var FloodTactics;
             this.color = color;
         }
         OneColorWinChecker.prototype.checkWin = function (grid) {
+            var inactiveColors = grid.getInactiveColors();
             for (var _i = 0, _a = grid.getSquares(); _i < _a.length; _i++) {
                 var row = _a[_i];
                 for (var _b = 0; _b < row.length; _b++) {
                     var square = row[_b];
-                    if (square.getColor() != this.color) {
+                    if (square.getColor() != this.color && inactiveColors.indexOf(square.getColor()) == -1) {
                         return false;
                     }
                 }
