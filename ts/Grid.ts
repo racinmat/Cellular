@@ -11,6 +11,7 @@ module FloodTactics {
         private colorRules : Map<Color, Color[]>;
 		public rules : Phaser.Group;
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
+		private bubbling : Phaser.Sound;
 
         constructor(game: Phaser.Game, x: number, y: number) {
             super(game, x, y, 'background', 0);
@@ -136,6 +137,9 @@ module FloodTactics {
 
 	        //kopírování čverců
 	        this.initialSquares = this.squaresToData();
+
+
+			this.bubbling = this.game.add.audio('bubbling');
         }
 
         public getSquare(point : Phaser.Point) : Square {
@@ -155,6 +159,7 @@ module FloodTactics {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 	                neighbor.setSquareType(square.getSquareType());
+					this.bubbling.play();
                 }
             }
 			this.processOnClick(square);
@@ -165,6 +170,7 @@ module FloodTactics {
 			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 				    neighbor.setSquareType(square.getSquareType());
+					this.bubbling.play();
 				    neighbor.flood();
 			    }
 		    }

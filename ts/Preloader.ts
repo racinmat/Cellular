@@ -21,6 +21,8 @@ module FloodTactics {
 			this.load.image('whiteBackground300x360', 'images/whiteBackground300x360.png');
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
 	        this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
+			this.load.audio('backgroundSound', 'audio/rain_song.mp3');
+			this.load.audio('bubbling', 'audio/bubbling2.wav');
         }
 
         create() {

@@ -110,6 +110,7 @@ var FloodTactics;
             });
             //kopírování čverců
             this.initialSquares = this.squaresToData();
+            this.bubbling = this.game.add.audio('bubbling');
         }
         Grid.prototype.getSquare = function (point) {
             return this.squares[point.x][point.y];
@@ -128,6 +129,7 @@ var FloodTactics;
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     neighbor.setSquareType(square.getSquareType());
+                    this.bubbling.play();
                 }
             }
             this.processOnClick(square);
@@ -138,6 +140,7 @@ var FloodTactics;
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     neighbor.setSquareType(square.getSquareType());
+                    this.bubbling.play();
                     neighbor.flood();
                 }
             }
