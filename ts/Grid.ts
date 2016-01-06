@@ -138,7 +138,6 @@ module FloodTactics {
 	        //kopírování čverců
 	        this.initialSquares = this.squaresToData();
 
-
 			this.bubbling = this.game.add.audio('bubbling');
         }
 

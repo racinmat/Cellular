@@ -22,6 +22,8 @@ var FloodTactics;
             button.addChild(buttonText);
             buttonText.scale.set(5);
             buttonText.anchor.set(0.5);
+            var backgroundSound = this.game.add.audio('backgroundSound');
+            backgroundSound.play();
         };
         Level.prototype.update = function () {
             _super.prototype.update.call(this);
