@@ -20,6 +20,7 @@ var FloodTactics;
         };
         AbstractLevel.prototype.create = function () {
             var _this = this;
+            this.muted = false;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
             //zde se nastavuje vítězná podmínka
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
@@ -44,6 +45,23 @@ var FloodTactics;
             button.addChild(buttonText);
             buttonText.scale.set(5);
             buttonText.anchor.set(0.5);
+            var backgroundSound = this.game.add.audio('backgroundSound');
+            backgroundSound.play();
+            var changeIcon = function () {
+                //console.log('sound clicked');
+                if (_this.muted) {
+                    _this.soundIcon.key = 'soundLoud';
+                }
+                else {
+                    _this.soundIcon.key = 'soundSilent';
+                }
+                _this.muted = !_this.muted;
+                _this.game.sound.mute = _this.muted;
+                _this.soundIcon.loadTexture(_this.soundIcon.key);
+            };
+            this.soundIcon = this.game.add.button(30, 770, 'soundLoud', changeIcon, this);
+            this.soundIcon.anchor.set(0.5);
+            this.soundIcon.scale.set(0.05);
         };
         AbstractLevel.prototype.update = function () {
             var _this = this;

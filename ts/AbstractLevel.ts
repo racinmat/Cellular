@@ -9,6 +9,10 @@ module FloodTactics {
         protected winningTween : Phaser.Tween;
 		protected winningDescription : Phaser.BitmapText;
 
+		private soundIcon : Phaser.Button;
+		private muted : boolean;
+
+
 		//init se volá před createm
 		init(levelName : string) {
 			this.grid = new Grid(this.game, 0, 0);
@@ -18,6 +22,7 @@ module FloodTactics {
 		}
 
         create() {
+			this.muted = false;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
@@ -45,6 +50,22 @@ module FloodTactics {
 			buttonText.scale.set(5);
 			buttonText.anchor.set(0.5);
 
+			var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
+			backgroundSound.play();
+			var changeIcon = () => {
+				//console.log('sound clicked');
+				if(this.muted) {
+					this.soundIcon.key = 'soundLoud';
+				} else {
+					this.soundIcon.key = 'soundSilent';
+				}
+				this.muted = !this.muted;
+				this.game.sound.mute = this.muted;
+				this.soundIcon.loadTexture(this.soundIcon.key);
+			};
+			this.soundIcon = this.game.add.button(30, 770, 'soundLoud', changeIcon, this);
+			this.soundIcon.anchor.set(0.5);
+			this.soundIcon.scale.set(0.05);
 		}
 
         update() {

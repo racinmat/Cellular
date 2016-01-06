@@ -14,8 +14,6 @@ module FloodTactics {
 			button.addChild(buttonText);
 			buttonText.scale.set(5);
 	        buttonText.anchor.set(0.5);
-			var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
-			backgroundSound.play();
         }
 
         update() {
