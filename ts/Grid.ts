@@ -106,7 +106,7 @@ module FloodTactics {
             }
 
 			//vykreslení pravidel pro přebarvování
-			this.rules = this.game.add.sprite(500, 10, 'rules');
+			this.rules = this.game.add.sprite(500, 450, 'rules');
 			this.rules.scale.set(0.25);
 			//this.rules = this.game.add.group();
 			//
