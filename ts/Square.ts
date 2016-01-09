@@ -19,6 +19,7 @@ module FloodTactics {
 			this.squareType = squareType;
 			this.max = max;
 			this.number = number;
+			this.scale.set(0.25);
 			this.initialize();
 		}
 
@@ -94,6 +95,7 @@ module FloodTactics {
 			this.squareType = squareType;
 			this.key = ColorHelper.toString(squareType.color);
 			this.loadTexture(this.key);
+			this.scale.set(0.25);
 		}
 
 		public getSquareType() : SquareType {

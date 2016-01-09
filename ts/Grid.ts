@@ -116,7 +116,7 @@ module FloodTactics {
 
 				var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
 				square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
-				square.scale.set(0.5);
+				square.scale.set(0.25);
 				var text = this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
 				text.anchor.setTo(0.5, 0.5);
 
@@ -127,7 +127,7 @@ module FloodTactics {
 				for(var color2 of values) {
 					var square = this.game.add.sprite(560 + 40 * j, 80 + 60 * i, ColorHelper.toString(color2));
 					square.anchor.setTo(0.5, 0.5);
-					square.scale.set(0.5);
+					square.scale.set(0.25);
 					j++;
 
 					this.rules.add(square);

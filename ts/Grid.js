@@ -92,7 +92,7 @@ var FloodTactics;
                 }
                 var square = _this.game.add.sprite(500, 80 + 60 * i, FloodTactics.ColorHelper.toString(key));
                 square.anchor.setTo(0.5, 0.5); //posunu, aby souřadnice určovaly střed a ne okraj spritu
-                square.scale.set(0.5);
+                square.scale.set(0.25);
                 var text = _this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
                 text.anchor.setTo(0.5, 0.5);
                 _this.rules.add(square);
@@ -102,7 +102,7 @@ var FloodTactics;
                     var color2 = values[_i];
                     var square = _this.game.add.sprite(560 + 40 * j, 80 + 60 * i, FloodTactics.ColorHelper.toString(color2));
                     square.anchor.setTo(0.5, 0.5);
-                    square.scale.set(0.5);
+                    square.scale.set(0.25);
                     j++;
                     _this.rules.add(square);
                 }

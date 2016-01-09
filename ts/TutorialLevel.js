@@ -23,9 +23,10 @@ var FloodTactics;
             var _this = this;
             var popup = this.game.add.sprite(400, 200, 'whiteBackground300x300');
             popup.anchor.set(0.5);
-            var content = "Welcome to Flood Tactics.\n" +
-                "In every level, goal is written below grid.\n" +
-                "Now, goal is to change color of all squares to blue.";
+            var content = "Welcome to Cellular!\n" +
+                "Your goal is to help a particular cell to dominate the field.\n" +
+                "In every level, we will tell you which cell needs your help.\n" +
+                "Now, the blue cell needs your help.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
@@ -49,8 +50,8 @@ var FloodTactics;
             var _this = this;
             var popup = this.game.add.sprite(300, 200, 'whiteBackground300x360');
             popup.anchor.set(0.5);
-            var content = "Here are flooding rules.\n" +
-                "Every color is able to absorb its neighbors, according to rules.\n" +
+            var content = "Here you can see the capability of each cell.\n" +
+                "Every cell is able to absorb other cells, but not all of them!.\n" +
                 "In this scenario, blue spreads over brown and red, brown spreads over red and yellow, and so on.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
@@ -75,10 +76,10 @@ var FloodTactics;
             var _this = this;
             var popup = this.game.add.sprite(600, 500, 'whiteBackground300x300');
             popup.anchor.set(0.5);
-            var content = "Lets see, how flooding works.\n" +
-                "Here we have blue square.\n" +
-                "It will flood over red and brown, but not over green and yellow.\n" +
-                "Click on the blue square.";
+            var content = "Lets see, how absorption works!\n" +
+                "Here we have blue cell.\n" +
+                "It will absorb all red and brown cells next to it, but green and \n" +
+                "yellow cells will remain unabsorbed. Now, click on the blue cell.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
@@ -106,11 +107,11 @@ var FloodTactics;
             var _this = this;
             var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
             popup.anchor.set(0.5);
-            var content = "Well done. As you see, now you have 3 blue squares.\n" +
-                "But green and yellow squares are not changed.\n" +
+            var content = "Well done. As you see, now you have 3 blue cells.\n" +
+                "But green and yellow cells are still there.\n" +
                 "To get rid of green, look at the table of rules on the right.\n" +
-                "Green can be flooded by red and yellow.\n" +
-                "Click any yellow square next to green one.";
+                "Green cells can be absorbed by red and yellow.\n" +
+                "Try clicking  on any yellow cell next to a green one.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
@@ -141,10 +142,9 @@ var FloodTactics;
             var _this = this;
             var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
             popup.anchor.set(0.5);
-            var content = "Well done. Now you have only blue and yellow colors, and brown color in corner.\n" +
-                "To get rid of yellow all yellow squares, you have to flood brown or red color.\n" +
-                "Green can be flooded by red and yellow.\n" +
-                "Click the brown square in corner.";
+            var content = "Well done. Now you have only blue and yellow cells, and brown cell in the corner.\n" +
+                "To get rid of all yellow cells, you have to stimulate brown or red cells.\n" +
+                "Now, click on the brown cell.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);
@@ -171,9 +171,9 @@ var FloodTactics;
         TutorialLevel.prototype.popupSix = function () {
             var popup = this.game.add.sprite(600, 500, 'whiteBackground300x360');
             popup.anchor.set(0.5);
-            var content = "Well done. As you can see, brown floods over yellow and blue floods over brown.\n" +
+            var content = "Well done. As you can see, brown cell absorbs yellow and blue absorbs brown.\n" +
                 "With these rules (visualized on the right) in mind, completing the level should be piece of cake.\n" +
-                "Level is completed, when all squares are blue (as written under the grid).";
+                "Remember, level is completed, when all cells are blue.";
             var text = this.game.add.bitmapText(0, -30, 'arialBlack', content, 27);
             text.maxWidth = 285; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             text.anchor.set(0.5);

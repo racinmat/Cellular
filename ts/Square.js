@@ -15,6 +15,7 @@ var FloodTactics;
             this.squareType = squareType;
             this.max = max;
             this.number = number;
+            this.scale.set(0.25);
             this.initialize();
         }
         Square.prototype.initialize = function () {
@@ -82,6 +83,7 @@ var FloodTactics;
             this.squareType = squareType;
             this.key = FloodTactics.ColorHelper.toString(squareType.color);
             this.loadTexture(this.key);
+            this.scale.set(0.25);
         };
         Square.prototype.getSquareType = function () {
             return this.squareType;
