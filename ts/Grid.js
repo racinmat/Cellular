@@ -9,7 +9,6 @@ var FloodTactics;
     var Grid = (function (_super) {
         __extends(Grid, _super);
         function Grid(game, x, y) {
-            var _this = this;
             _super.call(this, game, x, y, 'background', 0);
             this.tint = 0x000000;
             this.game.add.existing(this);
@@ -83,31 +82,37 @@ var FloodTactics;
                 }
             }
             //vykreslení pravidel pro přebarvování
-            this.rules = this.game.add.group();
-            var i = 0;
-            var inactiveColors = this.getInactiveColors();
-            this.colorRules.forEach(function (values, key) {
-                if (inactiveColors.indexOf(key) > -1) {
-                    return;
-                }
-                var square = _this.game.add.sprite(500, 80 + 60 * i, FloodTactics.ColorHelper.toString(key));
-                square.anchor.setTo(0.5, 0.5); //posunu, aby souřadnice určovaly střed a ne okraj spritu
-                square.scale.set(0.25);
-                var text = _this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
-                text.anchor.setTo(0.5, 0.5);
-                _this.rules.add(square);
-                _this.rules.add(text);
-                var j = 0;
-                for (var _i = 0; _i < values.length; _i++) {
-                    var color2 = values[_i];
-                    var square = _this.game.add.sprite(560 + 40 * j, 80 + 60 * i, FloodTactics.ColorHelper.toString(color2));
-                    square.anchor.setTo(0.5, 0.5);
-                    square.scale.set(0.25);
-                    j++;
-                    _this.rules.add(square);
-                }
-                i++;
-            });
+            this.rules = this.game.add.sprite(500, 10, 'rules');
+            this.rules.scale.set(0.25);
+            //this.rules = this.game.add.group();
+            //
+            //var i = 0;
+            //var inactiveColors = this.getInactiveColors();
+            //this.colorRules.forEach((values : Color[], key : Color) => {
+            //	if(inactiveColors.indexOf(key) > -1) {	//aby se nevykreslovala pravidla pro neaktivní čtverce
+            //	   return;
+            //	}
+            //
+            //	var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
+            //	square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
+            //	square.scale.set(0.25);
+            //	var text = this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
+            //	text.anchor.setTo(0.5, 0.5);
+            //
+            //	this.rules.add(square);
+            //	this.rules.add(text);
+            //
+            //	var j = 0;
+            //	for(var color2 of values) {
+            //		var square = this.game.add.sprite(560 + 40 * j, 80 + 60 * i, ColorHelper.toString(color2));
+            //		square.anchor.setTo(0.5, 0.5);
+            //		square.scale.set(0.25);
+            //		j++;
+            //
+            //		this.rules.add(square);
+            //	}
+            //	i++;
+            //});
             //kopírování čverců
             this.initialSquares = this.squaresToData();
             this.bubbling = this.game.add.audio('bubbling');

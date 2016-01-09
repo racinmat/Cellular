@@ -31,6 +31,7 @@ var FloodTactics;
             this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
             this.load.audio('backgroundSound', 'audio/rain_song.mp3');
             this.load.audio('bubbling', 'audio/bubbling2.wav');
+            this.load.image('rules', 'images/rules.png');
         };
         Preloader.prototype.create = function () {
             this.game.state.start('Menu', true, false);

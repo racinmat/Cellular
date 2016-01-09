@@ -9,7 +9,8 @@ module FloodTactics {
         private rows : number;
         private columns : number;
         private colorRules : Map<Color, Color[]>;
-		public rules : Phaser.Group;
+		//public rules : Phaser.Group;
+		private rules : Phaser.Sprite;
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
 
@@ -105,35 +106,37 @@ module FloodTactics {
             }
 
 			//vykreslení pravidel pro přebarvování
-			this.rules = this.game.add.group();
-
-			var i = 0;
-			var inactiveColors = this.getInactiveColors();
-			this.colorRules.forEach((values : Color[], key : Color) => {
-				if(inactiveColors.indexOf(key) > -1) {	//aby se nevykreslovala pravidla pro neaktivní čtverce
-				   return;
-				}
-
-				var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
-				square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
-				square.scale.set(0.25);
-				var text = this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
-				text.anchor.setTo(0.5, 0.5);
-
-				this.rules.add(square);
-				this.rules.add(text);
-
-				var j = 0;
-				for(var color2 of values) {
-					var square = this.game.add.sprite(560 + 40 * j, 80 + 60 * i, ColorHelper.toString(color2));
-					square.anchor.setTo(0.5, 0.5);
-					square.scale.set(0.25);
-					j++;
-
-					this.rules.add(square);
-				}
-				i++;
-			});
+			this.rules = this.game.add.sprite(500, 10, 'rules');
+			this.rules.scale.set(0.25);
+			//this.rules = this.game.add.group();
+			//
+			//var i = 0;
+			//var inactiveColors = this.getInactiveColors();
+			//this.colorRules.forEach((values : Color[], key : Color) => {
+			//	if(inactiveColors.indexOf(key) > -1) {	//aby se nevykreslovala pravidla pro neaktivní čtverce
+			//	   return;
+			//	}
+			//
+			//	var square = this.game.add.sprite(500, 80 + 60 * i, ColorHelper.toString(key));
+			//	square.anchor.setTo(0.5, 0.5);  //posunu, aby souřadnice určovaly střed a ne okraj spritu
+			//	square.scale.set(0.25);
+			//	var text = this.game.add.bitmapText(530, 80 + 60 * i, 'arial', ">", 30);
+			//	text.anchor.setTo(0.5, 0.5);
+			//
+			//	this.rules.add(square);
+			//	this.rules.add(text);
+			//
+			//	var j = 0;
+			//	for(var color2 of values) {
+			//		var square = this.game.add.sprite(560 + 40 * j, 80 + 60 * i, ColorHelper.toString(color2));
+			//		square.anchor.setTo(0.5, 0.5);
+			//		square.scale.set(0.25);
+			//		j++;
+			//
+			//		this.rules.add(square);
+			//	}
+			//	i++;
+			//});
 
 	        //kopírování čverců
 	        this.initialSquares = this.squaresToData();
