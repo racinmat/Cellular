@@ -18,7 +18,13 @@ module FloodTactics {
 	        this.load.image('green', 'images/green-cell.png');
 			this.load.image('black', 'images/black.png');
             this.load.image('levelCompleted', 'images/level_completed.jpg');
+
 	        this.load.image('button', 'images/button.jpg');
+
+			this.load.image('buttonGenerate', 'images/buttonGenerateLevel.png');
+			this.load.image('buttonReset', 'images/buttonResetLevel.png');
+			this.load.image('buttonMenu', 'images/buttonMenu.png');
+
 	        this.load.image('whiteBackground', 'images/whiteBackground.png');
 			this.load.image('whiteBackground300x300', 'images/whiteBackground300x300.png');
 			this.load.image('whiteBackground300x360', 'images/whiteBackground300x360.png');

@@ -28,23 +28,14 @@ module FloodTactics {
 	        this.winningDescription.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 	        this.winningDescription.anchor.set(0.5);
 
-	        var button = this.game.add.button(180, 480, 'button', () => {this.grid.restartLevel();}, this);
-	        button.scale.set(0.2);
-	        button.anchor.set(0.5);
-	        var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-	        var buttonText = this.game.add.text(0, 0, "Reset level", style);
-			button.addChild(buttonText);
-			buttonText.scale.set(5);
-	        buttonText.anchor.set(0.5);
+			var menuButton = this.game.add.button(82, 546, 'buttonMenu', () => {this.game.state.start('Menu', true, false);}, this);
+			menuButton.scale.set(0.25);
 
-			button = this.game.add.button(180, 560, 'button', () => {this.game.state.start('Menu', true, false);}, this);
-			button.scale.set(0.2);
-			button.anchor.set(0.5);
-			var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-			buttonText = this.game.add.text(0, 0, "Menu", style);
-			button.addChild(buttonText);
-			buttonText.scale.set(5);
-			buttonText.anchor.set(0.5);
+			var resetButton = this.game.add.button(82, 612, 'buttonReset', () => {this.grid.restartLevel();}, this);
+			resetButton.scale.set(0.25);
+
+			var generateButton = this.game.add.button(82, 678, 'buttonGenerate', () => {this.game.state.start('Level');}, this);
+			generateButton.scale.set(0.25);
 
 			var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
 			backgroundSound.play();
