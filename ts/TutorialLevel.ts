@@ -7,7 +7,8 @@ module FloodTactics {
 
 		//init se volá před createm
 		init(levelName : string) {
-			this.grid = new Grid(this.game, 0, 0, 'backgroundSquare');
+			super.init(levelName);
+			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare');
 			if(levelName != undefined) {
 				this.grid.deserialize(games[levelName]);
 			}

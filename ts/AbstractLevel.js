@@ -11,10 +11,12 @@ var FloodTactics;
         function AbstractLevel() {
             _super.apply(this, arguments);
         }
-        AbstractLevel.prototype.create = function () {
-            var _this = this;
+        AbstractLevel.prototype.init = function (levelName) {
             var playground = this.game.add.sprite(0, 0, 'playground');
             playground.scale.set(0.25);
+        };
+        AbstractLevel.prototype.create = function () {
+            var _this = this;
             this.muted = false;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
             //zde se nastavuje vítězná podmínka

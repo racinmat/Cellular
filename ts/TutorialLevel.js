@@ -13,7 +13,8 @@ var FloodTactics;
         }
         //init se volá před createm
         TutorialLevel.prototype.init = function (levelName) {
-            this.grid = new FloodTactics.Grid(this.game, 0, 0, 'backgroundSquare');
+            _super.prototype.init.call(this, levelName);
+            this.grid = new FloodTactics.Grid(this.game, 204, 47, 'backgroundSquare');
             if (levelName != undefined) {
                 this.grid.deserialize(games[levelName]);
             }

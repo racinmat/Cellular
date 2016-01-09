@@ -12,10 +12,12 @@ module FloodTactics {
 		private soundIcon : Phaser.Button;
 		private muted : boolean;
 
-
-        create() {
+		init(levelName : string) {
 			var playground = this.game.add.sprite(0, 0, 'playground');
 			playground.scale.set(0.25);
+		}
+
+        create() {
 			this.muted = false;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
