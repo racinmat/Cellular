@@ -6,7 +6,7 @@ module FloodTactics {
 
         constructor() {
 
-            super(800, 850, Phaser.AUTO, 'content', null);
+            super(898, 908, Phaser.AUTO, 'content', null);
 
             this.state.add('Boot', Boot, false);
             this.state.add('Preloader', Preloader, false);

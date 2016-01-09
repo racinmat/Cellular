@@ -13,13 +13,15 @@ var FloodTactics;
         }
         AbstractLevel.prototype.create = function () {
             var _this = this;
+            var playground = this.game.add.sprite(0, 0, 'playground');
+            playground.scale.set(0.25);
             this.muted = false;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
             //zde se nastavuje vítězná podmínka
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
-            this.winningDescription = this.game.add.bitmapText(400, 420, 'arialBlack', "Winning condition: " + this.winChecker.getDescription(), 32);
+            this.winningDescription = this.game.add.bitmapText(400, 880, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
             this.winningDescription.maxWidth = 700; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             this.winningDescription.anchor.set(0.5);
             var button = this.game.add.button(180, 480, 'button', function () { _this.grid.restartLevel(); }, this);

@@ -9,7 +9,7 @@ var FloodTactics;
     var Game = (function (_super) {
         __extends(Game, _super);
         function Game() {
-            _super.call(this, 800, 850, Phaser.AUTO, 'content', null);
+            _super.call(this, 898, 908, Phaser.AUTO, 'content', null);
             this.state.add('Boot', FloodTactics.Boot, false);
             this.state.add('Preloader', FloodTactics.Preloader, false);
             this.state.add('Menu', FloodTactics.Menu, false);
