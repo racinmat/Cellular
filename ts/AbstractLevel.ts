@@ -13,14 +13,6 @@ module FloodTactics {
 		private muted : boolean;
 
 
-		//init se volá před createm
-		init(levelName : string) {
-			this.grid = new Grid(this.game, 0, 0);
-			if(levelName != undefined) {
-				this.grid.deserialize(games[levelName]);
-			}
-		}
-
         create() {
 			this.muted = false;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
@@ -28,7 +20,7 @@ module FloodTactics {
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
 	        //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
-            this.winningDescription = this.game.add.bitmapText(400, 420, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
+            this.winningDescription = this.game.add.bitmapText(400, 420, 'arialBlack', "Winning condition: " + this.winChecker.getDescription(), 32);
 	        this.winningDescription.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 	        this.winningDescription.anchor.set(0.5);
 

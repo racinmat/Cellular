@@ -14,9 +14,9 @@ module FloodTactics {
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
 
-        constructor(game: Phaser.Game, x: number, y: number) {
-            super(game, x, y, 'background', 0);
-			this.tint = 0x000000;
+        constructor(game: Phaser.Game, x: number, y: number, background : string) {
+            super(game, x, y, background, 0);
+			//this.tint = 0x000000;
 	        this.game.add.existing(this);
             this.squares = [];
 			this.onClick = [];
@@ -199,7 +199,10 @@ module FloodTactics {
 	    }
 
 	    private createSquareFromType(x : number, y : number, max : Phaser.Point, squareType : SquareType, number : number) {
-		    return new Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
+		    var square = new Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
+			square.scale.setTo((1/0.28)*0.25);
+			//square.scale.set(100);
+			return square;
 	    }
 
 	    serialize() : any {

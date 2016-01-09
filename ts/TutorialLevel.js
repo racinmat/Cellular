@@ -1,9 +1,9 @@
-/// <reference path="references.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/// <reference path="references.ts"/>
 var FloodTactics;
 (function (FloodTactics) {
     var TutorialLevel = (function (_super) {
@@ -11,6 +11,13 @@ var FloodTactics;
         function TutorialLevel() {
             _super.apply(this, arguments);
         }
+        //init se volá před createm
+        TutorialLevel.prototype.init = function (levelName) {
+            this.grid = new FloodTactics.Grid(this.game, 0, 0, 'backgroundSquare');
+            if (levelName != undefined) {
+                this.grid.deserialize(games[levelName]);
+            }
+        };
         TutorialLevel.prototype.create = function () {
             _super.prototype.create.call(this);
             //this.grid.deserialize(games["tutorial.json"]);	//proměnní, kterou jsem sem dal z PHPčka, které načetlo jsony

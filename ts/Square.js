@@ -83,7 +83,7 @@ var FloodTactics;
             this.squareType = squareType;
             this.key = FloodTactics.ColorHelper.toString(squareType.color);
             this.loadTexture(this.key);
-            this.scale.set(0.25);
+            //this.scale.set(0.25);
         };
         Square.prototype.getSquareType = function () {
             return this.squareType;

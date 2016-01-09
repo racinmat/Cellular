@@ -7,7 +7,9 @@ module FloodTactics {
         preload() {
 
             //  Load our actual games assets
-            this.load.image('background', 'images/background.jpg');
+            this.load.image('background', 'images/background-small.png');
+			this.load.image('backgroundSquare', 'images/backgroundSquare-small.png');
+
             this.load.image('yellow', 'images/yellow-cell.png');
             this.load.image('brown', 'images/brown-cell.png');
             this.load.image('red', 'images/red-cell.png');

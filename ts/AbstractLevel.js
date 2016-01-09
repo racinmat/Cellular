@@ -11,13 +11,6 @@ var FloodTactics;
         function AbstractLevel() {
             _super.apply(this, arguments);
         }
-        //init se volá před createm
-        AbstractLevel.prototype.init = function (levelName) {
-            this.grid = new FloodTactics.Grid(this.game, 0, 0);
-            if (levelName != undefined) {
-                this.grid.deserialize(games[levelName]);
-            }
-        };
         AbstractLevel.prototype.create = function () {
             var _this = this;
             this.muted = false;
@@ -26,7 +19,7 @@ var FloodTactics;
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
-            this.winningDescription = this.game.add.bitmapText(400, 420, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
+            this.winningDescription = this.game.add.bitmapText(400, 420, 'arialBlack', "Winning condition: " + this.winChecker.getDescription(), 32);
             this.winningDescription.maxWidth = 700; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             this.winningDescription.anchor.set(0.5);
             var button = this.game.add.button(180, 480, 'button', function () { _this.grid.restartLevel(); }, this);

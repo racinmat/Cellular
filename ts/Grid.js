@@ -8,9 +8,9 @@ var FloodTactics;
 (function (FloodTactics) {
     var Grid = (function (_super) {
         __extends(Grid, _super);
-        function Grid(game, x, y) {
-            _super.call(this, game, x, y, 'background', 0);
-            this.tint = 0x000000;
+        function Grid(game, x, y, background) {
+            _super.call(this, game, x, y, background, 0);
+            //this.tint = 0x000000;
             this.game.add.existing(this);
             this.squares = [];
             this.onClick = [];
@@ -169,7 +169,10 @@ var FloodTactics;
             console.log("level restarted");
         };
         Grid.prototype.createSquareFromType = function (x, y, max, squareType, number) {
-            return new FloodTactics.Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
+            var square = new FloodTactics.Square(this.game, 42 + 64 * x, 42 + 64 * y, this, new Phaser.Point(x, y), max, squareType, number);
+            square.scale.setTo((1 / 0.28) * 0.25);
+            //square.scale.set(100);
+            return square;
         };
         Grid.prototype.serialize = function () {
             var data = {};

@@ -1,9 +1,9 @@
-/// <reference path="references.ts"/>
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+/// <reference path="references.ts"/>
 var FloodTactics;
 (function (FloodTactics) {
     var Level = (function (_super) {
@@ -11,6 +11,13 @@ var FloodTactics;
         function Level() {
             _super.apply(this, arguments);
         }
+        //init se volá před createm
+        Level.prototype.init = function (levelName) {
+            this.grid = new FloodTactics.Grid(this.game, 0, 0, 'background');
+            if (levelName != undefined) {
+                this.grid.deserialize(games[levelName]);
+            }
+        };
         Level.prototype.create = function () {
             var _this = this;
             _super.prototype.create.call(this);

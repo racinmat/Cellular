@@ -1,8 +1,17 @@
 /// <reference path="references.ts"/>
+declare var games: string[];	//proměnná je ze souboru game.php
 
 module FloodTactics {
 
     export class Level extends AbstractLevel {
+
+		//init se volá před createm
+		init(levelName : string) {
+			this.grid = new Grid(this.game, 0, 0, 'background');
+			if(levelName != undefined) {
+				this.grid.deserialize(games[levelName]);
+			}
+		}
 
         create() {
 	        super.create();
