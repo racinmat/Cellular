@@ -102,12 +102,12 @@ var FloodTactics;
                     _super.prototype.addChild.call(this, centerCell);
                     console.log('x: ' + square.x + ', y: ' + square.y);
                     centerCell.animations.add('expand');
-                    centerCell.animations.play('expand', 3, false, true);
+                    centerCell.animations.play('expand', 10, false, true);
                     var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
                     targetCell.anchor.set(0.5);
                     _super.prototype.addChild.call(this, targetCell);
                     targetCell.animations.add('expand');
-                    targetCell.animations.play('expand', 3, false, true);
+                    targetCell.animations.play('expand', 10, false, true);
                     neighbor.setSquareType(square.getSquareType());
                     this.bubbling.play();
                 }
