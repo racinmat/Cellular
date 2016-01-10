@@ -16,6 +16,7 @@ module FloodTactics {
 
         constructor(game: Phaser.Game, x: number, y: number, background : string) {
             super(game, x, y, background, 0);
+			console.log('hello world');
 	        this.game.add.existing(this);
 			this.scale.set(0.25);
             this.squares = [];

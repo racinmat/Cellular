@@ -10,6 +10,7 @@ var FloodTactics;
         __extends(Grid, _super);
         function Grid(game, x, y, background) {
             _super.call(this, game, x, y, background, 0);
+            console.log('hello world');
             this.game.add.existing(this);
             this.scale.set(0.25);
             this.squares = [];

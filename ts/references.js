@@ -13,6 +13,6 @@
 /// <reference path="WinChecker/IWinChecker.ts" />
 /// <reference path="WinChecker/OneColorWinChecker.ts" />
 /// <reference path="WinChecker/CountNeighborsWinChecker.ts" />
-/// <reference path="../../../../Program Files (x86)\JetBrains\PhpStorm 9.0\plugins\JavaScriptLanguage\typescriptCompiler\external\lib.es6.d.ts"/>
+/// <reference path="../typings/lib.es6.d.ts"/>
 /// <reference path="../typings/jquery/jquery.d.ts" />
 //# sourceMappingURL=references.js.map
