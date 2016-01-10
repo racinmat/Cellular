@@ -18,7 +18,7 @@ module FloodTactics {
 		}
 
         create() {
-			this.muted = false;
+			this.muted = true;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);

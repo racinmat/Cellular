@@ -15,7 +15,6 @@ var FloodTactics;
             this.squareType = squareType;
             this.max = max;
             this.number = number;
-            this.scale.set(0.25);
             this.initialize();
         }
         Square.prototype.initialize = function () {

@@ -16,7 +16,6 @@ module FloodTactics {
 
         constructor(game: Phaser.Game, x: number, y: number, background : string) {
             super(game, x, y, background, 0);
-			//this.tint = 0x000000;
 	        this.game.add.existing(this);
 			this.scale.set(0.25);
             this.squares = [];
@@ -118,16 +117,18 @@ module FloodTactics {
 						else
 							dir = 'left';
 					}
-					var animstr = ColorHelper.toString(neighbor.getColor()) + '-' + dir ;
+					var animstr = ColorHelper.toString(square.getColor()) + '-' + dir ;
 
 					var centerCell = this.game.add.sprite(square.x, square.y, animstr);
-					console.log('x: ' + sqaure.x + ', y: ' + square.y);
-					centerCell.scale.set(0.25);
+					centerCell.anchor.set(0.5);
+					super.addChild(centerCell);
+					console.log('x: ' + square.x + ', y: ' + square.y);
 					centerCell.animations.add('expand');
 					centerCell.animations.play('expand', 3, false, true);
 
-					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y,animstr + '-t');
-					targetCell.scale.set(0.25);
+					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
+					targetCell.anchor.set(0.5);
+					super.addChild(targetCell);
 					targetCell.animations.add('expand');
 					targetCell.animations.play('expand', 3, false, true);
 
@@ -170,7 +171,7 @@ module FloodTactics {
 	    }
 
 	    private createSquareFromType(x : number, y : number, max : Phaser.Point, squareType : SquareType, number : number) {
-		    var square = new Square(this.game, 180 + 65 * 4 * x, 190  + 65 * 4 * y, this, new Phaser.Point(x, y), max, squareType, number);
+		    var square = new Square(this.game, 180 + 65 * 4 * x, 190 + 65 * 4 * y, this, new Phaser.Point(x, y), max, squareType, number);
 			square.scale.setTo(1);
 			return square;
 	    }

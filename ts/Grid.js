@@ -10,7 +10,6 @@ var FloodTactics;
         __extends(Grid, _super);
         function Grid(game, x, y, background) {
             _super.call(this, game, x, y, background, 0);
-            //this.tint = 0x000000;
             this.game.add.existing(this);
             this.scale.set(0.25);
             this.squares = [];
@@ -96,14 +95,16 @@ var FloodTactics;
                         else
                             dir = 'left';
                     }
-                    var animstr = FloodTactics.ColorHelper.toString(neighbor.getColor()) + '-' + dir;
+                    var animstr = FloodTactics.ColorHelper.toString(square.getColor()) + '-' + dir;
                     var centerCell = this.game.add.sprite(square.x, square.y, animstr);
-                    console.log('x: ' + sqaure.x + ', y: ' + square.y);
-                    centerCell.scale.set(0.25);
+                    centerCell.anchor.set(0.5);
+                    _super.prototype.addChild.call(this, centerCell);
+                    console.log('x: ' + square.x + ', y: ' + square.y);
                     centerCell.animations.add('expand');
                     centerCell.animations.play('expand', 3, false, true);
                     var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
-                    targetCell.scale.set(0.25);
+                    targetCell.anchor.set(0.5);
+                    _super.prototype.addChild.call(this, targetCell);
                     targetCell.animations.add('expand');
                     targetCell.animations.play('expand', 3, false, true);
                     neighbor.setSquareType(square.getSquareType());
