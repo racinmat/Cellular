@@ -9,7 +9,6 @@ module FloodTactics {
         private rows : number;
         private columns : number;
         private colorRules : Map<Color, Color[]>;
-		//public rules : Phaser.Group;
 		private rules : Phaser.Sprite;
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
