@@ -99,6 +99,35 @@ module FloodTactics {
             for (var neighbor of this.getNeighbors(square)) {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+					var x =  square.getGridPosition().x;
+					var y =  square.getGridPosition().y;
+					var x2 = neighbor.getGridPosition().x;
+					var y2 = neighbor.getGridPosition().y;
+					var dir;
+					if (x === x2)
+					{
+						if (y < y2)
+							dir = 'down';
+						else
+							dir = 'up';
+					}
+					else
+					{
+						if (x < x2)
+							dir = 'right';
+						else
+							dir = 'left';
+					}
+					var animstr = ColorHelper.toString(neighbor.getColor()) + '-' + dir ;
+
+					var centerCell = this.game.add.sprite(square.x, square.y, animstr);
+					centerCell.animations.add('expand');
+					centerCell.animations.play('expand', 30, false, true);
+
+					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y,animstr + '-t');
+					targetCell.animations.add('expand');
+					targetCell.animations.play('expand', 30, false, true);
+
 	                neighbor.setSquareType(square.getSquareType());
 					this.bubbling.play();
                 }

@@ -9,8 +9,8 @@ module FloodTactics {
         static toString(color : Color) : string {
             switch (color) {
                 case Color.Blue: return "blue";
-                case Color.Yellow: return "yellow";
-                case Color.Brown: return "brown";
+                case Color.Yellow: return "violet";
+                case Color.Brown: return "black";
                 case Color.Red: return "red";
 	            case Color.Green: return "green";
 				case Color.Black: return "black";
