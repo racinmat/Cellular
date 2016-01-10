@@ -83,32 +83,36 @@ var FloodTactics;
                     var y = square.getGridPosition().y;
                     var x2 = neighbor.getGridPosition().x;
                     var y2 = neighbor.getGridPosition().y;
-                    var dir;
+                    var direction;
                     if (x === x2) {
                         if (y < y2)
-                            dir = 'down';
+                            direction = 'down';
                         else
-                            dir = 'up';
+                            direction = 'up';
                     }
                     else {
                         if (x < x2)
-                            dir = 'right';
+                            direction = 'right';
                         else
-                            dir = 'left';
+                            direction = 'left';
                     }
-                    var animstr = FloodTactics.ColorHelper.toString(square.getColor()) + '-' + dir;
-                    var centerCell = this.game.add.sprite(square.x, square.y, animstr);
+                    var animationName = FloodTactics.ColorHelper.toString(square.getColor()) + '-' + direction;
+                    var animation1Name = FloodTactics.ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part1';
+                    var animation2Name = FloodTactics.ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part2';
+                    var centerCell = this.game.add.sprite(square.x, square.y, animationName);
                     centerCell.anchor.set(0.5);
                     _super.prototype.addChild.call(this, centerCell);
-                    console.log('x: ' + square.x + ', y: ' + square.y);
                     centerCell.animations.add('expand');
                     centerCell.animations.play('expand', 10, false, true);
-                    var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
+                    var centerCell = this.game.add.sprite(square.x, square.y, animationName);
+                    var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animationName + '-t');
                     targetCell.anchor.set(0.5);
                     _super.prototype.addChild.call(this, targetCell);
-                    targetCell.animations.add('expand');
+                    var animation = targetCell.animations.add('expand');
                     targetCell.animations.play('expand', 10, false, true);
-                    neighbor.setSquareType(square.getSquareType());
+                    animation.onComplete.add(function (sprite, animation, neighbor) {
+                        neighbor.setSquareType(square.getSquareType());
+                    }, this, null, neighbor);
                     this.bubbling.play();
                 }
             }
@@ -160,7 +164,6 @@ var FloodTactics;
             this.rows = data.rows;
             this.columns = data.columns;
             this.colorRules = this.objectToMap(data.colorRules);
-            console.log(this.colorRules);
             this.squaresFromData(data.squares);
             //kopírování čverců
             this.initialSquares = this.squaresToData();

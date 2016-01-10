@@ -37,50 +37,25 @@ module FloodTactics {
 
 			this.load.image('rules', 'images/rules.png');
 
-			this.load.spritesheet('black-left', 'animations/black/doleva-startCell.png', 267, 267);
-			this.load.spritesheet('black-right', 'animations/black/doprava-startCell.png', 267, 267);
-			this.load.spritesheet('black-up', 'animations/black/nahoru-startCell.png', 267, 267);
-			this.load.spritesheet('black-down', 'animations/black/dolů-startCell.png', 267, 267);
-			this.load.spritesheet('black-left-t', 'animations/black/doleva-targetCell.png', 267, 267);
-			this.load.spritesheet('black-right-t', 'animations/black/doprava-targetCell.png', 267, 267);
-			this.load.spritesheet('black-up-t', 'animations/black/nahoru-targetCell.png', 267, 267);
-			this.load.spritesheet('black-down-t', 'animations/black/dolů-targetCell.png', 267, 267);
+			var directions : Map<string, string> = new Map<string, string>();
+			directions.set('left', 'doleva');
+			directions.set('right', 'doprava');
+			directions.set('up', 'nahoru');
+			directions.set('down', 'dolů');
 
-			this.load.spritesheet('blue-left', 'animations/blue/doleva-startCell.png', 267, 267);
-			this.load.spritesheet('blue-right', 'animations/blue/doprava-startCell.png', 267, 267);
-			this.load.spritesheet('blue-up', 'animations/blue/nahoru-startCell.png', 267, 267);
-			this.load.spritesheet('blue-down', 'animations/blue/dolů-startCell.png', 267, 267);
-			this.load.spritesheet('blue-left-t', 'animations/blue/doleva-targetCell.png', 267, 267);
-			this.load.spritesheet('blue-right-t', 'animations/blue/doprava-targetCell.png', 267, 267);
-			this.load.spritesheet('blue-up-t', 'animations/blue/nahoru-targetCell.png', 267, 267);
-			this.load.spritesheet('blue-down-t', 'animations/blue/dolů-targetCell.png', 267, 267);
+			var colors = ['black', 'red', 'blue', 'green', 'violet'];
 
-			this.load.spritesheet('violet-left', 'animations/violet/doleva-startCell.png', 267, 267);
-			this.load.spritesheet('violet-right', 'animations/violet/doprava-startCell.png', 267, 267);
-			this.load.spritesheet('violet-up', 'animations/violet/nahoru-startCell.png', 267, 267);
-			this.load.spritesheet('violet-down', 'animations/violet/dolů-startCell.png', 267, 267);
-			this.load.spritesheet('violet-left-t', 'animations/violet/doleva-targetCell.png', 267, 267);
-			this.load.spritesheet('violet-right-t', 'animations/violet/doprava-targetCell.png', 267, 267);
-			this.load.spritesheet('violet-up-t', 'animations/violet/nahoru-targetCell.png', 267, 267);
-			this.load.spritesheet('violet-down-t', 'animations/violet/dolů-targetCell.png', 267, 267);
+			directions.forEach((value : string, key : string) => {
+				for (let color of colors) {
+					this.load.spritesheet(color + '-' + key, 'animations/' + color + '/' + value + '-startCell.png', 267, 267);
+					this.load.spritesheet(color + '-' + key + '-t', 'animations/' + color + '/' + value + '-targetCell.png', 267, 267);
 
-			this.load.spritesheet('green-left', 'animations/green/doleva-startCell.png', 267, 267);
-			this.load.spritesheet('green-right', 'animations/green/doprava-startCell.png', 267, 267);
-			this.load.spritesheet('green-up', 'animations/green/nahoru-startCell.png', 267, 267);
-			this.load.spritesheet('green-down', 'animations/green/dolů-startCell.png', 267, 267);
-			this.load.spritesheet('green-left-t', 'animations/green/doleva-targetCell.png', 267, 267);
-			this.load.spritesheet('green-right-t', 'animations/green/doprava-targetCell.png', 267, 267);
-			this.load.spritesheet('green-up-t', 'animations/green/nahoru-targetCell.png', 267, 267);
-			this.load.spritesheet('green-down-t', 'animations/green/dolů-targetCell.png', 267, 267);
-
-		    this.load.spritesheet('red-left', 'animations/red/doleva-startCell.png', 267, 267);
-			this.load.spritesheet('red-right', 'animations/red/doprava-startCell.png', 267, 267);
-			this.load.spritesheet('red-up', 'animations/red/nahoru-startCell.png', 267, 267);
-			this.load.spritesheet('red-down', 'animations/red/dolů-startCell.png', 267, 267);
-			this.load.spritesheet('red-left-t', 'animations/red/doleva-targetCell.png', 267, 267);
-			this.load.spritesheet('red-right-t', 'animations/red/doprava-targetCell.png', 267, 267);
-			this.load.spritesheet('red-up-t', 'animations/red/nahoru-targetCell.png', 267, 267);
-			this.load.spritesheet('red-down-t', 'animations/red/dolů-targetCell.png', 267, 267);
+					this.load.spritesheet(color + '-' + key, 'animations/' + color + '/' + value + '-startCell-part1.png', 267, 267);
+					this.load.spritesheet(color + '-' + key + '-t', 'animations/' + color + '/' + value + '-targetCell-part1.png', 267, 267);
+					this.load.spritesheet(color + '-' + key, 'animations/' + color + '/' + value + '-startCell-part2.png', 267, 267);
+					this.load.spritesheet(color + '-' + key + '-t', 'animations/' + color + '/' + value + '-targetCell-part2.png', 267, 267);
+				}
+			});
 
 		}
 

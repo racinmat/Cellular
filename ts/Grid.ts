@@ -9,7 +9,6 @@ module FloodTactics {
         private rows : number;
         private columns : number;
         private colorRules : Map<Color, Color[]>;
-		private rules : Phaser.Sprite;
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
 
@@ -102,37 +101,40 @@ module FloodTactics {
 					var y =  square.getGridPosition().y;
 					var x2 = neighbor.getGridPosition().x;
 					var y2 = neighbor.getGridPosition().y;
-					var dir;
+					var direction : string;
 					if (x === x2)
 					{
 						if (y < y2)
-							dir = 'down';
+							direction = 'down';
 						else
-							dir = 'up';
+							direction = 'up';
 					}
 					else
 					{
 						if (x < x2)
-							dir = 'right';
+							direction = 'right';
 						else
-							dir = 'left';
+							direction = 'left';
 					}
-					var animstr = ColorHelper.toString(square.getColor()) + '-' + dir ;
 
-					var centerCell = this.game.add.sprite(square.x, square.y, animstr);
+					var animationName = ColorHelper.toString(square.getColor()) + '-' + direction;
+					var animation1Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part1';
+					var animation2Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part2';
+
+					var centerCell = this.game.add.sprite(square.x, square.y, animationName);
 					centerCell.anchor.set(0.5);
 					super.addChild(centerCell);
-					console.log('x: ' + square.x + ', y: ' + square.y);
 					centerCell.animations.add('expand');
 					centerCell.animations.play('expand', 10, false, true);
 
-					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
+					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animationName + '-t');
 					targetCell.anchor.set(0.5);
 					super.addChild(targetCell);
-					targetCell.animations.add('expand');
+					var animation = targetCell.animations.add('expand');
 					targetCell.animations.play('expand', 10, false, true);
-
-	                neighbor.setSquareType(square.getSquareType());
+					animation.onComplete.add((sprite : Phaser.Sprite, animation : Phaser.Animation,  neighbor : Square) => {
+						neighbor.setSquareType(square.getSquareType());
+					}, this, null, neighbor);
 					this.bubbling.play();
                 }
             }
@@ -189,7 +191,6 @@ module FloodTactics {
 		    this.rows = data.rows;
 		    this.columns = data.columns;
 		    this.colorRules = this.objectToMap(data.colorRules);
-			console.log(this.colorRules);
 		    this.squaresFromData(data.squares);
 
 			//kopírování čverců

@@ -19,6 +19,7 @@ module FloodTactics {
 
         create() {
 			this.muted = true;
+			this.game.sound.mute = this.muted;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
@@ -50,7 +51,7 @@ module FloodTactics {
 				this.game.sound.mute = this.muted;
 				this.soundIcon.loadTexture(this.soundIcon.key);
 			};
-			this.soundIcon = this.game.add.button(30, 770, 'soundLoud', changeIcon, this);
+			this.soundIcon = this.game.add.button(30, 770, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
 			this.soundIcon.anchor.set(0.5);
 			this.soundIcon.scale.set(0.05);
 		}
