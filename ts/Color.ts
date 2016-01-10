@@ -13,7 +13,7 @@ module FloodTactics {
                 case Color.Brown: return "black";
                 case Color.Red: return "red";
 	            case Color.Green: return "green";
-				case Color.Black: return "black";
+				case Color.Black: return "empty";
             }
         }
 

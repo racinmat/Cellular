@@ -121,12 +121,15 @@ module FloodTactics {
 					var animstr = ColorHelper.toString(neighbor.getColor()) + '-' + dir ;
 
 					var centerCell = this.game.add.sprite(square.x, square.y, animstr);
+					console.log('x: ' + sqaure.x + ', y: ' + square.y);
+					centerCell.scale.set(0.25);
 					centerCell.animations.add('expand');
-					centerCell.animations.play('expand', 30, false, true);
+					centerCell.animations.play('expand', 3, false, true);
 
 					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y,animstr + '-t');
+					targetCell.scale.set(0.25);
 					targetCell.animations.add('expand');
-					targetCell.animations.play('expand', 30, false, true);
+					targetCell.animations.play('expand', 3, false, true);
 
 	                neighbor.setSquareType(square.getSquareType());
 					this.bubbling.play();

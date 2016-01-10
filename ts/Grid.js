@@ -79,6 +79,33 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
+                    var x = square.getGridPosition().x;
+                    var y = square.getGridPosition().y;
+                    var x2 = neighbor.getGridPosition().x;
+                    var y2 = neighbor.getGridPosition().y;
+                    var dir;
+                    if (x === x2) {
+                        if (y < y2)
+                            dir = 'down';
+                        else
+                            dir = 'up';
+                    }
+                    else {
+                        if (x < x2)
+                            dir = 'right';
+                        else
+                            dir = 'left';
+                    }
+                    var animstr = FloodTactics.ColorHelper.toString(neighbor.getColor()) + '-' + dir;
+                    var centerCell = this.game.add.sprite(square.x, square.y, animstr);
+                    console.log('x: ' + sqaure.x + ', y: ' + square.y);
+                    centerCell.scale.set(0.25);
+                    centerCell.animations.add('expand');
+                    centerCell.animations.play('expand', 3, false, true);
+                    var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animstr + '-t');
+                    targetCell.scale.set(0.25);
+                    targetCell.animations.add('expand');
+                    targetCell.animations.play('expand', 3, false, true);
                     neighbor.setSquareType(square.getSquareType());
                     this.bubbling.play();
                 }

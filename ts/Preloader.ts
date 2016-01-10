@@ -11,12 +11,12 @@ module FloodTactics {
 			this.load.image('backgroundSquare', 'images/backgroundSquare.png');
 			this.load.image('playground', 'images/playground-plain.png');
 
-            this.load.image('yellow', 'images/yellow-cell.png');
-            this.load.image('brown', 'images/brown-cell.png');
+            this.load.image('violet', 'images/yellow-cell.png');
+            this.load.image('black', 'images/brown-cell.png');
             this.load.image('red', 'images/red-cell.png');
             this.load.image('blue', 'images/blue-cell.png');
 	        this.load.image('green', 'images/green-cell.png');
-			this.load.image('black', 'images/obstacle.png');
+			this.load.image('empty', 'images/obstacle.png');
             this.load.image('levelCompleted', 'images/level_completed.jpg');
 
 	        this.load.image('button', 'images/button.jpg');
@@ -37,50 +37,50 @@ module FloodTactics {
 
 			this.load.image('rules', 'images/rules.png');
 
-			this.load.spritesheet('black-left', 'animations/black/doleva-startCell', 267, 267);
-			this.load.spritesheet('black-right', 'animations/black/doprava-startCell', 267, 267);
-			this.load.spritesheet('black-up', 'animations/black/nahoru-startCell', 267, 267);
-			this.load.spritesheet('black-down', 'animations/black/dolů-startCell', 267, 267);
-			this.load.spritesheet('black-left-t', 'animations/black/doleva-targetCell', 267, 267);
-			this.load.spritesheet('black-right-t', 'animations/black/doprava-targetCell', 267, 267);
-			this.load.spritesheet('black-up-t', 'animations/black/nahoru-targetCell', 267, 267);
-			this.load.spritesheet('black-down-t', 'animations/black/dolů-targetCell', 267, 267);
+			this.load.spritesheet('black-left', 'animations/black/doleva-startCell.png', 267, 267);
+			this.load.spritesheet('black-right', 'animations/black/doprava-startCell.png', 267, 267);
+			this.load.spritesheet('black-up', 'animations/black/nahoru-startCell.png', 267, 267);
+			this.load.spritesheet('black-down', 'animations/black/dolů-startCell.png', 267, 267);
+			this.load.spritesheet('black-left-t', 'animations/black/doleva-targetCell.png', 267, 267);
+			this.load.spritesheet('black-right-t', 'animations/black/doprava-targetCell.png', 267, 267);
+			this.load.spritesheet('black-up-t', 'animations/black/nahoru-targetCell.png', 267, 267);
+			this.load.spritesheet('black-down-t', 'animations/black/dolů-targetCell.png', 267, 267);
 
-			this.load.spritesheet('blue-left', 'animations/blue/doleva-startCell', 267, 267);
-			this.load.spritesheet('blue-right', 'animations/blue/doprava-startCell', 267, 267);
-			this.load.spritesheet('blue-up', 'animations/blue/nahoru-startCell', 267, 267);
-			this.load.spritesheet('blue-down', 'animations/blue/dolů-startCell', 267, 267);
-			this.load.spritesheet('blue-left-t', 'animations/blue/doleva-targetCell', 267, 267);
-			this.load.spritesheet('blue-right-t', 'animations/blue/doprava-targetCell', 267, 267);
-			this.load.spritesheet('blue-up-t', 'animations/blue/nahoru-targetCell', 267, 267);
-			this.load.spritesheet('blue-down-t', 'animations/blue/dolů-targetCell', 267, 267);
+			this.load.spritesheet('blue-left', 'animations/blue/doleva-startCell.png', 267, 267);
+			this.load.spritesheet('blue-right', 'animations/blue/doprava-startCell.png', 267, 267);
+			this.load.spritesheet('blue-up', 'animations/blue/nahoru-startCell.png', 267, 267);
+			this.load.spritesheet('blue-down', 'animations/blue/dolů-startCell.png', 267, 267);
+			this.load.spritesheet('blue-left-t', 'animations/blue/doleva-targetCell.png', 267, 267);
+			this.load.spritesheet('blue-right-t', 'animations/blue/doprava-targetCell.png', 267, 267);
+			this.load.spritesheet('blue-up-t', 'animations/blue/nahoru-targetCell.png', 267, 267);
+			this.load.spritesheet('blue-down-t', 'animations/blue/dolů-targetCell.png', 267, 267);
 
-			this.load.spritesheet('violet-left', 'animations/violet/doleva-startCell', 267, 267);
-			this.load.spritesheet('violet-right', 'animations/violet/doprava-startCell', 267, 267);
-			this.load.spritesheet('violet-up', 'animations/violet/nahoru-startCell', 267, 267);
-			this.load.spritesheet('violet-down', 'animations/violet/dolů-startCell', 267, 267);
-			this.load.spritesheet('violet-left-t', 'animations/violet/doleva-targetCell', 267, 267);
-			this.load.spritesheet('violet-right-t', 'animations/violet/doprava-targetCell', 267, 267);
-			this.load.spritesheet('violet-up-t', 'animations/violet/nahoru-targetCell', 267, 267);
-			this.load.spritesheet('violet-down-t', 'animations/violet/dolů-targetCell', 267, 267);
+			this.load.spritesheet('violet-left', 'animations/violet/doleva-startCell.png', 267, 267);
+			this.load.spritesheet('violet-right', 'animations/violet/doprava-startCell.png', 267, 267);
+			this.load.spritesheet('violet-up', 'animations/violet/nahoru-startCell.png', 267, 267);
+			this.load.spritesheet('violet-down', 'animations/violet/dolů-startCell.png', 267, 267);
+			this.load.spritesheet('violet-left-t', 'animations/violet/doleva-targetCell.png', 267, 267);
+			this.load.spritesheet('violet-right-t', 'animations/violet/doprava-targetCell.png', 267, 267);
+			this.load.spritesheet('violet-up-t', 'animations/violet/nahoru-targetCell.png', 267, 267);
+			this.load.spritesheet('violet-down-t', 'animations/violet/dolů-targetCell.png', 267, 267);
 
-			this.load.spritesheet('green-left', 'animations/green/doleva-startCell', 267, 267);
-			this.load.spritesheet('green-right', 'animations/green/doprava-startCell', 267, 267);
-			this.load.spritesheet('green-up', 'animations/green/nahoru-startCell', 267, 267);
-			this.load.spritesheet('green-down', 'animations/green/dolů-startCell', 267, 267);
-			this.load.spritesheet('green-left-t', 'animations/green/doleva-targetCell', 267, 267);
-			this.load.spritesheet('green-right-t', 'animations/green/doprava-targetCell', 267, 267);
-			this.load.spritesheet('green-up-t', 'animations/green/nahoru-targetCell', 267, 267);
-			this.load.spritesheet('green-down-t', 'animations/green/dolů-targetCell', 267, 267);
+			this.load.spritesheet('green-left', 'animations/green/doleva-startCell.png', 267, 267);
+			this.load.spritesheet('green-right', 'animations/green/doprava-startCell.png', 267, 267);
+			this.load.spritesheet('green-up', 'animations/green/nahoru-startCell.png', 267, 267);
+			this.load.spritesheet('green-down', 'animations/green/dolů-startCell.png', 267, 267);
+			this.load.spritesheet('green-left-t', 'animations/green/doleva-targetCell.png', 267, 267);
+			this.load.spritesheet('green-right-t', 'animations/green/doprava-targetCell.png', 267, 267);
+			this.load.spritesheet('green-up-t', 'animations/green/nahoru-targetCell.png', 267, 267);
+			this.load.spritesheet('green-down-t', 'animations/green/dolů-targetCell.png', 267, 267);
 
-		    this.load.spritesheet('red-left', 'animations/red/doleva-startCell', 267, 267);
-			this.load.spritesheet('red-right', 'animations/red/doprava-startCell', 267, 267);
-			this.load.spritesheet('red-up', 'animations/red/nahoru-startCell', 267, 267);
-			this.load.spritesheet('red-down', 'animations/red/dolů-startCell', 267, 267);
-			this.load.spritesheet('red-left-t', 'animations/red/doleva-targetCell', 267, 267);
-			this.load.spritesheet('red-right-t', 'animations/red/doprava-targetCell', 267, 267);
-			this.load.spritesheet('red-up-t', 'animations/red/nahoru-targetCell', 267, 267);
-			this.load.spritesheet('red-down-t', 'animations/red/dolů-targetCell', 267, 267);
+		    this.load.spritesheet('red-left', 'animations/red/doleva-startCell.png', 267, 267);
+			this.load.spritesheet('red-right', 'animations/red/doprava-startCell.png', 267, 267);
+			this.load.spritesheet('red-up', 'animations/red/nahoru-startCell.png', 267, 267);
+			this.load.spritesheet('red-down', 'animations/red/dolů-startCell.png', 267, 267);
+			this.load.spritesheet('red-left-t', 'animations/red/doleva-targetCell.png', 267, 267);
+			this.load.spritesheet('red-right-t', 'animations/red/doprava-targetCell.png', 267, 267);
+			this.load.spritesheet('red-up-t', 'animations/red/nahoru-targetCell.png', 267, 267);
+			this.load.spritesheet('red-down-t', 'animations/red/dolů-targetCell.png', 267, 267);
 
 		}
 
