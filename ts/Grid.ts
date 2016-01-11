@@ -97,74 +97,68 @@ module FloodTactics {
             for (var neighbor of this.getNeighbors(square)) {
                 var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-					var x =  square.getGridPosition().x;
-					var y =  square.getGridPosition().y;
-					var x2 = neighbor.getGridPosition().x;
-					var y2 = neighbor.getGridPosition().y;
-					var direction : string;
-					if (x === x2)
-					{
-						if (y < y2)
-							direction = 'down';
-						else
-							direction = 'up';
-					}
-					else
-					{
-						if (x < x2)
-							direction = 'right';
-						else
-							direction = 'left';
-					}
-
-					var animationName = ColorHelper.toString(square.getColor()) + '-' + direction;
-					var animation1Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part1';
-					var animation2Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part2';
-
-					var centerCell = this.game.add.sprite(square.x, square.y, animationName);
-					centerCell.anchor.set(0.5);
-					super.addChild(centerCell);
-					centerCell.animations.add('expand');
-					centerCell.animations.play('expand', 10, false, true);
-
-					//var centerCellPart1 = this.game.add.sprite(square.x, square.y, animation1Name);
-					//centerCellPart1.anchor.set(0.5);
-					//super.addChild(centerCellPart1);
-					//var centerAnimation = centerCell.animations.add('expand');
-					//centerCellPart1.animations.play('expand', 10, false, true);
-					//
-					//var centerCellPart2 = this.game.add.sprite(square.x, square.y, animation2Name);
-					//centerCellPart2.anchor.set(0.5);
-					//super.addChild(centerCellPart2);
-					//centerCellPart2.animations.play('expand', 10, false, true);
-
-
-					var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
-					targetCellPart1.anchor.set(0.5);
-					super.addChild(targetCellPart1);
-					var animation = targetCellPart1.animations.add('expand');
-					animation.onComplete.add((sprite : Phaser.Sprite, animation : Phaser.Animation,  neighbor : Square, targetCellPart1 : Phaser.Sprite, animation2Name : string) => {
-						var targetCellPart2 = this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
-						targetCellPart2.anchor.set(0.5);
-						super.addChild(targetCellPart2);
-						targetCellPart2.animations.add('expand');
-						targetCellPart2.animations.play('expand', 10, false, true);
-						neighbor.setSquareType(square.getSquareType());
-					}, this, null, neighbor, targetCellPart1, animation2Name);
-					targetCellPart1.animations.play('expand', 10, false, true);
-
-
+					this.expandWithAnimation(square, neighbor);
                 }
             }
 			this.processOnClick(square);
         }
 
+		private expandWithAnimation(square : Square, neighbor : Square) {
+			var x =  square.getGridPosition().x;
+			var y =  square.getGridPosition().y;
+			var x2 = neighbor.getGridPosition().x;
+			var y2 = neighbor.getGridPosition().y;
+			var direction : string;
+			if (x === x2)
+			{
+				if (y < y2)
+					direction = 'down';
+				else
+					direction = 'up';
+			}
+			else
+			{
+				if (x < x2)
+					direction = 'right';
+				else
+					direction = 'left';
+			}
+
+			var animationName = ColorHelper.toString(square.getColor()) + '-' + direction;
+			var animation1Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part1';
+			var animation2Name = ColorHelper.toString(square.getColor()) + '-' + direction + '-' + 'part2';
+
+			var centerCell = this.game.add.sprite(square.x, square.y, animationName);
+			centerCell.anchor.set(0.5);
+			super.addChild(centerCell);
+			centerCell.animations.add('expand');
+			centerCell.animations.play('expand', 10, false, true);
+
+
+			var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
+			targetCellPart1.anchor.set(0.5);
+			super.addChild(targetCellPart1);
+			var animation = targetCellPart1.animations.add('expand');
+			animation.onComplete.add((sprite : Phaser.Sprite, animation : Phaser.Animation,  neighbor : Square, targetCellPart1 : Phaser.Sprite, animation2Name : string) => {
+				var targetCellPart2 = this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
+				targetCellPart2.anchor.set(0.5);
+				super.addChild(targetCellPart2);
+				targetCellPart2.animations.add('expand');
+				targetCellPart2.animations.play('expand', 10, false, true);
+				neighbor.setSquareType(square.getSquareType());
+			}, this, null, neighbor, targetCellPart1, animation2Name);
+			targetCellPart1.animations.play('expand', 10, false, true);
+
+			this.bubbling.play();
+		}
+
 	    public flood(square : Square) : void {
 		    for (var neighbor of this.getNeighbors(square)) {
 			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-				    neighbor.setSquareType(square.getSquareType());
-					this.bubbling.play();
+					this.expandWithAnimation(square, neighbor);
+					//neighbor.setSquareType(square.getSquareType());
+					//this.bubbling.play();
 				    neighbor.flood();
 			    }
 		    }

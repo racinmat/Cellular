@@ -42,16 +42,16 @@ var FloodTactics;
             directions.set('left', 'doleva');
             directions.set('right', 'doprava');
             directions.set('up', 'nahoru');
-            directions.set('down', 'dolů');
+            directions.set('down', 'dolu');
             var colors = ['black', 'red', 'blue', 'green', 'violet'];
             directions.forEach(function (value, key) {
                 for (var _i = 0; _i < colors.length; _i++) {
                     var color = colors[_i];
                     _this.load.spritesheet(color + '-' + key, 'animations/' + color + '/' + value + '-startCell.png', 267, 267);
-                    _this.load.spritesheet(color + '-' + key + '-t', 'animations/' + color + '/' + value + '-targetCell.png', 267, 267);
-                    _this.load.spritesheet(color + '-' + key + '-part1', 'animations/' + color + '/' + value + '-startCell-part1.png', 267, 267);
+                    //this.load.spritesheet(color + '-' + key + '-t', 'animations/' + color + '/' + value + '-targetCell.png', 267, 267);
+                    //this.load.spritesheet(color + '-' + key + '-part1', 'animations/' + color + '/' + value + '-startCell-part1.png', 267, 267);
                     _this.load.spritesheet(color + '-' + key + '-part1-t', 'animations/' + color + '/' + value + '-targetCell-part1.png', 267, 267);
-                    _this.load.spritesheet(color + '-' + key + '-part2', 'animations/' + color + '/' + value + '-startCell-part2.png', 267, 267);
+                    //this.load.spritesheet(color + '-' + key + '-part2', 'animations/' + color + '/' + value + '-startCell-part2.png', 267, 267);
                     _this.load.spritesheet(color + '-' + key + '-part2-t', 'animations/' + color + '/' + value + '-targetCell-part2.png', 267, 267);
                 }
             });
