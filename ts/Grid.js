@@ -75,6 +75,7 @@ var FloodTactics;
             return neighbors;
         };
         Grid.prototype.expand = function (square) {
+            var _this = this;
             for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
                 var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
@@ -104,16 +105,29 @@ var FloodTactics;
                     _super.prototype.addChild.call(this, centerCell);
                     centerCell.animations.add('expand');
                     centerCell.animations.play('expand', 10, false, true);
-                    var centerCell = this.game.add.sprite(square.x, square.y, animationName);
-                    var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animationName + '-t');
-                    targetCell.anchor.set(0.5);
-                    _super.prototype.addChild.call(this, targetCell);
-                    var animation = targetCell.animations.add('expand');
-                    targetCell.animations.play('expand', 10, false, true);
-                    animation.onComplete.add(function (sprite, animation, neighbor) {
+                    //var centerCellPart1 = this.game.add.sprite(square.x, square.y, animation1Name);
+                    //centerCellPart1.anchor.set(0.5);
+                    //super.addChild(centerCellPart1);
+                    //var centerAnimation = centerCell.animations.add('expand');
+                    //centerCellPart1.animations.play('expand', 10, false, true);
+                    //
+                    //var centerCellPart2 = this.game.add.sprite(square.x, square.y, animation2Name);
+                    //centerCellPart2.anchor.set(0.5);
+                    //super.addChild(centerCellPart2);
+                    //centerCellPart2.animations.play('expand', 10, false, true);
+                    var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
+                    targetCellPart1.anchor.set(0.5);
+                    _super.prototype.addChild.call(this, targetCellPart1);
+                    var animation = targetCellPart1.animations.add('expand');
+                    animation.onComplete.add(function (sprite, animation, neighbor, targetCellPart1, animation2Name) {
+                        var targetCellPart2 = _this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
+                        targetCellPart2.anchor.set(0.5);
+                        _super.prototype.addChild.call(_this, targetCellPart2);
+                        targetCellPart2.animations.add('expand');
+                        targetCellPart2.animations.play('expand', 10, false, true);
                         neighbor.setSquareType(square.getSquareType());
-                    }, this, null, neighbor);
-                    this.bubbling.play();
+                    }, this, null, neighbor, targetCellPart1, animation2Name);
+                    targetCellPart1.animations.play('expand', 10, false, true);
                 }
             }
             this.processOnClick(square);

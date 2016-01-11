@@ -127,15 +127,33 @@ module FloodTactics {
 					centerCell.animations.add('expand');
 					centerCell.animations.play('expand', 10, false, true);
 
-					var targetCell = this.game.add.sprite(neighbor.x, neighbor.y, animationName + '-t');
-					targetCell.anchor.set(0.5);
-					super.addChild(targetCell);
-					var animation = targetCell.animations.add('expand');
-					targetCell.animations.play('expand', 10, false, true);
-					animation.onComplete.add((sprite : Phaser.Sprite, animation : Phaser.Animation,  neighbor : Square) => {
+					//var centerCellPart1 = this.game.add.sprite(square.x, square.y, animation1Name);
+					//centerCellPart1.anchor.set(0.5);
+					//super.addChild(centerCellPart1);
+					//var centerAnimation = centerCell.animations.add('expand');
+					//centerCellPart1.animations.play('expand', 10, false, true);
+					//
+					//var centerCellPart2 = this.game.add.sprite(square.x, square.y, animation2Name);
+					//centerCellPart2.anchor.set(0.5);
+					//super.addChild(centerCellPart2);
+					//centerCellPart2.animations.play('expand', 10, false, true);
+
+
+					var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
+					targetCellPart1.anchor.set(0.5);
+					super.addChild(targetCellPart1);
+					var animation = targetCellPart1.animations.add('expand');
+					animation.onComplete.add((sprite : Phaser.Sprite, animation : Phaser.Animation,  neighbor : Square, targetCellPart1 : Phaser.Sprite, animation2Name : string) => {
+						var targetCellPart2 = this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
+						targetCellPart2.anchor.set(0.5);
+						super.addChild(targetCellPart2);
+						targetCellPart2.animations.add('expand');
+						targetCellPart2.animations.play('expand', 10, false, true);
 						neighbor.setSquareType(square.getSquareType());
-					}, this, null, neighbor);
-					this.bubbling.play();
+					}, this, null, neighbor, targetCellPart1, animation2Name);
+					targetCellPart1.animations.play('expand', 10, false, true);
+
+
                 }
             }
 			this.processOnClick(square);
