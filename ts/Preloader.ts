@@ -28,8 +28,8 @@ module FloodTactics {
 	        this.load.image('whiteBackground', 'images/whiteBackground.png');
 			this.load.image('whiteBackground300x300', 'images/whiteBackground300x300.png');
 			this.load.image('whiteBackground300x360', 'images/whiteBackground300x360.png');
-			this.load.image('soundSilent', 'images/sound-silent.png');
-			this.load.image('soundLoud', 'images/sound-loud.png');
+			this.load.image('soundSilent', 'images/sound off.png');
+			this.load.image('soundLoud', 'images/sound on.png');
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
 	        this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
 			this.load.audio('backgroundSound', 'audio/rain_song.mp3');

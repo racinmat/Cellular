@@ -59,6 +59,7 @@ var FloodTactics;
                     _super.prototype.addChild.call(this, this.squares[i][j]);
                 }
             }
+            this.chooseBackgroundFromSize();
             //kopírování čverců
             this.initialSquares = this.squaresToData();
             this.bubbling = this.game.add.audio('bubbling');
@@ -174,6 +175,7 @@ var FloodTactics;
             this.columns = data.columns;
             this.colorRules = this.objectToMap(data.colorRules);
             this.squaresFromData(data.squares);
+            this.chooseBackgroundFromSize();
             //kopírování čverců
             this.initialSquares = this.squaresToData();
         };
@@ -234,6 +236,16 @@ var FloodTactics;
                 }
             });
             return inactiveColors;
+        };
+        Grid.prototype.chooseBackgroundFromSize = function () {
+            if (this.rows == 6 && this.columns == 6) {
+                this.key = 'backgroundSquare';
+                this.x += 83;
+            }
+            else if (this.rows == 6 && this.columns == 12) {
+                this.key = 'background';
+            }
+            this.loadTexture(this.key);
         };
         return Grid;
     })(Phaser.Sprite);

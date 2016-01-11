@@ -47,9 +47,9 @@ var FloodTactics;
                 _this.game.sound.mute = _this.muted;
                 _this.soundIcon.loadTexture(_this.soundIcon.key);
             };
-            this.soundIcon = this.game.add.button(30, 770, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
-            this.soundIcon.anchor.set(0.5);
-            this.soundIcon.scale.set(0.05);
+            this.soundIcon = this.game.add.button(82, 744, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
+            //this.soundIcon.anchor.set(0.5);
+            this.soundIcon.scale.set(0.25);
         };
         AbstractLevel.prototype.update = function () {
             var _this = this;

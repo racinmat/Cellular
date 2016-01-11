@@ -75,6 +75,7 @@ module FloodTactics {
                 }
             }
 
+			this.chooseBackgroundFromSize();
 	        //kopírování čverců
 	        this.initialSquares = this.squaresToData();
 
@@ -205,6 +206,7 @@ module FloodTactics {
 		    this.colorRules = this.objectToMap(data.colorRules);
 		    this.squaresFromData(data.squares);
 
+			this.chooseBackgroundFromSize();
 			//kopírování čverců
 			this.initialSquares = this.squaresToData();
 	    }
@@ -270,6 +272,16 @@ module FloodTactics {
 			});
 
 			return inactiveColors;
+		}
+
+		private chooseBackgroundFromSize() {
+			if (this.rows == 6 && this.columns == 6) {
+			    this.key = 'backgroundSquare';
+				this.x += 83;
+			} else if (this.rows == 6 && this.columns == 12) {
+				this.key = 'background';
+			}
+			this.loadTexture(this.key);
 		}
      }
 

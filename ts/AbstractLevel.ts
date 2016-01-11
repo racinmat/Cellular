@@ -51,9 +51,9 @@ module FloodTactics {
 				this.game.sound.mute = this.muted;
 				this.soundIcon.loadTexture(this.soundIcon.key);
 			};
-			this.soundIcon = this.game.add.button(30, 770, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
-			this.soundIcon.anchor.set(0.5);
-			this.soundIcon.scale.set(0.05);
+			this.soundIcon = this.game.add.button(82, 744, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
+			//this.soundIcon.anchor.set(0.5);
+			this.soundIcon.scale.set(0.25);
 		}
 
         update() {
