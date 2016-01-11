@@ -240,7 +240,7 @@ var FloodTactics;
         Grid.prototype.chooseBackgroundFromSize = function () {
             if (this.rows == 6 && this.columns == 6) {
                 this.key = 'backgroundSquare';
-                this.x += 83;
+                this.x += 83; //plocha je menší a musím ji posunout. možná by pomohlo vycentrování pomocí this.anchos.set(0.5), ale naaaah.
             }
             else if (this.rows == 6 && this.columns == 12) {
                 this.key = 'background';
