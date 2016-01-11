@@ -30,12 +30,18 @@ module FloodTactics {
 			this.load.image('whiteBackground300x360', 'images/whiteBackground300x360.png');
 			this.load.image('soundSilent', 'images/sound off.png');
 			this.load.image('soundLoud', 'images/sound on.png');
+
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
 	        this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
+			this.load.bitmapFont('sego', 'fonts/segoeprbBlack.png', 'fonts/segoeprb.xml');
+
 			this.load.audio('backgroundSound', 'audio/rain_song.mp3');
 			this.load.audio('bubbling', 'audio/bubbling2.wav');
 
 			this.load.image('rules', 'images/rules.png');
+
+			this.load.image('notebook', 'images/notebook2.png');
+			this.load.image('nextButton', 'images/NEXT-02.png');
 
 			this.load.image('menuBackground', 'images/MENU-01.png');
 
