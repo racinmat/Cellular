@@ -37,6 +37,14 @@ module FloodTactics {
 
 			this.load.image('rules', 'images/rules.png');
 
+			this.load.image('menuBackground', 'images/MENU-01.png');
+
+			this.load.image('credits', 'images/credits.png');
+			this.load.image('level1', 'images/level 1.png');
+			this.load.image('level2', 'images/level 2.png');
+			this.load.image('tutorial', 'images/tutorial.png');
+
+
 			var directions : Map<string, string> = new Map<string, string>();
 			directions.set('left', 'doleva');
 			directions.set('right', 'doprava');
