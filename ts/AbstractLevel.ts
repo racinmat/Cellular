@@ -4,12 +4,11 @@ module FloodTactics {
 
     export class AbstractLevel extends Phaser.State {
 
-        protected grid : Grid;
+		protected grid : Grid;
         protected winChecker : IWinChecker;
         protected winningTween : Phaser.Tween;
 
 		private soundIcon : Phaser.Button;
-		private muted : boolean;
 
 		init(levelName : string) {
 			var playground = this.game.add.sprite(0, 0, 'playground');
@@ -17,8 +16,7 @@ module FloodTactics {
 		}
 
         create() {
-			this.muted = true;
-			this.game.sound.mute = this.muted;
+			this.game.sound.mute = this.game.muted;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
@@ -38,16 +36,16 @@ module FloodTactics {
 			backgroundSound.play();
 			var changeIcon = () => {
 				//console.log('sound clicked');
-				if(this.muted) {
+				if(this.game.muted) {
 					this.soundIcon.key = 'soundLoud';
 				} else {
 					this.soundIcon.key = 'soundSilent';
 				}
-				this.muted = !this.muted;
-				this.game.sound.mute = this.muted;
+				this.game.muted = !this.game.muted;
+				this.game.sound.mute = this.game.muted;
 				this.soundIcon.loadTexture(this.soundIcon.key);
 			};
-			this.soundIcon = this.game.add.button(82, 744, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
+			this.soundIcon = this.game.add.button(82, 744, this.game.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
 			//this.soundIcon.anchor.set(0.5);
 			this.soundIcon.scale.set(0.25);
 
