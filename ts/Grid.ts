@@ -228,12 +228,12 @@ module FloodTactics {
 		private chooseBackgroundFromSize() {
 			if (this.columns == 6 && this.rows == 6) {
 				if(this.key == 'background') {
-					this.x -= 83;
+					this.x += 166;
 				}
 			    this.key = 'backgroundSquare';
 			} else if (this.columns == 12 && this.rows == 6) {
 				if(this.key == 'backgroundSquare') {
-					this.x += 83;
+					this.x -= 166;
 				}
 				this.key = 'background';
 			}
@@ -241,7 +241,6 @@ module FloodTactics {
 		}
 
 		public initialize() {
-			console.log('initializing');
 			if(typeof this.columns == 'undefined' && typeof this.rows == 'undefined') {
 				this.columns = 12;
 				this.rows = 6;

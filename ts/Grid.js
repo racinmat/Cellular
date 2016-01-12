@@ -200,20 +200,19 @@ var FloodTactics;
         Grid.prototype.chooseBackgroundFromSize = function () {
             if (this.columns == 6 && this.rows == 6) {
                 if (this.key == 'background') {
-                    this.x -= 83;
+                    this.x += 166;
                 }
                 this.key = 'backgroundSquare';
             }
             else if (this.columns == 12 && this.rows == 6) {
                 if (this.key == 'backgroundSquare') {
-                    this.x += 83;
+                    this.x -= 166;
                 }
                 this.key = 'background';
             }
             this.loadTexture(this.key);
         };
         Grid.prototype.initialize = function () {
-            console.log('initializing');
             if (typeof this.columns == 'undefined' && typeof this.rows == 'undefined') {
                 this.columns = 12;
                 this.rows = 6;
