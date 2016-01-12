@@ -18,6 +18,7 @@ var FloodTactics;
             if (levelName != undefined) {
                 this.grid.deserialize(games[levelName]);
             }
+            this.grid.initialize();
         };
         TutorialLevel.prototype.create = function () {
             _super.prototype.create.call(this);

@@ -5,6 +5,9 @@ var FloodTactics;
         function CountNeighborsWinChecker() {
         }
         CountNeighborsWinChecker.prototype.checkWin = function (grid) {
+            if (!grid.initialized) {
+                return false;
+            }
             for (var _i = 0, _a = grid.getSquares(); _i < _a.length; _i++) {
                 var row = _a[_i];
                 for (var _b = 0; _b < row.length; _b++) {

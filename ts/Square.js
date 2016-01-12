@@ -44,10 +44,10 @@ var FloodTactics;
                     square.expand();
                     return;
                 }
-                //if(flood) {
-                //	square.flood();
-                //	return;
-                //}
+                if (flood) {
+                    square.flood();
+                    return;
+                }
             };
             this.events.onInputDown.add(clicked, this);
             this.anchor.setTo(0.5, 0.5);

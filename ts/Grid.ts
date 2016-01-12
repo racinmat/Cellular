@@ -6,23 +6,19 @@ module FloodTactics {
 
         private squares : Square[][];
 	    private initialSquares : any[][];
-        private rows : number;
         private columns : number;
+        private rows : number;
         private colorRules : Map<Color, Color[]>;
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
+		public initialized : boolean = false;
 
         constructor(game: Phaser.Game, x: number, y: number, background : string) {
             super(game, x, y, background, 0);
-			console.log('hello world');
 	        this.game.add.existing(this);
 			this.scale.set(0.25);
             this.squares = [];
 			this.onClick = [];
-
-            //data pro level
-            this.rows = 6;
-            this.columns = 6;
 
             this.colorRules = new Map<Color, Color[]>();
 
@@ -34,53 +30,10 @@ module FloodTactics {
 			this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
 			this.colorRules.set(Color.Black, []);
 
-	        //data pro čtverce, budou se načítat z jsonu
-	        var power : number = 1;
-
-	        var directDirections : Phaser.Point[] = [];
-	        directDirections[0] = new Phaser.Point(-1, 0);
-	        directDirections[1] = new Phaser.Point(1, 0);
-	        directDirections[2] = new Phaser.Point(0, -1);
-	        directDirections[3] = new Phaser.Point(0, 1);
-
-	        var redType : SquareType = new SquareType(Color.Red, power, directDirections);
-	        var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
-	        var brownType : SquareType = new SquareType(Color.Brown, power, directDirections);
-	        var yellowType : SquareType = new SquareType(Color.Yellow, power, directDirections);
-	        var greenType : SquareType = new SquareType(Color.Green, power, directDirections);
-			var blackType : SquareType = new SquareType(Color.Black, power, directDirections);
-
-	        var types : SquareType[] = [];
-	        types.push(redType);
-	        types.push(brownType);
-	        types.push(blueType);
-	        types.push(yellowType);
-	        types.push(greenType);
-			types.push(blackType);
-
 	        //konec načítání typů čtverců
 
-	        var number : number = 3;
-	        //konec dat pro čtverce
-
-	        var max : Phaser.Point = new Phaser.Point(this.rows - 1, this.columns - 1);
-            for (var i = 0; i < this.rows; i++) {
-                this.squares[i] = [];
-                for (var j = 0; j < this.columns; j++) {
-	                this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
-
-	                //každý čverec má stejné vlastnosti, ale náhodnou barvu
-	                //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
-                    super.addChild(this.squares[i][j]);
-                }
-            }
-
-			this.chooseBackgroundFromSize();
-	        //kopírování čverců
-	        this.initialSquares = this.squaresToData();
-
 			this.bubbling = this.game.add.audio('bubbling');
-        }
+		}
 
         public getSquare(point : Phaser.Point) : Square {
             return this.squares[point.x][point.y];
@@ -157,9 +110,9 @@ module FloodTactics {
 		    for (var neighbor of this.getNeighbors(square)) {
 			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-					this.expandWithAnimation(square, neighbor);
-					//neighbor.setSquareType(square.getSquareType());
-					//this.bubbling.play();
+					//this.expandWithAnimation(square, neighbor);
+					neighbor.setSquareType(square.getSquareType());
+					this.bubbling.play();
 				    neighbor.flood();
 			    }
 		    }
@@ -182,7 +135,6 @@ module FloodTactics {
 
 	    public restartLevel() {
 			this.squaresFromData(this.initialSquares);
-		    console.log("level restarted");
 	    }
 
 	    private createSquareFromType(x : number, y : number, max : Phaser.Point, squareType : SquareType, number : number) {
@@ -193,17 +145,18 @@ module FloodTactics {
 
 	    serialize() : any {
 			var data : any = {};
-		    data.rows = this.rows;
-		    data.columns = this.columns;
+		    data.rows = this.columns;
+		    data.columns = this.rows;
 		    data.colorRules = this.mapToObject(this.colorRules);
 		    data.squares = this.squaresToData();
 		    return data;
 	    }
 
 	    deserialize(data : any) {
-		    this.rows = data.rows;
 		    this.columns = data.columns;
+		    this.rows = data.rows;
 		    this.colorRules = this.objectToMap(data.colorRules);
+			this.initialize();
 		    this.squaresFromData(data.squares);
 
 			this.chooseBackgroundFromSize();
@@ -224,20 +177,18 @@ module FloodTactics {
 		}
 
 		objectToMap(obj : any) : Map<Color, Color[]> {
-			console.log(obj);
 			var map = new Map<Color, Color[]>();
 			for (let k of Object.keys(obj)) {
 				map.set(Number(k), obj[k]);
 			}
-			console.log(map);
 			return map;
 		}
 
 	    squaresToData() : any {
 		    var data = [];
-		    for (var i = 0; i < this.rows; i++) {
+		    for (var i = 0; i < this.columns; i++) {
 			    data[i] = [];
-			    for (var j = 0; j < this.columns; j++) {
+			    for (var j = 0; j < this.rows; j++) {
 				    data[i][j] = this.squares[i][j].serialize();
 			    }
 		    }
@@ -245,8 +196,8 @@ module FloodTactics {
 	    }
 
 	    squaresFromData(data : any) {
-		    for (var i = 0; i < this.rows; i++) {
-			    for (var j = 0; j < this.columns; j++) {
+		    for (var i = 0; i < this.columns; i++) {
+			    for (var j = 0; j < this.rows; j++) {
 				    this.squares[i][j].deserialize(data[i][j]);
 			    }
 		    }
@@ -275,13 +226,71 @@ module FloodTactics {
 		}
 
 		private chooseBackgroundFromSize() {
-			if (this.rows == 6 && this.columns == 6) {
+			if (this.columns == 6 && this.rows == 6) {
+				if(this.key == 'background') {
+					this.x -= 83;
+				}
 			    this.key = 'backgroundSquare';
-				this.x += 83;	//plocha je menší a musím ji posunout. možná by pomohlo vycentrování pomocí this.anchos.set(0.5), ale naaaah.
-			} else if (this.rows == 6 && this.columns == 12) {
+			} else if (this.columns == 12 && this.rows == 6) {
+				if(this.key == 'backgroundSquare') {
+					this.x += 83;
+				}
 				this.key = 'background';
 			}
 			this.loadTexture(this.key);
+		}
+
+		public initialize() {
+			console.log('initializing');
+			if(typeof this.columns == 'undefined' && typeof this.rows == 'undefined') {
+				this.columns = 12;
+				this.rows = 6;
+			}
+
+			if(this.squares.length == 0) {	//nenaloadováno
+				var power = 1;
+				var directDirections : Phaser.Point[] = [];
+				directDirections[0] = new Phaser.Point(-1, 0);
+				directDirections[1] = new Phaser.Point(1, 0);
+				directDirections[2] = new Phaser.Point(0, -1);
+				directDirections[3] = new Phaser.Point(0, 1);
+
+				var redType : SquareType = new SquareType(Color.Red, power, directDirections);
+				var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
+				var brownType : SquareType = new SquareType(Color.Brown, power, directDirections);
+				var yellowType : SquareType = new SquareType(Color.Yellow, power, directDirections);
+				var greenType : SquareType = new SquareType(Color.Green, power, directDirections);
+				var blackType : SquareType = new SquareType(Color.Black, power, directDirections);
+
+				var types : SquareType[] = [];
+				types.push(redType);
+				types.push(brownType);
+				types.push(blueType);
+				types.push(yellowType);
+				types.push(greenType);
+				types.push(blackType);
+
+				var number : number = 3;
+				//konec dat pro čtverce
+
+				var max : Phaser.Point = new Phaser.Point(this.columns - 1, this.rows - 1);
+				for (var i = 0; i < this.columns; i++) {
+					this.squares[i] = [];
+					for (var j = 0; j < this.rows; j++) {
+						this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
+
+						//každý čverec má stejné vlastnosti, ale náhodnou barvu
+						//this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
+						super.addChild(this.squares[i][j]);
+					}
+				}
+
+				this.chooseBackgroundFromSize();
+				//kopírování čverců
+				this.initialSquares = this.squaresToData();
+			}
+
+			this.initialized = true;
 		}
      }
 

@@ -4,6 +4,10 @@ module FloodTactics {
     export class CountNeighborsWinChecker implements IWinChecker {
 
         checkWin(grid : Grid) : boolean {
+			if(!grid.initialized) {
+			    return false;
+			}
+
             for(var row of grid.getSquares()) {
                 for(var square of row) {
 					var sameColorNeighborsCount : number = 0;

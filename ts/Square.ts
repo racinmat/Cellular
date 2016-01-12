@@ -51,10 +51,10 @@ module FloodTactics {
 					return;
 				}
 
-				//if(flood) {
-				//	square.flood();
-				//	return;
-				//}
+				if(flood) {
+					square.flood();
+					return;
+				}
 			};
 
 			this.events.onInputDown.add(clicked, this);

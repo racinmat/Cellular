@@ -9,6 +9,10 @@ module FloodTactics {
         }
 
         checkWin(grid : Grid) : boolean {
+			if(!grid.initialized) {
+				return false;
+			}
+
 			var inactiveColors : Color[] = grid.getInactiveColors();
             for(var row of grid.getSquares()) {
                 for(var square of row) {

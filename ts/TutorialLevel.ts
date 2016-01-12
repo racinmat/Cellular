@@ -12,6 +12,7 @@ module FloodTactics {
 			if(levelName != undefined) {
 				this.grid.deserialize(games[levelName]);
 			}
+			this.grid.initialize();
 		}
 
         create() {

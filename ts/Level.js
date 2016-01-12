@@ -14,21 +14,16 @@ var FloodTactics;
         //init se volá před createm
         Level.prototype.init = function (levelName) {
             _super.prototype.init.call(this, levelName);
-            this.grid = new FloodTactics.Grid(this.game, 38, 47, 'background');
+            this.grid = new FloodTactics.Grid(this.game, 38, 47, 'backgroundSquare');
             if (levelName != undefined) {
                 this.grid.deserialize(games[levelName]);
             }
+            this.grid.initialize();
         };
         Level.prototype.create = function () {
             _super.prototype.create.call(this);
-            //var button = this.game.add.button(180, 640, 'button', () => {this.saveGame();}, this);
-            //button.scale.set(0.2);
-            //button.anchor.set(0.5);
-            //var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-            //var buttonText = this.game.add.text(0, 0, "save level", style);
-            //button.addChild(buttonText);
-            //buttonText.scale.set(5);
-            //buttonText.anchor.set(0.5);
+            var notebook = this.game.add.sprite(582, 476, 'notebook');
+            notebook.scale.set(0.25);
         };
         Level.prototype.update = function () {
             _super.prototype.update.call(this);

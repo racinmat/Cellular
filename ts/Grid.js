@@ -10,14 +10,11 @@ var FloodTactics;
         __extends(Grid, _super);
         function Grid(game, x, y, background) {
             _super.call(this, game, x, y, background, 0);
-            console.log('hello world');
+            this.initialized = false;
             this.game.add.existing(this);
             this.scale.set(0.25);
             this.squares = [];
             this.onClick = [];
-            //data pro level
-            this.rows = 6;
-            this.columns = 6;
             this.colorRules = new Map();
             //6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
             this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown, FloodTactics.Color.Red]);
@@ -26,42 +23,7 @@ var FloodTactics;
             this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Green, FloodTactics.Color.Blue]);
             this.colorRules.set(FloodTactics.Color.Green, [FloodTactics.Color.Blue, FloodTactics.Color.Brown]);
             this.colorRules.set(FloodTactics.Color.Black, []);
-            //data pro čtverce, budou se načítat z jsonu
-            var power = 1;
-            var directDirections = [];
-            directDirections[0] = new Phaser.Point(-1, 0);
-            directDirections[1] = new Phaser.Point(1, 0);
-            directDirections[2] = new Phaser.Point(0, -1);
-            directDirections[3] = new Phaser.Point(0, 1);
-            var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
-            var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
-            var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
-            var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
-            var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
-            var blackType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
-            var types = [];
-            types.push(redType);
-            types.push(brownType);
-            types.push(blueType);
-            types.push(yellowType);
-            types.push(greenType);
-            types.push(blackType);
             //konec načítání typů čtverců
-            var number = 3;
-            //konec dat pro čtverce
-            var max = new Phaser.Point(this.rows - 1, this.columns - 1);
-            for (var i = 0; i < this.rows; i++) {
-                this.squares[i] = [];
-                for (var j = 0; j < this.columns; j++) {
-                    this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
-                    //každý čverec má stejné vlastnosti, ale náhodnou barvu
-                    //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
-                    _super.prototype.addChild.call(this, this.squares[i][j]);
-                }
-            }
-            this.chooseBackgroundFromSize();
-            //kopírování čverců
-            this.initialSquares = this.squaresToData();
             this.bubbling = this.game.add.audio('bubbling');
         }
         Grid.prototype.getSquare = function (point) {
@@ -132,9 +94,9 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-                    this.expandWithAnimation(square, neighbor);
-                    //neighbor.setSquareType(square.getSquareType());
-                    //this.bubbling.play();
+                    //this.expandWithAnimation(square, neighbor);
+                    neighbor.setSquareType(square.getSquareType());
+                    this.bubbling.play();
                     neighbor.flood();
                 }
             }
@@ -155,7 +117,6 @@ var FloodTactics;
         };
         Grid.prototype.restartLevel = function () {
             this.squaresFromData(this.initialSquares);
-            console.log("level restarted");
         };
         Grid.prototype.createSquareFromType = function (x, y, max, squareType, number) {
             var square = new FloodTactics.Square(this.game, 180 + 65 * 4 * x, 190 + 65 * 4 * y, this, new Phaser.Point(x, y), max, squareType, number);
@@ -164,16 +125,17 @@ var FloodTactics;
         };
         Grid.prototype.serialize = function () {
             var data = {};
-            data.rows = this.rows;
-            data.columns = this.columns;
+            data.rows = this.columns;
+            data.columns = this.rows;
             data.colorRules = this.mapToObject(this.colorRules);
             data.squares = this.squaresToData();
             return data;
         };
         Grid.prototype.deserialize = function (data) {
-            this.rows = data.rows;
             this.columns = data.columns;
+            this.rows = data.rows;
             this.colorRules = this.objectToMap(data.colorRules);
+            this.initialize();
             this.squaresFromData(data.squares);
             this.chooseBackgroundFromSize();
             //kopírování čverců
@@ -190,28 +152,26 @@ var FloodTactics;
             return obj;
         };
         Grid.prototype.objectToMap = function (obj) {
-            console.log(obj);
             var map = new Map();
             for (var _i = 0, _a = Object.keys(obj); _i < _a.length; _i++) {
                 var k = _a[_i];
                 map.set(Number(k), obj[k]);
             }
-            console.log(map);
             return map;
         };
         Grid.prototype.squaresToData = function () {
             var data = [];
-            for (var i = 0; i < this.rows; i++) {
+            for (var i = 0; i < this.columns; i++) {
                 data[i] = [];
-                for (var j = 0; j < this.columns; j++) {
+                for (var j = 0; j < this.rows; j++) {
                     data[i][j] = this.squares[i][j].serialize();
                 }
             }
             return data;
         };
         Grid.prototype.squaresFromData = function (data) {
-            for (var i = 0; i < this.rows; i++) {
-                for (var j = 0; j < this.columns; j++) {
+            for (var i = 0; i < this.columns; i++) {
+                for (var j = 0; j < this.rows; j++) {
                     this.squares[i][j].deserialize(data[i][j]);
                 }
             }
@@ -238,14 +198,63 @@ var FloodTactics;
             return inactiveColors;
         };
         Grid.prototype.chooseBackgroundFromSize = function () {
-            if (this.rows == 6 && this.columns == 6) {
+            if (this.columns == 6 && this.rows == 6) {
+                if (this.key == 'background') {
+                    this.x -= 83;
+                }
                 this.key = 'backgroundSquare';
-                this.x += 83; //plocha je menší a musím ji posunout. možná by pomohlo vycentrování pomocí this.anchos.set(0.5), ale naaaah.
             }
-            else if (this.rows == 6 && this.columns == 12) {
+            else if (this.columns == 12 && this.rows == 6) {
+                if (this.key == 'backgroundSquare') {
+                    this.x += 83;
+                }
                 this.key = 'background';
             }
             this.loadTexture(this.key);
+        };
+        Grid.prototype.initialize = function () {
+            console.log('initializing');
+            if (typeof this.columns == 'undefined' && typeof this.rows == 'undefined') {
+                this.columns = 12;
+                this.rows = 6;
+            }
+            if (this.squares.length == 0) {
+                var power = 1;
+                var directDirections = [];
+                directDirections[0] = new Phaser.Point(-1, 0);
+                directDirections[1] = new Phaser.Point(1, 0);
+                directDirections[2] = new Phaser.Point(0, -1);
+                directDirections[3] = new Phaser.Point(0, 1);
+                var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
+                var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
+                var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
+                var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
+                var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
+                var blackType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
+                var types = [];
+                types.push(redType);
+                types.push(brownType);
+                types.push(blueType);
+                types.push(yellowType);
+                types.push(greenType);
+                types.push(blackType);
+                var number = 3;
+                //konec dat pro čtverce
+                var max = new Phaser.Point(this.columns - 1, this.rows - 1);
+                for (var i = 0; i < this.columns; i++) {
+                    this.squares[i] = [];
+                    for (var j = 0; j < this.rows; j++) {
+                        this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
+                        //každý čverec má stejné vlastnosti, ale náhodnou barvu
+                        //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
+                        _super.prototype.addChild.call(this, this.squares[i][j]);
+                    }
+                }
+                this.chooseBackgroundFromSize();
+                //kopírování čverců
+                this.initialSquares = this.squaresToData();
+            }
+            this.initialized = true;
         };
         return Grid;
     })(Phaser.Sprite);
