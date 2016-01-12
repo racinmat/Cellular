@@ -35,7 +35,7 @@ var FloodTactics;
             this.load.image('soundLoud', 'images/sound on.png');
             this.load.bitmapFont('arial', 'fonts/arial.png', 'fonts/arial.xml');
             this.load.bitmapFont('arialBlack', 'fonts/arialBlack.png', 'fonts/arial.xml');
-            this.load.bitmapFont('sego', 'fonts/segoeprbBlack.png', 'fonts/segoeprb.xml');
+            this.load.bitmapFont('sego', 'fonts/segoeprbBlackTransparent.png', 'fonts/segoeprb.xml');
             this.load.audio('backgroundSound', 'audio/rain_song.mp3');
             this.load.audio('bubbling', 'audio/bubbling2.wav');
             this.load.image('rules', 'images/rules.png');

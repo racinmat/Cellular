@@ -42,9 +42,9 @@ module FloodTactics {
 	    }
 
 	    popupTwo() {
-		    var content : string = "Here you can see the capability of each cell.\n" +
-			    "Every cell is able to absorb other cells, but not all of them!.\n" +
-			    "In this scenario, blue spreads over brown and red, brown spreads over red and yellow, and so on.";
+		    var content : string = "Next to this text is rules table, where you can see the rules for each cell." +
+			    "Each cell can absorb some other cells, but not all of them! " +
+			    "In this level, blue spreads over black and red, etc.";
 		    var text = this.game.add.bitmapText(622, 513, 'sego', content, 28);
 		    text.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
@@ -59,8 +59,8 @@ module FloodTactics {
 	    popupThree() {
 		    var content : string = "Lets see, how absorption works!\n" +
 			    "Here we have blue cell.\n" +
-			    "It will absorb all red and brown cells next to it, but green and \n" +
-				"yellow cells will remain unabsorbed. Now, click on the blue cell.";
+			    "It will absorb all red and black cells next to it, but green and \n" +
+				"violet cells will remain unabsorbed. Now, click on the blue cell.";
 			var text = this.game.add.bitmapText(622, 513, 'sego', content, 28);
 			text.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
@@ -80,11 +80,10 @@ module FloodTactics {
 	    }
 
 		popupFour() {
-			var content : string = "Well done. As you see, now you have 3 blue cells.\n" +
-				"But green and yellow cells are still there.\n" +
-				"To get rid of green, look at the table of rules on the right.\n" +
-				"Green cells can be absorbed by red and yellow.\n" +
-				"Try clicking  on any yellow cell next to a green one.";
+			var content : string = "Well done. Now you have 3 blue cells, " +
+				"but green and violet cells are still there. " +
+				"As seen from rules table, green cells can be absorbed by red and violet. " +
+				"Click on any violet cell next to a green one.";
 			var text = this.game.add.bitmapText(622, 513, 'sego', content, 28);
 			text.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
@@ -96,9 +95,9 @@ module FloodTactics {
 
 			this.grid.onClick.push((square : Square) => {
 				var pos : Phaser.Point = square.getGridPosition();
-				var yellowNeighborOfGreen : boolean = (pos.x == 3 && pos.y == 1) || (pos.x == 3 && pos.y == 3) || (pos.x == 4 && pos.y == 2);	//nějaký žlutý soused zeléného čtverce
-				yellowNeighborOfGreen = yellowNeighborOfGreen && square.getColor() == Color.Yellow;
-				if(yellowNeighborOfGreen) {
+				var violetNeighborOfGreen : boolean = (pos.x == 3 && pos.y == 1) || (pos.x == 3 && pos.y == 3) || (pos.x == 4 && pos.y == 2);	//nějaký žlutý soused zeléného čtverce
+				violetNeighborOfGreen = violetNeighborOfGreen && square.getColor() == Color.Yellow;
+				if(violetNeighborOfGreen) {
 					this.popupFive();
 				    return true;
 				}
@@ -107,9 +106,9 @@ module FloodTactics {
 		}
 
 		popupFive() {
-			var content : string = "Well done. Now you have only blue and yellow cells, and brown cell in the corner.\n" +
-				"To get rid of all yellow cells, you have to stimulate brown or red cells.\n" +
-				"Now, click on the brown cell.";
+			var content : string = "Well done. Now you have only blue and violet cells, and black cell in the corner.\n" +
+				"To get rid of all violet cells, you have to stimulate black or red cells. " +
+				"Now, click on the black cell.";
 			var text = this.game.add.bitmapText(622, 513, 'sego', content, 28);
 			text.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
@@ -129,8 +128,8 @@ module FloodTactics {
 		}
 
 		popupSix() {
-			var content : string = "Well done. As you can see, brown cell absorbs yellow and blue absorbs brown.\n" +
-				"With these rules (visualized on the right) in mind, completing the level should be piece of cake.\n" +
+			var content : string = "Well done. As you see, black cell absorbs violet and blue absorbs black. " +
+				"With this in mind, completing the level should be piece of cake. " +
 				"Remember, level is completed, when all cells are blue.";
 			var text = this.game.add.bitmapText(622, 513, 'sego', content, 28);
 			text.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
