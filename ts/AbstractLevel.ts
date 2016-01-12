@@ -56,12 +56,12 @@ module FloodTactics {
         update() {
             if(this.winChecker.checkWin(this.grid)) {
                 if(this.winningTween === null) {
-                    var popup : Phaser.Sprite = this.game.add.sprite(400, 400, 'levelCompleted');
-                    popup.anchor.setTo(0.5, 0.5);
-                    popup.scale.set(0.2);
+                    var popup : Phaser.Sprite = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'levelCompleted');
+                    popup.anchor.setTo(0.5);
+                    popup.scale.set(0.05);
 
                     this.winningTween = this.game.add.tween(popup.scale);
-                    this.winningTween.to( { x: 1, y: 1 }, 2000, Phaser.Easing.Elastic.Out, true);
+                    this.winningTween.to( { x: 0.3, y: 0.3 }, 2000, Phaser.Easing.Elastic.Out, true);
                     this.winningTween.onComplete.add(() => {this.game.state.start('Level');});
                 }
             }
