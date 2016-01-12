@@ -22,8 +22,6 @@ var FloodTactics;
         };
         TutorialLevel.prototype.create = function () {
             _super.prototype.create.call(this);
-            var notebook = this.game.add.sprite(582, 476, 'notebook');
-            notebook.scale.set(0.25);
             this.popupOne();
         };
         TutorialLevel.prototype.update = function () {

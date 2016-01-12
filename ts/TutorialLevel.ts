@@ -17,8 +17,6 @@ module FloodTactics {
 
         create() {
 	        super.create();
-			var notebook = this.game.add.sprite(582, 476, 'notebook');
-			notebook.scale.set(0.25);
 	        this.popupOne();
         }
 

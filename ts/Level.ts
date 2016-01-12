@@ -17,8 +17,9 @@ module FloodTactics {
 
         create() {
 	        super.create();
-			var notebook = this.game.add.sprite(582, 476, 'notebook');
-			notebook.scale.set(0.25);
+
+			var winningDescription = this.game.add.bitmapText(622, 513, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
+			winningDescription.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
         }
 
         update() {

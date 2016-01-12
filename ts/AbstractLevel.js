@@ -24,9 +24,6 @@ var FloodTactics;
             this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
-            this.winningDescription = this.game.add.bitmapText(400, 880, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
-            this.winningDescription.maxWidth = 700; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
-            this.winningDescription.anchor.set(0.5);
             var menuButton = this.game.add.button(82, 546, 'buttonMenu', function () { _this.game.state.start('Menu', true, false); }, this);
             menuButton.scale.set(0.25);
             var resetButton = this.game.add.button(82, 612, 'buttonReset', function () { _this.grid.restartLevel(); }, this);
@@ -50,6 +47,8 @@ var FloodTactics;
             this.soundIcon = this.game.add.button(82, 744, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
             //this.soundIcon.anchor.set(0.5);
             this.soundIcon.scale.set(0.25);
+            var notebook = this.game.add.sprite(582, 476, 'notebook');
+            notebook.scale.set(0.25);
         };
         AbstractLevel.prototype.update = function () {
             var _this = this;

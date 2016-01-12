@@ -7,7 +7,6 @@ module FloodTactics {
         protected grid : Grid;
         protected winChecker : IWinChecker;
         protected winningTween : Phaser.Tween;
-		protected winningDescription : Phaser.BitmapText;
 
 		private soundIcon : Phaser.Button;
 		private muted : boolean;
@@ -25,9 +24,6 @@ module FloodTactics {
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
 	        //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
-            this.winningDescription = this.game.add.bitmapText(400, 880, 'arial', "Winning condition: " + this.winChecker.getDescription(), 32);
-	        this.winningDescription.maxWidth = 700;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
-	        this.winningDescription.anchor.set(0.5);
 
 			var menuButton = this.game.add.button(82, 546, 'buttonMenu', () => {this.game.state.start('Menu', true, false);}, this);
 			menuButton.scale.set(0.25);
@@ -54,6 +50,9 @@ module FloodTactics {
 			this.soundIcon = this.game.add.button(82, 744, this.muted ? 'soundSilent' : 'soundLoud', changeIcon, this);
 			//this.soundIcon.anchor.set(0.5);
 			this.soundIcon.scale.set(0.25);
+
+			var notebook = this.game.add.sprite(582, 476, 'notebook');
+			notebook.scale.set(0.25);
 		}
 
         update() {
