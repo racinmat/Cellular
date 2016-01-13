@@ -46,7 +46,7 @@ $('#saveLevel').click(function () {
         for (var _a = 0; _a < row.length; _a++) {
             var element = row[_a];
             var input = $('#' + String(i) + '-' + String(j));
-            element.squareType.color = input.val();
+            element.squareType.color = parseInt(input.val());
             j++;
         }
         i++;
