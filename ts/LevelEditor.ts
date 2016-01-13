@@ -21,11 +21,13 @@ select.change(function() {
 	editedGrid = games[selectedLevel].squares;
 	editedGrid = FloodTactics.Utils.transpose(editedGrid);
 
+	var content = $('#content');
+	content.children().remove();
 	var i : number = 0;
 	for (var row of editedGrid) {
-		var j : number = 0;
 		var div : HTMLDivElement = document.createElement("div");
-		$('#content').append(div); // put it into the DOM
+		var j : number = 0;
+		content.append(div); // put it into the DOM
 		for (var element of row) {
 			var input : HTMLInputElement = document.createElement("input");
 			input.type = "text";
@@ -41,7 +43,7 @@ select.change(function() {
 });
 
 $('#saveLevel').click(() => {
-	editedGrid = FloodTactics.Utils.transpose(editedGrid);
+	//editedGrid = FloodTactics.Utils.transpose(editedGrid);
 	var i : number = 0;
 	for (var row of editedGrid) {
 		var j : number = 0;

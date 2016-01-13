@@ -17,12 +17,14 @@ select.change(function () {
     selectedLevel = $(this).find(":selected").val();
     editedGrid = games[selectedLevel].squares;
     editedGrid = FloodTactics.Utils.transpose(editedGrid);
+    var content = $('#content');
+    content.children().remove();
     var i = 0;
     for (var _i = 0; _i < editedGrid.length; _i++) {
         var row = editedGrid[_i];
-        var j = 0;
         var div = document.createElement("div");
-        $('#content').append(div); // put it into the DOM
+        var j = 0;
+        content.append(div); // put it into the DOM
         for (var _a = 0; _a < row.length; _a++) {
             var element = row[_a];
             var input = document.createElement("input");
@@ -38,7 +40,7 @@ select.change(function () {
     }
 });
 $('#saveLevel').click(function () {
-    editedGrid = FloodTactics.Utils.transpose(editedGrid);
+    //editedGrid = FloodTactics.Utils.transpose(editedGrid);
     var i = 0;
     for (var _i = 0; _i < editedGrid.length; _i++) {
         var row = editedGrid[_i];
