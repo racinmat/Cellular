@@ -31,7 +31,7 @@ var FloodTactics;
             this.load.image('soundSilent', 'images/sound off.png');
             this.load.image('soundLoud', 'images/sound on.png');
             this.load.bitmapFont('sego', 'fonts/segoeprbBlackTransparent.png', 'fonts/segoeprb.xml?nocache=' + String(Date.now()));
-            this.load.audio('backgroundSound', 'audio/rain_song.mp3');
+            this.load.audio('backgroundSound', 'audio/rainMusic.mp3');
             this.load.audio('bubbling', 'audio/bubbling2.wav');
             this.load.image('rules', 'images/rules.png');
             this.load.image('notebook', 'images/notebook2.png');
