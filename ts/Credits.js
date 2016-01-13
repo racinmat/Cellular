@@ -13,7 +13,6 @@ var FloodTactics;
         }
         Credits.prototype.create = function () {
             var background = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'creditsBackground');
-            background.scale.set(0.25);
             background.anchor.set(0.5);
         };
         return Credits;
