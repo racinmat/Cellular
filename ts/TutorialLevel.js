@@ -98,9 +98,9 @@ var FloodTactics;
         };
         TutorialLevel.prototype.popupFive = function () {
             var _this = this;
-            var content = "Well done. Now you have only blue and violet cells, and black cell in the corner.\n" +
-                "To get rid of all violet cells, you have to stimulate black or red cells. " +
-                "Now, click on the black cell.";
+            var content = "Well done. Now you have only blue and violet cells, and black cell \nin the corner.\n" +
+                "To get rid of all violet cells, you have \nto stimulate black \nor red cells. " +
+                "Now, click \non the black cell.";
             var text = this.game.add.bitmapText(622, 515, 'sego', content, 28);
             text.maxWidth = 204; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             var button = this.game.add.button(620, 770, 'nextButton', function () {
