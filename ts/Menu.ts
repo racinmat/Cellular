@@ -11,7 +11,7 @@ module FloodTactics {
 			var tutorialButton = this.game.add.button(313, 190, 'tutorial', () => {this.game.state.start('TutorialLevel', true, false, 'tutorial.json');}, this);	//4. parametr je parametrem init funkce
 			tutorialButton.scale.set(0.25);
 
-			var level1Button = this.game.add.button(313, 310, 'level1', () => {this.game.state.start('Level', true, false, 'level1.json'); }, this);	//4. parametr je parametrem init funkce
+			var level1Button = this.game.add.button(313, 310, 'level1', () => {this.game.state.start('Level', true, false, 'level3.json'); }, this);	//4. parametr je parametrem init funkce
 			level1Button.scale.set(0.25);
 
 			var level2Button = this.game.add.button(313, 430, 'level2', () => {this.game.state.start('Level', true, false, 'level2.json'); }, this);	//4. parametr je parametrem init funkce

@@ -12,8 +12,6 @@ module FloodTactics {
 
         create() {
 	        super.create();
-			var winningDescription = this.game.add.bitmapText(622, 755, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
-			winningDescription.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 	        this.popupOne();
         }
 
