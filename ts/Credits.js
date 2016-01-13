@@ -15,9 +15,15 @@ var FloodTactics;
             var background = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'creditsBackground');
             background.anchor.set(0.5);
             background.scale.set(0.25);
-            var content = "Matěj Račinský - Main programmer\n" +
-                "Michal Bureš - Game designer, Programmer\n" +
-                "Pavel Liška - Graphic designer, animator";
+            var content = "Matěj Račinský \n" +
+                " - Main programmer\n" +
+                " - Level designer\n" +
+                "Michal Bureš \n" +
+                " - Game designer  \n" +
+                " - Programmer \n" +
+                "Pavel Liška  \n" +
+                " - Graphic designer \n" +
+                " - Animator \n";
             var text = this.game.add.bitmapText(300, 200, 'sego', content, 40);
         };
         return Credits;
