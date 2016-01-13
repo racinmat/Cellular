@@ -148,8 +148,8 @@ module FloodTactics {
 
 	    serialize() : any {
 			var data : any = {};
-		    data.rows = this.columns;
-		    data.columns = this.rows;
+		    data.rows = this.rows;
+		    data.columns = this.columns;
 			data.winningColor = this.winningColor;
 		    data.colorRules = this.mapToObject(this.colorRules);
 		    data.squares = this.squaresToData();

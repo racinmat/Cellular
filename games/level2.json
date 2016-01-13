@@ -1,7 +1,7 @@
 {
     "rows": 6,
     "columns": 6,
-  "winningColor": 5,
+  "winningColor": 4,
   "colorRules": {
     "0": [
       3,
