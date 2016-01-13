@@ -11,9 +11,9 @@
             <p> Cellular is a game developed at Charles University, Prague during 2015/16 Computer Games Development course. </p>
 
             <h4>Authors</h4>
-            <p>Matěj Račínský - Main programmer</p>
+            <p>Matěj Račinský - Main programmer</p>
             <p>Michal Bureš - Game designer, Programmer</p>
-            <p>Pavel Liška - Graphic design</p>
+            <p>Pavel Liška - Graphic designer, Animator</p>
 
         </div>
 
