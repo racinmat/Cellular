@@ -38,6 +38,7 @@ var FloodTactics;
             this.load.image('nextButton', 'images/NEXT-02.png');
             this.load.image('score', 'images/score-02-02.png');
             this.load.image('menuBackground', 'images/MENU-01.png');
+            this.load.image('creditsBackground', 'images/Credits-01.png');
             this.load.image('credits', 'images/credits.png');
             this.load.image('level1', 'images/level 1.png');
             this.load.image('level2', 'images/level 2.png');

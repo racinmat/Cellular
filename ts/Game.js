@@ -17,6 +17,7 @@ var FloodTactics;
             this.state.add('Menu', FloodTactics.Menu, false);
             this.state.add('Level', FloodTactics.Level, false);
             this.state.add('TutorialLevel', FloodTactics.TutorialLevel, false);
+            this.state.add('Credits', FloodTactics.Credits, false);
             this.state.start('Boot');
         }
         return Game;

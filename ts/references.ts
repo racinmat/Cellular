@@ -6,6 +6,7 @@
 /// <reference path="Level.ts" />
 /// <reference path="Preloader.ts" />
 /// <reference path="Color.ts" />
+/// <reference path="Credits.ts" />
 /// <reference path="SquareType.ts" />
 /// <reference path="Menu.ts" />
 /// <reference path="AbstractLevel.ts" />
