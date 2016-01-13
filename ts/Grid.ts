@@ -151,9 +151,9 @@ module FloodTactics {
 			var data : any = {};
 		    data.rows = this.columns;
 		    data.columns = this.rows;
+			data.winningColor = this.winningColor;
 		    data.colorRules = this.mapToObject(this.colorRules);
 		    data.squares = this.squaresToData();
-			data.winningColor = this.winningColor;
 		    return data;
 	    }
 

@@ -14,13 +14,9 @@ var FloodTactics;
         //init se volá před createm
         Level.prototype.init = function (levelName) {
             _super.prototype.init.call(this, levelName);
-            this.grid = new FloodTactics.Grid(this.game, 204, 47, 'backgroundSquare', this, FloodTactics.Color.Blue);
-            if (levelName != undefined) {
-                this.grid.deserialize(games[levelName]);
-            }
-            this.grid.initialize();
         };
         Level.prototype.create = function () {
+            var _this = this;
             _super.prototype.create.call(this);
             var winningDescription = this.game.add.bitmapText(622, 515, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
             winningDescription.maxWidth = 204; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
@@ -28,6 +24,14 @@ var FloodTactics;
             score.scale.set(0.25);
             var content = String(this.game.score);
             var text = this.game.add.bitmapText(740, 780, 'sego', content, 28);
+            var button = this.game.add.button(180, 640, 'button', function () { _this.saveGame(); }, this);
+            button.scale.set(0.2);
+            button.anchor.set(0.5);
+            var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
+            var buttonText = this.game.add.text(0, 0, "save level", style);
+            button.addChild(buttonText);
+            buttonText.scale.set(5);
+            buttonText.anchor.set(0.5);
         };
         Level.prototype.update = function () {
             _super.prototype.update.call(this);

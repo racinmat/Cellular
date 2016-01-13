@@ -12,15 +12,20 @@ var FloodTactics;
             _super.apply(this, arguments);
         }
         AbstractLevel.prototype.init = function (levelName) {
+            this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             var playground = this.game.add.sprite(0, 0, 'playground');
             playground.scale.set(0.25);
+            this.grid = new FloodTactics.Grid(this.game, 204, 47, 'backgroundSquare', this, FloodTactics.Color.Blue);
+            if (levelName != undefined) {
+                this.grid.deserialize(games[levelName]);
+            }
+            this.grid.initialize();
         };
         AbstractLevel.prototype.create = function () {
             var _this = this;
             this.game.sound.mute = this.game.muted;
             this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }; //zablokování vyskočení menu u kliknutí pravým tlačítkem
             //zde se nastavuje vítězná podmínka
-            this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
             this.winningTween = null;
             var menuButton = this.game.add.button(82, 546, 'buttonMenu', function () { _this.game.state.start('Menu', true, false); }, this);
             menuButton.scale.set(0.25);

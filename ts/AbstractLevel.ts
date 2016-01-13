@@ -11,15 +11,20 @@ module FloodTactics {
 		private soundIcon : Phaser.Button;
 
 		init(levelName : string) {
+			this.winChecker = new OneColorWinChecker(Color.Blue);
 			var playground = this.game.add.sprite(0, 0, 'playground');
 			playground.scale.set(0.25);
+			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare', this, Color.Blue);
+			if(levelName != undefined) {
+				this.grid.deserialize(games[levelName]);
+			}
+			this.grid.initialize();
 		}
 
         create() {
 			this.game.sound.mute = this.game.muted;
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
-	        this.winChecker = new OneColorWinChecker(Color.Blue);
             this.winningTween = null;
 
 			var menuButton = this.game.add.button(82, 546, 'buttonMenu', () => {this.game.state.start('Menu', true, false);}, this);
