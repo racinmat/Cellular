@@ -20,6 +20,11 @@ module FloodTactics {
 
 			var winningDescription = this.game.add.bitmapText(622, 513, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
 			winningDescription.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
+
+			var score = this.game.add.sprite(620, 770, 'score');
+			score.scale.set(0.25);
+			var content : string = String(this.game.score);
+			var text = this.game.add.bitmapText(740, 780, 'sego', content, 28);
         }
 
         update() {

@@ -5,6 +5,7 @@ module FloodTactics {
     export class Game extends Phaser.Game {
 
 		muted : boolean = true;
+		score : number = 0;
 
         constructor() {
 

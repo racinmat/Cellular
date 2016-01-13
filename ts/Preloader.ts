@@ -38,6 +38,7 @@ module FloodTactics {
 
 			this.load.image('notebook', 'images/notebook2.png');
 			this.load.image('nextButton', 'images/NEXT-02.png');
+			this.load.image('score', 'images/score-02-02.png');
 
 			this.load.image('menuBackground', 'images/MENU-01.png');
 

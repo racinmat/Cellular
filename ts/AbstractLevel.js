@@ -53,6 +53,7 @@ var FloodTactics;
             var _this = this;
             if (this.winChecker.checkWin(this.grid)) {
                 if (this.winningTween === null) {
+                    this.game.score++;
                     var popup = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'levelCompleted');
                     popup.anchor.setTo(0.5);
                     popup.scale.set(0.05);

@@ -56,6 +56,8 @@ module FloodTactics {
         update() {
             if(this.winChecker.checkWin(this.grid)) {
                 if(this.winningTween === null) {
+					this.game.score++;
+
                     var popup : Phaser.Sprite = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'levelCompleted');
                     popup.anchor.setTo(0.5);
                     popup.scale.set(0.05);
@@ -63,6 +65,7 @@ module FloodTactics {
                     this.winningTween = this.game.add.tween(popup.scale);
                     this.winningTween.to( { x: 0.3, y: 0.3 }, 2000, Phaser.Easing.Elastic.Out, true);
                     this.winningTween.onComplete.add(() => {this.game.state.start('Level');});
+
                 }
             }
         }

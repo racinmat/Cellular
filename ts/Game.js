@@ -11,6 +11,7 @@ var FloodTactics;
         function Game() {
             _super.call(this, 898, 908, Phaser.AUTO, 'content', null);
             this.muted = true;
+            this.score = 0;
             this.state.add('Boot', FloodTactics.Boot, false);
             this.state.add('Preloader', FloodTactics.Preloader, false);
             this.state.add('Menu', FloodTactics.Menu, false);
