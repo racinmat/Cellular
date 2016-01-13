@@ -4,6 +4,7 @@ module FloodTactics {
     export interface IWinChecker {
         checkWin(grid : Grid) : boolean;
         getDescription() : string;
+		setData(args : any);
     }
 
 }

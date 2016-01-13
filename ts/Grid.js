@@ -8,13 +8,15 @@ var FloodTactics;
 (function (FloodTactics) {
     var Grid = (function (_super) {
         __extends(Grid, _super);
-        function Grid(game, x, y, background) {
+        function Grid(game, x, y, background, level, winningColor) {
             _super.call(this, game, x, y, background, 0);
             this.initialized = false;
+            this.level = level;
             this.game.add.existing(this);
             this.scale.set(0.25);
             this.squares = [];
             this.onClick = [];
+            this.winningColor = winningColor;
             this.colorRules = new Map();
             //6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
             this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown, FloodTactics.Color.Red]);
@@ -129,12 +131,14 @@ var FloodTactics;
             data.columns = this.rows;
             data.colorRules = this.mapToObject(this.colorRules);
             data.squares = this.squaresToData();
+            data.winningColor = this.winningColor;
             return data;
         };
         Grid.prototype.deserialize = function (data) {
             this.columns = data.columns;
             this.rows = data.rows;
             this.colorRules = this.objectToMap(data.colorRules);
+            this.setWinningColor(data.winningColor);
             this.initialize();
             this.squaresFromData(data.squares);
             this.chooseBackgroundFromSize();
@@ -252,8 +256,29 @@ var FloodTactics;
                 this.chooseBackgroundFromSize();
                 //kopírování čverců
                 this.initialSquares = this.squaresToData();
+                this.setWinningColor(this.getRandomActiveColor());
             }
             this.initialized = true;
+        };
+        Grid.prototype.getRandomActiveColor = function () {
+            var pickedColor;
+            var colors = [];
+            this.colorRules.forEach(function (values, key) {
+                colors.push(key);
+            });
+            do {
+                pickedColor = Phaser.ArrayUtils.getRandomItem(colors);
+            } while (!this.isColorActive(pickedColor));
+            return pickedColor;
+        };
+        Grid.prototype.isColorActive = function (color) {
+            return this.getInactiveColors().indexOf(color) == -1;
+        };
+        Grid.prototype.setWinningColor = function (color) {
+            this.winningColor = color;
+            if (typeof this.level.winChecker != 'undefined') {
+                this.level.winChecker.setData(color);
+            }
         };
         return Grid;
     })(Phaser.Sprite);

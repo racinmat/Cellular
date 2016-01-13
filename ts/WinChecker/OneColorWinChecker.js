@@ -9,12 +9,11 @@ var FloodTactics;
             if (!grid.initialized) {
                 return false;
             }
-            var inactiveColors = grid.getInactiveColors();
             for (var _i = 0, _a = grid.getSquares(); _i < _a.length; _i++) {
                 var row = _a[_i];
                 for (var _b = 0; _b < row.length; _b++) {
                     var square = row[_b];
-                    if (square.getColor() != this.color && inactiveColors.indexOf(square.getColor()) == -1) {
+                    if (square.getColor() != this.color && grid.isColorActive(square.getColor())) {
                         return false;
                     }
                 }
@@ -22,7 +21,10 @@ var FloodTactics;
             return true;
         };
         OneColorWinChecker.prototype.getDescription = function () {
-            return "All squares in grid must be in " + FloodTactics.ColorHelper.toString(this.color) + " color.";
+            return "All squares in grid must \nbe in " + FloodTactics.ColorHelper.toString(this.color) + " color.";
+        };
+        OneColorWinChecker.prototype.setData = function (args) {
+            this.color = args;
         };
         return OneColorWinChecker;
     })();

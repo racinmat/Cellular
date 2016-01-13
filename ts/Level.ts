@@ -8,7 +8,7 @@ module FloodTactics {
 		//init se volá před createm
 		init(levelName : string) {
 			super.init(levelName);
-			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare');
+			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare', this, Color.Blue);
 			if(levelName != undefined) {
 				this.grid.deserialize(games[levelName]);
 			}
@@ -18,7 +18,7 @@ module FloodTactics {
         create() {
 	        super.create();
 
-			var winningDescription = this.game.add.bitmapText(622, 513, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
+			var winningDescription = this.game.add.bitmapText(622, 515, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
 			winningDescription.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 
 			var score = this.game.add.sprite(620, 770, 'score');

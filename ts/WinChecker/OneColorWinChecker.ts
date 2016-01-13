@@ -13,10 +13,9 @@ module FloodTactics {
 				return false;
 			}
 
-			var inactiveColors : Color[] = grid.getInactiveColors();
             for(var row of grid.getSquares()) {
                 for(var square of row) {
-                    if(square.getColor() != this.color && inactiveColors.indexOf(square.getColor()) == -1) {	//false, pokud se liší od zadané barvy a není v poli neaktivních barev
+                    if(square.getColor() != this.color && grid.isColorActive(square.getColor())) {	//false, pokud se liší od zadané barvy a není v poli neaktivních barev
                         return false;
                     }
                 }
@@ -25,9 +24,13 @@ module FloodTactics {
         }
 
         getDescription() : string {
-            return "All squares in grid must be in " + ColorHelper.toString(this.color) + " color.";
+            return "All squares in grid must \nbe in " + ColorHelper.toString(this.color) + " color.";
         }
 
-    }
+		setData(args : any) {
+			this.color = args;
+		}
+
+	}
 
 }

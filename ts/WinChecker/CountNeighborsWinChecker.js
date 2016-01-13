@@ -29,6 +29,8 @@ var FloodTactics;
         CountNeighborsWinChecker.prototype.getDescription = function () {
             return "Every square must same equal its number and amount of neighbors with same color as color of the square.";
         };
+        CountNeighborsWinChecker.prototype.setData = function (args) {
+        };
         return CountNeighborsWinChecker;
     })();
     FloodTactics.CountNeighborsWinChecker = CountNeighborsWinChecker;

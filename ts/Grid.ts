@@ -12,13 +12,17 @@ module FloodTactics {
 		public onClick : {(square : Square): boolean;}[];	//typ proměnné je pole callbacků. Pokud callback vrátí true, zmizí z pole, pokud vrátí false, zůstává.
 		private bubbling : Phaser.Sound;
 		public initialized : boolean = false;
+		public level : AbstractLevel;
+		private winningColor : Color;
 
-        constructor(game: Phaser.Game, x: number, y: number, background : string) {
+        constructor(game: Phaser.Game, x: number, y: number, background : string, level : AbstractLevel, winningColor : Color) {
             super(game, x, y, background, 0);
+			this.level = level;
 	        this.game.add.existing(this);
 			this.scale.set(0.25);
             this.squares = [];
 			this.onClick = [];
+			this.winningColor = winningColor;
 
             this.colorRules = new Map<Color, Color[]>();
 
@@ -149,6 +153,7 @@ module FloodTactics {
 		    data.columns = this.rows;
 		    data.colorRules = this.mapToObject(this.colorRules);
 		    data.squares = this.squaresToData();
+			data.winningColor = this.winningColor;
 		    return data;
 	    }
 
@@ -156,6 +161,7 @@ module FloodTactics {
 		    this.columns = data.columns;
 		    this.rows = data.rows;
 		    this.colorRules = this.objectToMap(data.colorRules);
+			this.setWinningColor(data.winningColor);
 			this.initialize();
 		    this.squaresFromData(data.squares);
 
@@ -204,7 +210,7 @@ module FloodTactics {
 	    }
 
 		//reads rules and returns colors, which can not be recolored and do not recolor anything
-		getInactiveColors()  : Color[] {
+		public getInactiveColors()  : Color[] {
 			var inactiveColors : Color[] = [];
 			//přidám všechny barvy, které nikoho nepřebarvují
 			this.colorRules.forEach((values : Color[], key : Color) => {
@@ -287,10 +293,35 @@ module FloodTactics {
 				this.chooseBackgroundFromSize();
 				//kopírování čverců
 				this.initialSquares = this.squaresToData();
+
+				this.setWinningColor(this.getRandomActiveColor());
 			}
 
 			this.initialized = true;
 		}
-     }
+
+		private getRandomActiveColor() {
+			var pickedColor : Color;
+			var colors : Color[] = [];
+			this.colorRules.forEach((values : Color[], key : Color) => {
+				colors.push(key);
+			});
+			do {
+				pickedColor = Phaser.ArrayUtils.getRandomItem(colors);
+			} while (!this.isColorActive(pickedColor));
+			return pickedColor;
+		}
+
+		public isColorActive(color : Color) {
+			return this.getInactiveColors().indexOf(color) == -1;
+		}
+
+		private setWinningColor(color : Color) {
+			this.winningColor = color;
+			if(typeof this.level.winChecker != 'undefined') {
+				this.level.winChecker.setData(color);
+			}
+		}
+	}
 
 }

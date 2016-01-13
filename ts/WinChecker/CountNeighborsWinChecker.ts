@@ -28,6 +28,10 @@ module FloodTactics {
             return "Every square must same equal its number and amount of neighbors with same color as color of the square.";
         }
 
+		setData(args : any) {
+
+		}
+
     }
 
 }

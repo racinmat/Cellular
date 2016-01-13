@@ -5,7 +5,7 @@ module FloodTactics {
     export class AbstractLevel extends Phaser.State {
 
 		protected grid : Grid;
-        protected winChecker : IWinChecker;
+        public winChecker : IWinChecker;
         protected winningTween : Phaser.Tween;
 
 		private soundIcon : Phaser.Button;
@@ -20,7 +20,6 @@ module FloodTactics {
 	        this.game.canvas.oncontextmenu = function (e) { e.preventDefault(); }   //zablokování vyskočení menu u kliknutí pravým tlačítkem
 	        //zde se nastavuje vítězná podmínka
 	        this.winChecker = new OneColorWinChecker(Color.Blue);
-	        //this.winChecker = new CountNeighborsWinChecker();
             this.winningTween = null;
 
 			var menuButton = this.game.add.button(82, 546, 'buttonMenu', () => {this.game.state.start('Menu', true, false);}, this);
