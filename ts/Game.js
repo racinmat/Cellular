@@ -25,6 +25,6 @@ var FloodTactics;
     FloodTactics.Game = Game;
 })(FloodTactics || (FloodTactics = {}));
 window.onload = function () {
-    var game = new FloodTactics.Game();
+    game = new FloodTactics.Game();
 };
 //# sourceMappingURL=Game.js.map

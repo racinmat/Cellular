@@ -27,6 +27,6 @@ module FloodTactics {
 
 window.onload = () => {
 
-    var game = new FloodTactics.Game();
+    game = new FloodTactics.Game();
 
 };
