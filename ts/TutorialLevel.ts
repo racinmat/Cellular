@@ -12,6 +12,8 @@ module FloodTactics {
 
         create() {
 	        super.create();
+			var winningDescription = this.game.add.bitmapText(622, 755, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
+			winningDescription.maxWidth = 204;    //zalamování, aby byl text na více řádků, pokud je moc dlouhý
 	        this.popupOne();
         }
 
@@ -90,7 +92,7 @@ module FloodTactics {
 			this.grid.onClick.push((square : Square) => {
 				var pos : Phaser.Point = square.getGridPosition();
 				var violetNeighborOfGreen : boolean = (pos.x == 3 && pos.y == 1) || (pos.x == 3 && pos.y == 3) || (pos.x == 4 && pos.y == 2);	//nějaký žlutý soused zeléného čtverce
-				violetNeighborOfGreen = violetNeighborOfGreen && square.getColor() == Color.Yellow;
+				violetNeighborOfGreen = violetNeighborOfGreen && square.getColor() == Color.Violet;
 				if(violetNeighborOfGreen) {
 					this.popupFive();
 				    return true;
@@ -113,7 +115,7 @@ module FloodTactics {
 			button.scale.set(0.25);
 
 			this.grid.onClick.push((square : Square) => {
-				if(square.getColor() == Color.Brown) {
+				if(square.getColor() == Color.Black) {
 					this.popupSix();
 					return true;
 				}

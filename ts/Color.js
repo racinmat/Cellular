@@ -3,11 +3,11 @@ var FloodTactics;
 (function (FloodTactics) {
     (function (Color) {
         Color[Color["Red"] = 0] = "Red";
-        Color[Color["Brown"] = 1] = "Brown";
+        Color[Color["Black"] = 1] = "Black";
         Color[Color["Blue"] = 2] = "Blue";
-        Color[Color["Yellow"] = 3] = "Yellow";
+        Color[Color["Violet"] = 3] = "Violet";
         Color[Color["Green"] = 4] = "Green";
-        Color[Color["Black"] = 5] = "Black";
+        Color[Color["Transparent"] = 5] = "Transparent";
     })(FloodTactics.Color || (FloodTactics.Color = {}));
     var Color = FloodTactics.Color;
     var ColorHelper = (function () {
@@ -16,11 +16,11 @@ var FloodTactics;
         ColorHelper.toString = function (color) {
             switch (color) {
                 case Color.Blue: return "blue";
-                case Color.Yellow: return "violet";
-                case Color.Brown: return "black";
+                case Color.Violet: return "violet";
+                case Color.Black: return "black";
                 case Color.Red: return "red";
                 case Color.Green: return "green";
-                case Color.Black: return "empty";
+                case Color.Transparent: return "empty";
             }
         };
         ColorHelper.getRandom = function () {

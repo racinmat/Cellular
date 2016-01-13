@@ -15,24 +15,23 @@ module FloodTactics {
 		public level : AbstractLevel;
 		private winningColor : Color;
 
-        constructor(game: Phaser.Game, x: number, y: number, background : string, level : AbstractLevel, winningColor : Color) {
+        constructor(game: Phaser.Game, x: number, y: number, background : string, level : AbstractLevel) {
             super(game, x, y, background, 0);
 			this.level = level;
 	        this.game.add.existing(this);
 			this.scale.set(0.25);
             this.squares = [];
 			this.onClick = [];
-			this.winningColor = winningColor;
 
             this.colorRules = new Map<Color, Color[]>();
 
 			//6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
-			this.colorRules.set(Color.Blue, [Color.Brown, Color.Red]);
-			this.colorRules.set(Color.Brown, [Color.Red, Color.Yellow]);
-			this.colorRules.set(Color.Red, [Color.Yellow, Color.Green]);
-			this.colorRules.set(Color.Yellow, [Color.Green, Color.Blue]);
-			this.colorRules.set(Color.Green, [Color.Blue, Color.Brown]);
-			this.colorRules.set(Color.Black, []);
+			this.colorRules.set(Color.Blue, [Color.Black, Color.Red]);
+			this.colorRules.set(Color.Black, [Color.Red, Color.Violet]);
+			this.colorRules.set(Color.Red, [Color.Violet, Color.Green]);
+			this.colorRules.set(Color.Violet, [Color.Green, Color.Blue]);
+			this.colorRules.set(Color.Green, [Color.Blue, Color.Black]);
+			this.colorRules.set(Color.Transparent, []);
 
 	        //konec načítání typů čtverců
 
@@ -162,6 +161,8 @@ module FloodTactics {
 		    this.rows = data.rows;
 		    this.colorRules = this.objectToMap(data.colorRules);
 			this.setWinningColor(data.winningColor);
+			console.log('winning color');
+			console.log(ColorHelper.toString(data.winningColor));
 			this.initialize();
 		    this.squaresFromData(data.squares);
 
@@ -252,6 +253,10 @@ module FloodTactics {
 				this.rows = 6;
 			}
 
+			if(typeof this.winningColor == 'undefined') {
+				this.setWinningColor(this.getRandomActiveColor());
+			}
+
 			if(this.squares.length == 0) {	//nenaloadováno
 				var power = 1;
 				var directDirections : Phaser.Point[] = [];
@@ -262,10 +267,10 @@ module FloodTactics {
 
 				var redType : SquareType = new SquareType(Color.Red, power, directDirections);
 				var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
-				var brownType : SquareType = new SquareType(Color.Brown, power, directDirections);
-				var yellowType : SquareType = new SquareType(Color.Yellow, power, directDirections);
+				var brownType : SquareType = new SquareType(Color.Black, power, directDirections);
+				var yellowType : SquareType = new SquareType(Color.Violet, power, directDirections);
 				var greenType : SquareType = new SquareType(Color.Green, power, directDirections);
-				var blackType : SquareType = new SquareType(Color.Black, power, directDirections);
+				var blackType : SquareType = new SquareType(Color.Transparent, power, directDirections);
 
 				var types : SquareType[] = [];
 				types.push(redType);
@@ -293,8 +298,6 @@ module FloodTactics {
 				this.chooseBackgroundFromSize();
 				//kopírování čverců
 				this.initialSquares = this.squaresToData();
-
-				this.setWinningColor(this.getRandomActiveColor());
 			}
 
 			this.initialized = true;
@@ -317,6 +320,8 @@ module FloodTactics {
 		}
 
 		private setWinningColor(color : Color) {
+			console.log('setting winning color');
+			console.log(ColorHelper.toString(color));
 			this.winningColor = color;
 			if(typeof this.level.winChecker != 'undefined') {
 				this.level.winChecker.setData(color);

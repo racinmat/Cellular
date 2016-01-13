@@ -12,10 +12,10 @@ var FloodTactics;
             _super.apply(this, arguments);
         }
         AbstractLevel.prototype.init = function (levelName) {
-            this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Blue);
+            this.winChecker = new FloodTactics.OneColorWinChecker(FloodTactics.Color.Violet);
             var playground = this.game.add.sprite(0, 0, 'playground');
             playground.scale.set(0.25);
-            this.grid = new FloodTactics.Grid(this.game, 204, 47, 'backgroundSquare', this, FloodTactics.Color.Blue);
+            this.grid = new FloodTactics.Grid(this.game, 204, 47, 'backgroundSquare', this);
             if (levelName != undefined) {
                 this.grid.deserialize(games[levelName]);
             }

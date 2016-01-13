@@ -8,7 +8,7 @@ var FloodTactics;
 (function (FloodTactics) {
     var Grid = (function (_super) {
         __extends(Grid, _super);
-        function Grid(game, x, y, background, level, winningColor) {
+        function Grid(game, x, y, background, level) {
             _super.call(this, game, x, y, background, 0);
             this.initialized = false;
             this.level = level;
@@ -16,15 +16,14 @@ var FloodTactics;
             this.scale.set(0.25);
             this.squares = [];
             this.onClick = [];
-            this.winningColor = winningColor;
             this.colorRules = new Map();
             //6 barev, z toho je jedna "neaktivní", na nic nereaguje, jako zeď
-            this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Brown, FloodTactics.Color.Red]);
-            this.colorRules.set(FloodTactics.Color.Brown, [FloodTactics.Color.Red, FloodTactics.Color.Yellow]);
-            this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Yellow, FloodTactics.Color.Green]);
-            this.colorRules.set(FloodTactics.Color.Yellow, [FloodTactics.Color.Green, FloodTactics.Color.Blue]);
-            this.colorRules.set(FloodTactics.Color.Green, [FloodTactics.Color.Blue, FloodTactics.Color.Brown]);
-            this.colorRules.set(FloodTactics.Color.Black, []);
+            this.colorRules.set(FloodTactics.Color.Blue, [FloodTactics.Color.Black, FloodTactics.Color.Red]);
+            this.colorRules.set(FloodTactics.Color.Black, [FloodTactics.Color.Red, FloodTactics.Color.Violet]);
+            this.colorRules.set(FloodTactics.Color.Red, [FloodTactics.Color.Violet, FloodTactics.Color.Green]);
+            this.colorRules.set(FloodTactics.Color.Violet, [FloodTactics.Color.Green, FloodTactics.Color.Blue]);
+            this.colorRules.set(FloodTactics.Color.Green, [FloodTactics.Color.Blue, FloodTactics.Color.Black]);
+            this.colorRules.set(FloodTactics.Color.Transparent, []);
             //konec načítání typů čtverců
             this.bubbling = this.game.add.audio('bubbling');
         }
@@ -139,6 +138,8 @@ var FloodTactics;
             this.rows = data.rows;
             this.colorRules = this.objectToMap(data.colorRules);
             this.setWinningColor(data.winningColor);
+            console.log('winning color');
+            console.log(FloodTactics.ColorHelper.toString(data.winningColor));
             this.initialize();
             this.squaresFromData(data.squares);
             this.chooseBackgroundFromSize();
@@ -221,6 +222,9 @@ var FloodTactics;
                 this.columns = 12;
                 this.rows = 6;
             }
+            if (typeof this.winningColor == 'undefined') {
+                this.setWinningColor(this.getRandomActiveColor());
+            }
             if (this.squares.length == 0) {
                 var power = 1;
                 var directDirections = [];
@@ -230,10 +234,10 @@ var FloodTactics;
                 directDirections[3] = new Phaser.Point(0, 1);
                 var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
                 var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
-                var brownType = new FloodTactics.SquareType(FloodTactics.Color.Brown, power, directDirections);
-                var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Yellow, power, directDirections);
+                var brownType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
+                var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Violet, power, directDirections);
                 var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
-                var blackType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
+                var blackType = new FloodTactics.SquareType(FloodTactics.Color.Transparent, power, directDirections);
                 var types = [];
                 types.push(redType);
                 types.push(brownType);
@@ -256,7 +260,6 @@ var FloodTactics;
                 this.chooseBackgroundFromSize();
                 //kopírování čverců
                 this.initialSquares = this.squaresToData();
-                this.setWinningColor(this.getRandomActiveColor());
             }
             this.initialized = true;
         };
@@ -275,6 +278,8 @@ var FloodTactics;
             return this.getInactiveColors().indexOf(color) == -1;
         };
         Grid.prototype.setWinningColor = function (color) {
+            console.log('setting winning color');
+            console.log(FloodTactics.ColorHelper.toString(color));
             this.winningColor = color;
             if (typeof this.level.winChecker != 'undefined') {
                 this.level.winChecker.setData(color);

@@ -11,10 +11,10 @@ module FloodTactics {
 		private soundIcon : Phaser.Button;
 
 		init(levelName : string) {
-			this.winChecker = new OneColorWinChecker(Color.Blue);
+			this.winChecker = new OneColorWinChecker(Color.Violet);
 			var playground = this.game.add.sprite(0, 0, 'playground');
 			playground.scale.set(0.25);
-			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare', this, Color.Blue);
+			this.grid = new Grid(this.game, 204, 47, 'backgroundSquare', this);
 			if(levelName != undefined) {
 				this.grid.deserialize(games[levelName]);
 			}

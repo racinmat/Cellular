@@ -17,6 +17,8 @@ var FloodTactics;
         };
         TutorialLevel.prototype.create = function () {
             _super.prototype.create.call(this);
+            var winningDescription = this.game.add.bitmapText(622, 755, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
+            winningDescription.maxWidth = 204; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
             this.popupOne();
         };
         TutorialLevel.prototype.update = function () {
@@ -88,7 +90,7 @@ var FloodTactics;
             this.grid.onClick.push(function (square) {
                 var pos = square.getGridPosition();
                 var violetNeighborOfGreen = (pos.x == 3 && pos.y == 1) || (pos.x == 3 && pos.y == 3) || (pos.x == 4 && pos.y == 2); //nějaký žlutý soused zeléného čtverce
-                violetNeighborOfGreen = violetNeighborOfGreen && square.getColor() == FloodTactics.Color.Yellow;
+                violetNeighborOfGreen = violetNeighborOfGreen && square.getColor() == FloodTactics.Color.Violet;
                 if (violetNeighborOfGreen) {
                     _this.popupFive();
                     return true;
@@ -109,7 +111,7 @@ var FloodTactics;
             }, this);
             button.scale.set(0.25);
             this.grid.onClick.push(function (square) {
-                if (square.getColor() == FloodTactics.Color.Brown) {
+                if (square.getColor() == FloodTactics.Color.Black) {
                     _this.popupSix();
                     return true;
                 }
