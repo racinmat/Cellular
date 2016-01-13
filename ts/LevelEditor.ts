@@ -19,6 +19,7 @@ var selectedLevel : string;
 select.change(function() {
 	selectedLevel = $(this).find(":selected").val();
 	editedGrid = games[selectedLevel].squares;
+	editedGrid = FloodTactics.Utils.transpose(editedGrid);
 
 	var i : number = 0;
 	for (var row of editedGrid) {
@@ -40,6 +41,7 @@ select.change(function() {
 });
 
 $('#saveLevel').click(() => {
+	editedGrid = FloodTactics.Utils.transpose(editedGrid);
 	var i : number = 0;
 	for (var row of editedGrid) {
 		var j : number = 0;
