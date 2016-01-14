@@ -27,7 +27,7 @@ var FloodTactics;
             this.load.image('button', 'images/button.jpg');
             this.load.image('buttonGenerate', 'images/buttonGenerateLevel.png');
             this.load.image('buttonReset', 'images/buttonResetLevel.png');
-            this.load.image('buttonMenu', 'images/buttonMenu.png');
+            this.load.image('buttonMenu', 'images/buttonMenu2.png');
             this.load.image('soundSilent', 'images/sound off.png');
             this.load.image('soundLoud', 'images/sound on.png');
             this.load.bitmapFont('sego', 'fonts/segoeprbBlackTransparent.png', 'fonts/segoeprb.xml?nocache=' + String(Date.now()));
