@@ -322,7 +322,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
+          "color": 2,
           "power": 1,
           "directions": [
             {
@@ -558,7 +558,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
+          "color": 3,
           "power": 1,
           "directions": [
             {
