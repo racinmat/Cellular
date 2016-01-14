@@ -320,14 +320,10 @@ module FloodTactics {
 		}
 
 		public isColorActive(color : Color) {
-			console.log('inactive colors:');
-			console.log(this.getInactiveColors());
 			return this.getInactiveColors().indexOf(color) == -1;
 		}
 
 		private setWinningColor(color : Color) {
-			console.log('setting winning color');
-			console.log(ColorHelper.toString(color));
 			this.winningColor = color;
 			if(typeof this.level.winChecker != 'undefined') {
 				this.level.winChecker.setData(color);

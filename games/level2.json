@@ -59,7 +59,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 1,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -235,7 +235,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 0,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -293,7 +293,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 3,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -411,7 +411,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 1,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -440,7 +440,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 3,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -1583,7 +1583,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
+          "color": 2,
           "power": 1,
           "directions": [
             {
@@ -1672,7 +1672,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 0,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -1701,7 +1701,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 4,
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -1759,7 +1759,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
+          "color": 3,
           "power": 1,
           "directions": [
             {
@@ -1848,35 +1848,6 @@
       {
         "number": 3,
         "squareType": {
-          "color": 0,
-          "power": 1,
-          "directions": [
-            {
-              "x": -1,
-              "y": 0,
-              "type": 25
-            },
-            {
-              "x": 1,
-              "y": 0,
-              "type": 25
-            },
-            {
-              "x": 0,
-              "y": -1,
-              "type": 25
-            },
-            {
-              "x": 0,
-              "y": 1,
-              "type": 25
-            }
-          ]
-        }
-      },
-      {
-        "number": 3,
-        "squareType": {
           "color": 5,
           "power": 1,
           "directions": [
@@ -1906,7 +1877,36 @@
       {
         "number": 3,
         "squareType": {
-          "color": 3,
+          "color": 2,
+          "power": 1,
+          "directions": [
+            {
+              "x": -1,
+              "y": 0,
+              "type": 25
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "type": 25
+            },
+            {
+              "x": 0,
+              "y": -1,
+              "type": 25
+            },
+            {
+              "x": 0,
+              "y": 1,
+              "type": 25
+            }
+          ]
+        }
+      },
+      {
+        "number": 3,
+        "squareType": {
+          "color": 5,
           "power": 1,
           "directions": [
             {
@@ -1995,7 +1995,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
+          "color": 2,
           "power": 1,
           "directions": [
             {
@@ -2024,36 +2024,7 @@
       {
         "number": 3,
         "squareType": {
-          "color": 5,
-          "power": 1,
-          "directions": [
-            {
-              "x": -1,
-              "y": 0,
-              "type": 25
-            },
-            {
-              "x": 1,
-              "y": 0,
-              "type": 25
-            },
-            {
-              "x": 0,
-              "y": -1,
-              "type": 25
-            },
-            {
-              "x": 0,
-              "y": 1,
-              "type": 25
-            }
-          ]
-        }
-      },
-      {
-        "number": 3,
-        "squareType": {
-          "color": 0,
+          "color": 1,
           "power": 1,
           "directions": [
             {
@@ -2112,6 +2083,35 @@
         "number": 3,
         "squareType": {
           "color": 5,
+          "power": 1,
+          "directions": [
+            {
+              "x": -1,
+              "y": 0,
+              "type": 25
+            },
+            {
+              "x": 1,
+              "y": 0,
+              "type": 25
+            },
+            {
+              "x": 0,
+              "y": -1,
+              "type": 25
+            },
+            {
+              "x": 0,
+              "y": 1,
+              "type": 25
+            }
+          ]
+        }
+      },
+      {
+        "number": 3,
+        "squareType": {
+          "color": 4,
           "power": 1,
           "directions": [
             {
