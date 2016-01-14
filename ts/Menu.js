@@ -17,7 +17,7 @@ var FloodTactics;
             background.scale.set(0.25);
             var tutorialButton = this.game.add.button(313, 190, 'tutorial', function () { _this.game.state.start('TutorialLevel', true, false, 'tutorial.json'); }, this); //4. parametr je parametrem init funkce
             tutorialButton.scale.set(0.25);
-            var level1Button = this.game.add.button(313, 310, 'level1', function () { _this.game.state.start('Level', true, false, 'level2.json'); }, this); //4. parametr je parametrem init funkce
+            var level1Button = this.game.add.button(313, 310, 'level1', function () { _this.game.state.start('Level', true, false, 'calibration.json'); }, this); //4. parametr je parametrem init funkce
             level1Button.scale.set(0.25);
             var level2Button = this.game.add.button(313, 430, 'level2', function () { _this.game.state.start('Level', true, false, 'level4.json'); }, this); //4. parametr je parametrem init funkce
             level2Button.scale.set(0.25);
