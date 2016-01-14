@@ -51,8 +51,12 @@ module FloodTactics {
 	    }
 
         public expand(square : Square) : void {
+			if(!this.isColorActive(square.getColor())) {
+			    return;
+			}
+
+			var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
             for (var neighbor of this.getNeighbors(square)) {
-                var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 					this.expandWithAnimation(square, neighbor);
                 }
@@ -110,8 +114,8 @@ module FloodTactics {
 		}
 
 	    public flood(square : Square) : void {
+			var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 		    for (var neighbor of this.getNeighbors(square)) {
-			    var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 					//this.expandWithAnimation(square, neighbor);
 					neighbor.setSquareType(square.getSquareType());
@@ -211,7 +215,7 @@ module FloodTactics {
 	    }
 
 		//reads rules and returns colors, which can not be recolored and do not recolor anything
-		public getInactiveColors()  : Color[] {
+		public getInactiveColors() : Color[] {
 			var inactiveColors : Color[] = [];
 			//přidám všechny barvy, které nikoho nepřebarvují
 			this.colorRules.forEach((values : Color[], key : Color) => {
@@ -267,18 +271,18 @@ module FloodTactics {
 
 				var redType : SquareType = new SquareType(Color.Red, power, directDirections);
 				var blueType : SquareType = new SquareType(Color.Blue, power, directDirections);
-				var brownType : SquareType = new SquareType(Color.Black, power, directDirections);
-				var yellowType : SquareType = new SquareType(Color.Violet, power, directDirections);
+				var blackType : SquareType = new SquareType(Color.Black, power, directDirections);
+				var violetType : SquareType = new SquareType(Color.Violet, power, directDirections);
 				var greenType : SquareType = new SquareType(Color.Green, power, directDirections);
-				var blackType : SquareType = new SquareType(Color.Transparent, power, directDirections);
+				var transparentType : SquareType = new SquareType(Color.Transparent, power, directDirections);
 
 				var types : SquareType[] = [];
 				types.push(redType);
-				types.push(brownType);
-				types.push(blueType);
-				types.push(yellowType);
-				types.push(greenType);
 				types.push(blackType);
+				types.push(blueType);
+				types.push(violetType);
+				types.push(greenType);
+				types.push(transparentType);
 
 				var number : number = 3;
 				//konec dat pro čtverce
@@ -316,6 +320,8 @@ module FloodTactics {
 		}
 
 		public isColorActive(color : Color) {
+			console.log('inactive colors:');
+			console.log(this.getInactiveColors());
 			return this.getInactiveColors().indexOf(color) == -1;
 		}
 

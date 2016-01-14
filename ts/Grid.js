@@ -39,9 +39,12 @@ var FloodTactics;
             return neighbors;
         };
         Grid.prototype.expand = function (square) {
+            if (!this.isColorActive(square.getColor())) {
+                return;
+            }
+            var colorsToBeCaptured = this.colorRules.get(square.getColor());
             for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
                 var neighbor = _a[_i];
-                var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     this.expandWithAnimation(square, neighbor);
                 }
@@ -91,9 +94,9 @@ var FloodTactics;
             this.bubbling.play();
         };
         Grid.prototype.flood = function (square) {
+            var colorsToBeCaptured = this.colorRules.get(square.getColor());
             for (var _i = 0, _a = this.getNeighbors(square); _i < _a.length; _i++) {
                 var neighbor = _a[_i];
-                var colorsToBeCaptured = this.colorRules.get(square.getColor());
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     //this.expandWithAnimation(square, neighbor);
                     neighbor.setSquareType(square.getSquareType());
@@ -234,17 +237,17 @@ var FloodTactics;
                 directDirections[3] = new Phaser.Point(0, 1);
                 var redType = new FloodTactics.SquareType(FloodTactics.Color.Red, power, directDirections);
                 var blueType = new FloodTactics.SquareType(FloodTactics.Color.Blue, power, directDirections);
-                var brownType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
-                var yellowType = new FloodTactics.SquareType(FloodTactics.Color.Violet, power, directDirections);
+                var blackType = new FloodTactics.SquareType(FloodTactics.Color.Black, power, directDirections);
+                var violetType = new FloodTactics.SquareType(FloodTactics.Color.Violet, power, directDirections);
                 var greenType = new FloodTactics.SquareType(FloodTactics.Color.Green, power, directDirections);
-                var blackType = new FloodTactics.SquareType(FloodTactics.Color.Transparent, power, directDirections);
+                var transparentType = new FloodTactics.SquareType(FloodTactics.Color.Transparent, power, directDirections);
                 var types = [];
                 types.push(redType);
-                types.push(brownType);
-                types.push(blueType);
-                types.push(yellowType);
-                types.push(greenType);
                 types.push(blackType);
+                types.push(blueType);
+                types.push(violetType);
+                types.push(greenType);
+                types.push(transparentType);
                 var number = 3;
                 //konec dat pro čtverce
                 var max = new Phaser.Point(this.columns - 1, this.rows - 1);
@@ -275,6 +278,8 @@ var FloodTactics;
             return pickedColor;
         };
         Grid.prototype.isColorActive = function (color) {
+            console.log('inactive colors:');
+            console.log(this.getInactiveColors());
             return this.getInactiveColors().indexOf(color) == -1;
         };
         Grid.prototype.setWinningColor = function (color) {
