@@ -69,11 +69,13 @@ module FloodTactics {
 		flood() : void {
 			this.decrementNumber();
 			this.grid.flood(this);
+			this.grid.processAbsorptionQueue();
 		}
 
 		expand() : void {
 			this.decrementNumber();
 			this.grid.expand(this);
+			this.grid.processAbsorptionQueue();
 		}
 
 		getNeighborPoints() : Phaser.Point[] {

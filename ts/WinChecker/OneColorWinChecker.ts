@@ -24,7 +24,7 @@ module FloodTactics {
         }
 
         getDescription() : string {
-            return "All squares in grid must \nbe in " + ColorHelper.toString(this.color) + " color.";
+            return "All cells must \nhave " + ColorHelper.toString(this.color) + " color.";
         }
 
 		setData(args : any) {

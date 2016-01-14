@@ -59,10 +59,12 @@ var FloodTactics;
         Square.prototype.flood = function () {
             this.decrementNumber();
             this.grid.flood(this);
+            this.grid.processAbsorptionQueue();
         };
         Square.prototype.expand = function () {
             this.decrementNumber();
             this.grid.expand(this);
+            this.grid.processAbsorptionQueue();
         };
         Square.prototype.getNeighborPoints = function () {
             var neighbors = [];

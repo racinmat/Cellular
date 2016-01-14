@@ -14,6 +14,7 @@ module FloodTactics {
 		public initialized : boolean = false;
 		public level : AbstractLevel;
 		private winningColor : Color;
+		private absorbtionQueue : Square[][];	//fronta na pořírání a animaci, abychom mohli spustit animaci postupně. Uvnitř je 2prvkové pole. Požírající a požíraná buňka.
 
         constructor(game: Phaser.Game, x: number, y: number, background : string, level : AbstractLevel) {
             super(game, x, y, background, 0);
@@ -36,6 +37,7 @@ module FloodTactics {
 	        //konec načítání typů čtverců
 
 			this.bubbling = this.game.add.audio('bubbling');
+			this.absorbtionQueue = [];
 		}
 
         public getSquare(point : Phaser.Point) : Square {
@@ -58,13 +60,32 @@ module FloodTactics {
 			var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
             for (var neighbor of this.getNeighbors(square)) {
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-					this.expandWithAnimation(square, neighbor);
+					this.absorbtionQueue.push([square, neighbor]);
+					console.log('adding to queue');
                 }
             }
 			this.processOnClick(square);
         }
 
-		private expandWithAnimation(square : Square, neighbor : Square) {
+		public processAbsorptionQueue() {
+			this.processNextAbsorption();
+		}
+
+		private processNextAbsorption() {
+			if(this.absorbtionQueue.length == 0) {
+			    return;
+			}
+
+			var pair = this.absorbtionQueue.shift();
+			console.log('removing from queue');
+			var square : Square = pair[0];
+			var neighbor : Square = pair[1];
+			this.expandWithAnimation(square, neighbor, () => {
+				this.processNextAbsorption();
+			});
+		}
+
+		private expandWithAnimation(square : Square, neighbor : Square, onComplete : Function) {
 			var x =  square.getGridPosition().x;
 			var y =  square.getGridPosition().y;
 			var x2 = neighbor.getGridPosition().x;
@@ -92,7 +113,7 @@ module FloodTactics {
 			var centerCell = this.game.add.sprite(square.x, square.y, animationName);
 			centerCell.anchor.set(0.5);
 			super.addChild(centerCell);
-			centerCell.animations.add('expand');
+			var centerAnimaion = centerCell.animations.add('expand');
 			centerCell.animations.play('expand', 10, false, true);
 
 
@@ -111,15 +132,17 @@ module FloodTactics {
 			targetCellPart1.animations.play('expand', 10, false, true);
 
 			this.bubbling.play();
+
+			centerAnimaion.onComplete.add(onComplete);
 		}
 
 	    public flood(square : Square) : void {
 			var colorsToBeCaptured : Color[] = this.colorRules.get(square.getColor());
 		    for (var neighbor of this.getNeighbors(square)) {
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
-					//this.expandWithAnimation(square, neighbor);
-					neighbor.setSquareType(square.getSquareType());
-					this.bubbling.play();
+					this.absorbtionQueue.push([square, neighbor]);
+					//neighbor.setSquareType(square.getSquareType());
+					//this.bubbling.play();
 				    neighbor.flood();
 			    }
 		    }

@@ -33,8 +33,8 @@ var FloodTactics;
             resetButton.scale.set(0.25);
             var generateButton = this.game.add.button(82, 678, 'buttonGenerate', function () { _this.game.state.start('Level'); }, this);
             generateButton.scale.set(0.25);
-            var backgroundSound = this.game.add.audio('backgroundSound');
-            backgroundSound.play();
+            //var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
+            //backgroundSound.play();
             var changeIcon = function () {
                 //console.log('sound clicked');
                 if (_this.game.muted) {

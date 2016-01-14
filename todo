@@ -1,3 +1,12 @@
 udělat flood animaci
 udělat timer
 udělat postupnou animaci
+přepsat texty ze čtverců na buňky, místo flodding mít absorbing
+udělat prezentaci!
+
+
+problémy, kterým jsme čelili: ztráta grafika, glitche u animace, cacheované xml s fonty, strašná dokumentace
+
+příkaz na loc:
+C:\wamp\www\mff-game\node_modules\.bin>sloc.cmd ../../ts --details --format cli-table --exclude "\.js|\.d"
+
