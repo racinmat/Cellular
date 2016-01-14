@@ -41,7 +41,7 @@ module FloodTactics {
 				var maxSeconds = 240;
 
 				this.timer = this.game.time.create();
-				this.timeToLose = this.timer.add((maxSeconds / (this.game.score - this.treshold)) * Phaser.Timer.SECOND, () => {
+				this.timeToLose = this.timer.add((maxSeconds / Math.log(2 + this.game.score - this.treshold)) * Phaser.Timer.SECOND, () => {
 					this.game.score = 0;
 
 					var popup : Phaser.Sprite = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, 'gameOver');

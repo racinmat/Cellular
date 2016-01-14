@@ -36,7 +36,7 @@ var FloodTactics;
             if (this.game.score > this.treshold) {
                 var maxSeconds = 240;
                 this.timer = this.game.time.create();
-                this.timeToLose = this.timer.add((maxSeconds / (this.game.score - this.treshold)) * Phaser.Timer.SECOND, function () {
+                this.timeToLose = this.timer.add((maxSeconds / Math.log(2 + this.game.score - this.treshold)) * Phaser.Timer.SECOND, function () {
                     _this.game.score = 0;
                     var popup = _this.game.add.sprite(_this.game.world.centerX, _this.game.world.centerY, 'gameOver');
                     popup.anchor.setTo(0.5);
