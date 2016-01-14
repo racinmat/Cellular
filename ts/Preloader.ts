@@ -32,7 +32,7 @@ module FloodTactics {
 			this.load.bitmapFont('sego', 'fonts/segoeprbBlackTransparent.png', 'fonts/segoeprb.xml?nocache=' + String(Date.now()));
 
 			this.load.audio('backgroundSound', 'audio/rainMusic.mp3');
-			this.load.audio('bubbling', 'audio/bubbling2.wav');
+			this.load.audio('bubbling', 'audio/bubbles.mp3');
 
 			this.load.image('rules', 'images/rules.png');
 
