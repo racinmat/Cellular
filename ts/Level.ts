@@ -19,17 +19,17 @@ module FloodTactics {
 			var score = this.game.add.sprite(620, 770, 'score');
 			score.scale.set(0.25);
 			var content : string = String(this.game.score);
-			var text = this.game.add.bitmapText(740, 780, 'sego', content, 28);
+			this.game.add.bitmapText(740, 780, 'sego', content, 28);
 
 
-			var button = this.game.add.button(180, 640, 'button', () => {this.saveGame();}, this);
-			button.scale.set(0.2);
-			button.anchor.set(0.5);
-			var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
-			var buttonText = this.game.add.text(0, 0, "save level", style);
-			button.addChild(buttonText);
-			buttonText.scale.set(5);
-			buttonText.anchor.set(0.5);
+			//var button = this.game.add.button(180, 640, 'button', () => {this.saveGame();}, this);
+			//button.scale.set(0.2);
+			//button.anchor.set(0.5);
+			//var style = { font: "25px Arial", fill: "#ffffff", align: "center" };
+			//var buttonText = this.game.add.text(0, 0, "save level", style);
+			//button.addChild(buttonText);
+			//buttonText.scale.set(5);
+			//buttonText.anchor.set(0.5);
         }
 
         update() {
