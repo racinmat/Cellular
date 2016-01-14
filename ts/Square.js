@@ -40,14 +40,17 @@ var FloodTactics;
                     //mobilní zařízení mají zatím pouze expand, nemají flood
                     expand = true;
                 }
-                if (expand) {
-                    square.expand();
-                    return;
-                }
-                if (flood) {
-                    square.flood();
-                    return;
-                }
+                //if(expand) {
+                square.expand();
+                _this.grid.processAbsorptionQueue(false);
+                return;
+                //}
+                //
+                //if(flood) {
+                //square.flood();
+                //this.grid.processAbsorptionQueue(true);
+                //return;
+                //}
             };
             this.events.onInputDown.add(clicked, this);
             this.anchor.setTo(0.5, 0.5);
@@ -59,12 +62,10 @@ var FloodTactics;
         Square.prototype.flood = function () {
             this.decrementNumber();
             this.grid.flood(this);
-            this.grid.processAbsorptionQueue();
         };
         Square.prototype.expand = function () {
             this.decrementNumber();
             this.grid.expand(this);
-            this.grid.processAbsorptionQueue();
         };
         Square.prototype.getNeighborPoints = function () {
             var neighbors = [];

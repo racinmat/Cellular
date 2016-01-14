@@ -67,25 +67,35 @@ module FloodTactics {
 			this.processOnClick(square);
         }
 
-		public processAbsorptionQueue() {
-			this.processNextAbsorption();
+		public processAbsorptionQueue(flooding : boolean) {
+			this.processNextAbsorption(flooding);
 		}
 
-		private processNextAbsorption() {
+		private processNextAbsorption(flooding : boolean) {
 			if(this.absorbtionQueue.length == 0) {
 			    return;
 			}
 
 			var pair = this.absorbtionQueue.shift();
-			console.log('removing from queue');
 			var square : Square = pair[0];
 			var neighbor : Square = pair[1];
+			console.log('removing from queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+			if(square.getColor() == neighbor.getColor()) {	//wtf ochrana
+			    return;
+			}
+
 			this.expandWithAnimation(square, neighbor, () => {
-				this.processNextAbsorption();
+				if(flooding) {
+					console.log('flooding');
+					neighbor.flood();
+				}
+				this.processNextAbsorption(flooding);
 			});
 		}
 
 		private expandWithAnimation(square : Square, neighbor : Square, onComplete : Function) {
+			var animationSpeed = 10;
+
 			var x =  square.getGridPosition().x;
 			var y =  square.getGridPosition().y;
 			var x2 = neighbor.getGridPosition().x;
@@ -113,9 +123,8 @@ module FloodTactics {
 			var centerCell = this.game.add.sprite(square.x, square.y, animationName);
 			centerCell.anchor.set(0.5);
 			super.addChild(centerCell);
-			var centerAnimaion = centerCell.animations.add('expand');
-			centerCell.animations.play('expand', 10, false, true);
-
+			centerCell.animations.add('expand');
+			centerCell.animations.play('expand', animationSpeed, false, true);
 
 			var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
 			targetCellPart1.anchor.set(0.5);
@@ -125,15 +134,14 @@ module FloodTactics {
 				var targetCellPart2 = this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
 				targetCellPart2.anchor.set(0.5);
 				super.addChild(targetCellPart2);
-				targetCellPart2.animations.add('expand');
-				targetCellPart2.animations.play('expand', 10, false, true);
+				var animation2 = targetCellPart2.animations.add('expand');
+				targetCellPart2.animations.play('expand', animationSpeed, false, true);
 				neighbor.setSquareType(square.getSquareType());
+				animation2.onComplete.add(onComplete);
 			}, this, null, neighbor, targetCellPart1, animation2Name);
-			targetCellPart1.animations.play('expand', 10, false, true);
+			targetCellPart1.animations.play('expand', animationSpeed, false, true);
 
 			this.bubbling.play();
-
-			centerAnimaion.onComplete.add(onComplete);
 		}
 
 	    public flood(square : Square) : void {
@@ -141,9 +149,11 @@ module FloodTactics {
 		    for (var neighbor of this.getNeighbors(square)) {
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 					this.absorbtionQueue.push([square, neighbor]);
+					console.log('adding to queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+					console.log('flooding');
 					//neighbor.setSquareType(square.getSquareType());
 					//this.bubbling.play();
-				    neighbor.flood();
+					//neighbor.flood();
 			    }
 		    }
 			this.processOnClick(square);
@@ -315,9 +325,6 @@ module FloodTactics {
 					this.squares[i] = [];
 					for (var j = 0; j < this.rows; j++) {
 						this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
-
-						//každý čverec má stejné vlastnosti, ale náhodnou barvu
-						//this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
 						super.addChild(this.squares[i][j]);
 					}
 				}

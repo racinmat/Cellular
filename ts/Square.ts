@@ -46,15 +46,17 @@ module FloodTactics {
 					expand = true;
 				}
 
-				if(expand) {
+				//if(expand) {
 					square.expand();
+					this.grid.processAbsorptionQueue(false);
 					return;
-				}
-
-				if(flood) {
-					square.flood();
-					return;
-				}
+				//}
+				//
+				//if(flood) {
+					//square.flood();
+					//this.grid.processAbsorptionQueue(true);
+					//return;
+				//}
 			};
 
 			this.events.onInputDown.add(clicked, this);
@@ -69,13 +71,11 @@ module FloodTactics {
 		flood() : void {
 			this.decrementNumber();
 			this.grid.flood(this);
-			this.grid.processAbsorptionQueue();
 		}
 
 		expand() : void {
 			this.decrementNumber();
 			this.grid.expand(this);
-			this.grid.processAbsorptionQueue();
 		}
 
 		getNeighborPoints() : Phaser.Point[] {

@@ -53,24 +53,32 @@ var FloodTactics;
             }
             this.processOnClick(square);
         };
-        Grid.prototype.processAbsorptionQueue = function () {
-            this.processNextAbsorption();
+        Grid.prototype.processAbsorptionQueue = function (flooding) {
+            this.processNextAbsorption(flooding);
         };
-        Grid.prototype.processNextAbsorption = function () {
+        Grid.prototype.processNextAbsorption = function (flooding) {
             var _this = this;
             if (this.absorbtionQueue.length == 0) {
                 return;
             }
             var pair = this.absorbtionQueue.shift();
-            console.log('removing from queue');
             var square = pair[0];
             var neighbor = pair[1];
+            console.log('removing from queue, square: ' + FloodTactics.ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + FloodTactics.ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+            if (square.getColor() == neighbor.getColor()) {
+                return;
+            }
             this.expandWithAnimation(square, neighbor, function () {
-                _this.processNextAbsorption();
+                if (flooding) {
+                    console.log('flooding');
+                    neighbor.flood();
+                }
+                _this.processNextAbsorption(flooding);
             });
         };
         Grid.prototype.expandWithAnimation = function (square, neighbor, onComplete) {
             var _this = this;
+            var animationSpeed = 10;
             var x = square.getGridPosition().x;
             var y = square.getGridPosition().y;
             var x2 = neighbor.getGridPosition().x;
@@ -94,8 +102,8 @@ var FloodTactics;
             var centerCell = this.game.add.sprite(square.x, square.y, animationName);
             centerCell.anchor.set(0.5);
             _super.prototype.addChild.call(this, centerCell);
-            var centerAnimaion = centerCell.animations.add('expand');
-            centerCell.animations.play('expand', 10, false, true);
+            centerCell.animations.add('expand');
+            centerCell.animations.play('expand', animationSpeed, false, true);
             var targetCellPart1 = this.game.add.sprite(neighbor.x, neighbor.y, animation1Name + '-t');
             targetCellPart1.anchor.set(0.5);
             _super.prototype.addChild.call(this, targetCellPart1);
@@ -104,13 +112,13 @@ var FloodTactics;
                 var targetCellPart2 = _this.game.add.sprite(neighbor.x, neighbor.y, animation2Name + '-t');
                 targetCellPart2.anchor.set(0.5);
                 _super.prototype.addChild.call(_this, targetCellPart2);
-                targetCellPart2.animations.add('expand');
-                targetCellPart2.animations.play('expand', 10, false, true);
+                var animation2 = targetCellPart2.animations.add('expand');
+                targetCellPart2.animations.play('expand', animationSpeed, false, true);
                 neighbor.setSquareType(square.getSquareType());
+                animation2.onComplete.add(onComplete);
             }, this, null, neighbor, targetCellPart1, animation2Name);
-            targetCellPart1.animations.play('expand', 10, false, true);
+            targetCellPart1.animations.play('expand', animationSpeed, false, true);
             this.bubbling.play();
-            centerAnimaion.onComplete.add(onComplete);
         };
         Grid.prototype.flood = function (square) {
             var colorsToBeCaptured = this.colorRules.get(square.getColor());
@@ -118,9 +126,8 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     this.absorbtionQueue.push([square, neighbor]);
-                    //neighbor.setSquareType(square.getSquareType());
-                    //this.bubbling.play();
-                    neighbor.flood();
+                    console.log('adding to queue, square: ' + FloodTactics.ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + FloodTactics.ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+                    console.log('flooding');
                 }
             }
             this.processOnClick(square);
@@ -274,8 +281,6 @@ var FloodTactics;
                     this.squares[i] = [];
                     for (var j = 0; j < this.rows; j++) {
                         this.squares[i][j] = this.createSquareFromType(i, j, max, Phaser.ArrayUtils.getRandomItem(types), number);
-                        //každý čverec má stejné vlastnosti, ale náhodnou barvu
-                        //this.squares[i][j] = this.createSquare(i, j, power, directions, max, ColorHelper.getRandom(), number);
                         _super.prototype.addChild.call(this, this.squares[i][j]);
                     }
                 }

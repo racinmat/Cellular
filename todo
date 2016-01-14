@@ -10,3 +10,5 @@ problémy, kterým jsme čelili: ztráta grafika, glitche u animace, cacheované
 příkaz na loc:
 C:\wamp\www\mff-game\node_modules\.bin>sloc.cmd ../../ts --details --format cli-table --exclude "\.js|\.d"
 
+příkaz na vypsání barvy políčka v konzoli:
+game.state.getCurrentState().grid.squares[3][3].squareType.color
