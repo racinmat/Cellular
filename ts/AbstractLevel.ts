@@ -36,7 +36,7 @@ module FloodTactics {
 			var generateButton = this.game.add.button(82, 678, 'buttonGenerate', () => {this.game.state.start('Level');}, this);
 			generateButton.scale.set(0.25);
 
-			//var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
+			var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
 			backgroundSound.play();
 			var changeIcon = () => {
 				//console.log('sound clicked');
