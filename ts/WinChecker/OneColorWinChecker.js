@@ -21,7 +21,7 @@ var FloodTactics;
             return true;
         };
         OneColorWinChecker.prototype.getDescription = function () {
-            return "All cells must \nhave " + FloodTactics.ColorHelper.toString(this.color) + " color.";
+            return "\nAll cells must have " + FloodTactics.ColorHelper.toString(this.color) + " color.";
         };
         OneColorWinChecker.prototype.setData = function (args) {
             this.color = args;

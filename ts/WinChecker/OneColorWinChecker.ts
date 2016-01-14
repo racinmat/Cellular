@@ -24,7 +24,7 @@ module FloodTactics {
         }
 
         getDescription() : string {
-            return "All cells must \nhave " + ColorHelper.toString(this.color) + " color.";
+            return "\nAll cells must have " + ColorHelper.toString(this.color) + " color.";
         }
 
 		setData(args : any) {
