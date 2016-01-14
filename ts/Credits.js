@@ -23,8 +23,10 @@ var FloodTactics;
                 " - Programmer \n" +
                 "Pavel Liška  \n" +
                 " - Graphic designer \n" +
-                " - Animator \n";
+                " - Animator \n" +
+                "Game was developed \nin collaboration of \nFEL CTU, MFF UK and \nFDULS Plzeň, 2015";
             var text = this.game.add.bitmapText(300, 200, 'sego', content, 40);
+            text.maxWidth = 300; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
         };
         return Credits;
     })(Phaser.State);

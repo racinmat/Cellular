@@ -37,7 +37,7 @@ module FloodTactics {
 			generateButton.scale.set(0.25);
 
 			//var backgroundSound : Phaser.Sound = this.game.add.audio('backgroundSound');
-			//backgroundSound.play();
+			backgroundSound.play();
 			var changeIcon = () => {
 				//console.log('sound clicked');
 				if(this.game.muted) {
