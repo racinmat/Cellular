@@ -16,6 +16,7 @@ var FloodTactics;
             _super.prototype.init.call(this, levelName);
         };
         Level.prototype.create = function () {
+            var _this = this;
             _super.prototype.create.call(this);
             var winningDescription = this.game.add.bitmapText(622, 515, 'sego', "Winning condition: " + this.winChecker.getDescription(), 28);
             winningDescription.maxWidth = 204; //zalamování, aby byl text na více řádků, pokud je moc dlouhý
@@ -31,9 +32,39 @@ var FloodTactics;
             //button.addChild(buttonText);
             //buttonText.scale.set(5);
             //buttonText.anchor.set(0.5);
+            this.treshold = 2;
+            if (this.game.score > this.treshold) {
+                var maxSeconds = 240;
+                this.timer = this.game.time.create();
+                this.timeToLose = this.timer.add((maxSeconds / (this.game.score - this.treshold)) * Phaser.Timer.SECOND, function () {
+                    _this.game.score = 0;
+                    var popup = _this.game.add.sprite(_this.game.world.centerX, _this.game.world.centerY, 'gameOver');
+                    popup.anchor.setTo(0.5);
+                    popup.scale.set(0.05);
+                    _this.winningTween = _this.game.add.tween(popup.scale);
+                    _this.winningTween.to({ x: 0.3, y: 0.3 }, 2000, Phaser.Easing.Elastic.Out, true);
+                }, this);
+                this.timer.start();
+                var timerBackground = this.game.add.sprite(620, 720, 'timer');
+                this.timeText = this.game.add.bitmapText(300, 20, 'sego', content, 28);
+                timerBackground.addChild(this.timeText);
+                this.timeText.scale.set(5, 5);
+                timerBackground.scale.set(0.25);
+            }
         };
         Level.prototype.update = function () {
             _super.prototype.update.call(this);
+            if (this.game.score > this.treshold && typeof this.timeToLose != 'undefined') {
+                var content = this.formatTime(Math.round((this.timeToLose.delay - this.timer.ms) / Phaser.Timer.SECOND));
+                this.timeText.setText(content);
+                this.timeText.update();
+            }
+        };
+        Level.prototype.formatTime = function (s) {
+            // Convert seconds (s) to a nicely formatted and padded time string
+            var minutes = "0" + Math.floor(s / 60);
+            var seconds = "0" + (s - minutes * 60);
+            return minutes.substr(-2) + ":" + seconds.substr(-2);
         };
         Level.prototype.saveGame = function () {
             var json = this.grid.toJson();

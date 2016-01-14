@@ -7,8 +7,8 @@ module FloodTactics {
 		protected grid : Grid;
         public winChecker : IWinChecker;
         protected winningTween : Phaser.Tween;
-
 		private soundIcon : Phaser.Button;
+		private levelName : string;
 
 		init(levelName : string) {
 			this.winChecker = new OneColorWinChecker(Color.Violet);
@@ -19,6 +19,7 @@ module FloodTactics {
 				this.grid.deserialize(games[levelName]);
 			}
 			this.grid.initialize();
+			this.levelName = levelName;
 		}
 
         create() {
@@ -68,7 +69,13 @@ module FloodTactics {
 
                     this.winningTween = this.game.add.tween(popup.scale);
                     this.winningTween.to( { x: 0.3, y: 0.3 }, 2000, Phaser.Easing.Elastic.Out, true);
-                    this.winningTween.onComplete.add(() => {this.game.state.start('Level');});
+					if(this.levelName == 'tutorial.json') {
+						this.winningTween.onComplete.add(() => {this.game.state.start('Level', true, false, 'level1.json');});
+					} else if(this.levelName == 'level1.json') {
+						this.winningTween.onComplete.add(() => {this.game.state.start('Level', true, false, 'level2.json');});
+					} else {
+						this.winningTween.onComplete.add(() => {this.game.state.start('Level');});
+					}
 
                 }
             }

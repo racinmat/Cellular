@@ -43,6 +43,8 @@ var FloodTactics;
             this.load.image('level1', 'images/level 1.png');
             this.load.image('level2', 'images/level 2.png');
             this.load.image('tutorial', 'images/tutorial.png');
+            this.load.image('timer', 'images/TimerBackground.png');
+            this.load.image('gameOver', 'images/game over.png');
             var directions = new Map();
             directions.set('left', 'doleva');
             directions.set('right', 'doprava');

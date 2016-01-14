@@ -48,7 +48,6 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     this.absorbtionQueue.push([square, neighbor]);
-                    console.log('adding to queue');
                 }
             }
             this.processOnClick(square);
@@ -64,13 +63,13 @@ var FloodTactics;
             var pair = this.absorbtionQueue.shift();
             var square = pair[0];
             var neighbor = pair[1];
-            console.log('removing from queue, square: ' + FloodTactics.ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + FloodTactics.ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+            //console.log('removing from queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
             if (square.getColor() == neighbor.getColor()) {
                 return;
             }
             this.expandWithAnimation(square, neighbor, function () {
                 if (flooding) {
-                    console.log('flooding');
+                    //console.log('flooding');
                     neighbor.flood();
                 }
                 _this.processNextAbsorption(flooding);
@@ -126,8 +125,6 @@ var FloodTactics;
                 var neighbor = _a[_i];
                 if (colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
                     this.absorbtionQueue.push([square, neighbor]);
-                    console.log('adding to queue, square: ' + FloodTactics.ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + FloodTactics.ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
-                    console.log('flooding');
                 }
             }
             this.processOnClick(square);

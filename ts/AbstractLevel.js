@@ -20,6 +20,7 @@ var FloodTactics;
                 this.grid.deserialize(games[levelName]);
             }
             this.grid.initialize();
+            this.levelName = levelName;
         };
         AbstractLevel.prototype.create = function () {
             var _this = this;
@@ -63,7 +64,15 @@ var FloodTactics;
                     popup.scale.set(0.05);
                     this.winningTween = this.game.add.tween(popup.scale);
                     this.winningTween.to({ x: 0.3, y: 0.3 }, 2000, Phaser.Easing.Elastic.Out, true);
-                    this.winningTween.onComplete.add(function () { _this.game.state.start('Level'); });
+                    if (this.levelName == 'tutorial.json') {
+                        this.winningTween.onComplete.add(function () { _this.game.state.start('Level', true, false, 'level1.json'); });
+                    }
+                    else if (this.levelName == 'level1.json') {
+                        this.winningTween.onComplete.add(function () { _this.game.state.start('Level', true, false, 'level2.json'); });
+                    }
+                    else {
+                        this.winningTween.onComplete.add(function () { _this.game.state.start('Level'); });
+                    }
                 }
             }
         };

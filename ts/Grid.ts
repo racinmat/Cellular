@@ -61,7 +61,7 @@ module FloodTactics {
             for (var neighbor of this.getNeighbors(square)) {
                 if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 					this.absorbtionQueue.push([square, neighbor]);
-					console.log('adding to queue');
+					//console.log('adding to queue');
                 }
             }
 			this.processOnClick(square);
@@ -79,14 +79,14 @@ module FloodTactics {
 			var pair = this.absorbtionQueue.shift();
 			var square : Square = pair[0];
 			var neighbor : Square = pair[1];
-			console.log('removing from queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+			//console.log('removing from queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
 			if(square.getColor() == neighbor.getColor()) {	//wtf ochrana
 			    return;
 			}
 
 			this.expandWithAnimation(square, neighbor, () => {
 				if(flooding) {
-					console.log('flooding');
+					//console.log('flooding');
 					neighbor.flood();
 				}
 				this.processNextAbsorption(flooding);
@@ -149,8 +149,8 @@ module FloodTactics {
 		    for (var neighbor of this.getNeighbors(square)) {
 			    if(colorsToBeCaptured.indexOf(neighbor.getColor()) > -1) {
 					this.absorbtionQueue.push([square, neighbor]);
-					console.log('adding to queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
-					console.log('flooding');
+					//console.log('adding to queue, square: ' + ColorHelper.toString(square.getColor()) + ', ' + square.getGridPosition().toString() + ', neighbor: ' + ColorHelper.toString(neighbor.getColor()) + ', ' + neighbor.getGridPosition().toString());
+					//console.log('flooding');
 					//neighbor.setSquareType(square.getSquareType());
 					//this.bubbling.play();
 					//neighbor.flood();
